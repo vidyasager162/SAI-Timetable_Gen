@@ -1,0 +1,37 @@
+body{
+    background-color: #F8F9FA;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.account-buttons{
+    float: right;
+}
+
+.datetime td {
+    width: 50%;
+}
+
+.greeting-part{
+    text-align: right;
+}
+
+.hero{
+    padding: 0 !important;
+}
+
+.nav-container{
+    width: 100%;
+    padding: 5%;
+}
+
+.toggle-container{
+    margin: 0;
+}
+
+.toggle-container button{
+    border-radius: 25px;
+    display: block;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
