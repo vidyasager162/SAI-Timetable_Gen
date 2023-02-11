@@ -3,7 +3,7 @@ import React from "react";
 function Hero() {
     return(
         <div className="container col-xxl-8 px-4 py-5">
-            <div className="row flex-lg-row-reverse align-items-center g-5 py-5 hero">
+            <div className="row flex-lg-row-reverse align-items-center g-5 py-5 hero-landing">
                 <div className="col-10 col-sm-8 col-lg-6 toggle-container">
                     <div className="account-buttons">
                             <button type="button" className="btn btn-primary btn-lg px-4 me-md-2">Teacher</button>

@@ -1,10 +1,16 @@
 body{
-    background-color: #F8F9FA;
+    background-color: #ededed !important;
     font-family: 'DM Sans', sans-serif;
 }
 
 .account-buttons{
     float: right;
+}
+
+.carousel-container{
+    height: 352px;
+    width: 498px;
+    overflow: hidden;
 }
 
 .datetime td {
@@ -17,12 +23,33 @@ body{
     padding-left: 4%;
 }
 
+.form-container{
+    padding: 7%;
+}
+
+.form-signin{
+    background-color: white !important;
+    border-radius: 5px;
+}
+
 .greeting-part{
     text-align: right;
 }
 
-.hero{
+.hero-auth{
+    margin: auto;
+}
+
+.hero-landing{
     padding: 0 !important;
+}
+
+.login-button{
+    margin: 5%;
+}
+
+.login-input{
+    background-color: #ededed;
 }
 
 .nav-container{
