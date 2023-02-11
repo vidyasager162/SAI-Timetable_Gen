@@ -3,6 +3,16 @@ body{
     font-family: 'DM Sans', sans-serif;
 }
 
+li{
+    margin-bottom: 90%;
+    margin-top: 90%;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
 .account-buttons{
     float: right;
 }
@@ -42,6 +52,10 @@ body{
 
 .hero-landing{
     padding: 0 !important;
+}
+
+.link{
+    text-decoration: none;
 }
 
 .login-button{
