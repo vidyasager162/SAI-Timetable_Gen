@@ -12,11 +12,13 @@ function Hero() {
                     </div>
                 </div>
                 <div className="col-lg-6">
-                    <div className="Hero-text">
+                    <div className="Hero-text container">
                         <h1 className="display-1">SSSIHL</h1>
                         <h1 className="display-1">MDH</h1>    
                 {/* <div className="d-grid gap-2 d-md-flex justify-content-md-start"> */}
-                        <button type="button" className="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
+                        <button type="button" className="btn btn-primary btn-lg px-4 me-md-2 quote-container">
+                            <p className="quote">"Love All, Serve All"</p>
+                        </button>
                     </div>
                 {/*</div>*/}
                 </div>
