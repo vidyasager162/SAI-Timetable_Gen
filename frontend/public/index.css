@@ -3,24 +3,8 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
-li {
-  margin-bottom: 75%;
-  margin-top: 75%;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
 .account-buttons {
   float: right;
-}
-
-.carousel-container {
-  height: 352px;
-  width: 498px;
-  overflow: hidden;
 }
 
 .btn-primary {
@@ -116,6 +100,12 @@ ul {
 
 .sidebar {
   margin: 0 !important;
+}
+
+.sidebar-buttons button {
+  display: block;
+  margin-top: 45%;
+  margin-bottom: 45%;
 }
 
 .toggle-container {

@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Home(props) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleChange(event) {
+    setUsername(event.target.value);
+    setPassword(event.target.value);
+    console.log(username);
+    console.log(password);
+  }
+
   return (
     <div className="container col-xxl-8 px-4 py-3">
       <div className="row flex-lg-row-reverse align-items-center g-5 py-5 hero-landing">
@@ -17,6 +27,7 @@ function Home(props) {
                     className="form-control login-input"
                     id="floatingInput"
                     placeholder="Username"
+                    onChange={handleChange}
                   />
                   <label for="floatingInput">Username</label>
                 </div>
@@ -26,12 +37,13 @@ function Home(props) {
                     className="form-control login-input"
                     id="floatingInput"
                     placeholder="Password"
+                    onChange={handleChange}
                   />
                   <label for="floatingInput">Password</label>
                 </div>
                 <button
                   className="btn btn-lg btn-primary login-button"
-                  onClick={props.revertIsLoggedIn}
+                  onClick={props.invertIsLoggedIn}
                 >
                   Login
                 </button>

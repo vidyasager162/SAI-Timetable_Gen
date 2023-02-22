@@ -7,7 +7,7 @@ import Footer from "./Footer";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function revertIsLoggedIn(event) {
+  function invertIsLoggedIn(event) {
     setIsLoggedIn((prev) => {
       return !prev;
     });
@@ -15,8 +15,8 @@ function App() {
 
   return (
     <div>
-      <Header />
-      {isLoggedIn ? <Main /> : <Home revertIsLoggedIn={revertIsLoggedIn} />}
+      <Header isLoggedIn={isLoggedIn} />
+      {isLoggedIn ? <Main /> : <Home invertIsLoggedIn={invertIsLoggedIn} />}
       {isLoggedIn ? null : <Footer />}
     </div>
   );
