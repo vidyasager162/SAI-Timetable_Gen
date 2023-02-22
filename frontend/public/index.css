@@ -1,132 +1,130 @@
-body{
-    background-color: #ededed !important;
-    font-family: 'DM Sans', sans-serif;
+body {
+  background-color: #ededed !important;
+  font-family: "DM Sans", sans-serif;
 }
 
-li{
-    margin-bottom: 90%;
-    margin-top: 90%;
+li {
+  margin-bottom: 75%;
+  margin-top: 75%;
 }
 
-ul{
-    list-style-type: none;
-    padding: 0;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.account-buttons{
-    float: right;
+.account-buttons {
+  float: right;
 }
 
-.carousel-container{
-    height: 352px;
-    width: 498px;
-    overflow: hidden;
+.carousel-container {
+  height: 352px;
+  width: 498px;
+  overflow: hidden;
 }
 
-.btn-primary{
-    background-color: #004A7C;
-    border-color: #004A7C;
+.btn-primary {
+  background-color: #004a7c;
+  border-color: #004a7c;
 }
 
-.btn-primary:hover{
-    background-color: #ededed;
-    border-color: #004A7C;
-    color: #004A7C;
+.btn-primary:hover {
+  background-color: #ededed;
+  border-color: #004a7c;
+  color: #004a7c;
 }
 
-.btn-outline-primary{
-    border-color: #004A7C;
-    color: #004A7C;
+.btn-outline-primary {
+  border-color: #004a7c;
+  color: #004a7c;
 }
 
-.btn-outline-primary:hover{
-    background-color: #004A7C;
-    border-color: #004A7C;
+.btn-outline-primary:hover {
+  background-color: #004a7c;
+  border-color: #004a7c;
 }
 
 .datetime td {
-    width: 50%;
+  width: 50%;
 }
 
-.footer-container{
-    width: 100%;
-    margin-top: 3%;
-    padding-left: 4%;
+.footer-container {
+  width: 100%;
+  margin-top: 3%;
+  padding-left: 4%;
 }
 
-.form-container{
-    padding: 7%;
+.form-container {
+  padding: 7%;
 }
 
-.form-signin{
-    background-color: white !important;
-    border-radius: 5px;
+.form-signin {
+  background-color: white !important;
+  border-radius: 5px;
 }
 
-.greeting-part{
-    text-align: right;
+.greeting-part {
+  text-align: right;
 }
 
-.hero-auth{
-    margin: auto;
+.hero-auth {
+  margin: auto;
 }
 
-.hero-landing{
-    padding: 0 !important;
+.hero-landing {
+  padding: 0 !important;
 }
 
-.link{
-    text-decoration: none;
+.link {
+  text-decoration: none;
 }
 
-.login-button{
-    margin: 5%;
+.login-button {
+  margin: 5%;
 }
 
-.login-input{
-    background-color: #ededed;
+.login-input {
+  background-color: #ededed;
 }
 
-.main-container{
-    margin-right: 0;
+.main-container {
+  margin-right: 0;
 }
 
-.nav-container{
-    width: 100%;
-    padding: 5% 5% 3% 5%;
+.nav-container {
+  width: 100%;
+  padding: 5% 5% 3% 5%;
 }
 
-.quote{
-    margin: auto;
-    padding: 10px;
+.quote {
+  margin: auto;
+  padding: 10px;
 }
 
-.schedule{
-    float: left;
-    margin: 6%;
+.schedule {
+  float: left;
+  margin: 6%;
 }
 
-.schedulebtn{
-    margin-bottom: 15%;
+.schedulebtn {
+  margin-bottom: 15%;
 }
 
-.schedulebtn button{
-    border-radius: 25px;
+.schedulebtn button {
+  border-radius: 25px;
 }
 
-.sidebar{
-    margin: 0 !important;
+.sidebar {
+  margin: 0 !important;
 }
 
-.toggle-container{
-    margin: 0;
+.toggle-container {
+  margin: 0;
 }
 
-.toggle-container button{
-    border-radius: 25px;
-    display: block;
-    margin-bottom: 5px;
-    width: 100%;
+.toggle-container button {
+  border-radius: 25px;
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
 }
-
-  
