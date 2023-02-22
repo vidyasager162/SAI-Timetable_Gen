@@ -7,9 +7,9 @@ function Hero() {
             <div className="row flex-lg-row-reverse align-items-center g-5 py-5 hero-landing">
                 <div className="col-10 col-sm-8 col-lg-6 toggle-container">
                     <div className="account-buttons">
-                        <Link className="link" to="login"><button type="button" className="btn btn-primary btn-lg px-4 me-md-2 top">Teacher</button></Link>
-                        <Link className="link" to="login"><button type="button" className="btn btn-outline-secondary btn-lg px-4 mid">Student</button></Link>
-                        <Link className="link" to="login"><button type="button" className="btn btn-dark btn-lg px-4 me-md-2 last">Admin</button></Link>
+                        <Link className="link" to="login"><button type="button" className="btn btn-primary btn-lg px-4 me-md-2">Teacher</button></Link>
+                        <Link className="link" to="login"><button type="button" className="btn btn-outline-secondary btn-lg px-4">Student</button></Link>
+                        <Link className="link" to="login"><button type="button" className="btn btn-dark btn-lg px-4 me-md-2">Admin</button></Link>
                     </div>
                 </div>
                 <div className="col-lg-6">

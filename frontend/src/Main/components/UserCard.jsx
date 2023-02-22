@@ -1,11 +1,7 @@
 import React from "react";
 
 function UserCard() {
-    return(
-        <div className="user">
-            {/* <button className="btn btn-primary btn-lg">Schedule 0</button> Change this to angela yu card */}
-        </div>
-    )
+    return <h1>Plis work</h1>
 }
 
 export default UserCard;

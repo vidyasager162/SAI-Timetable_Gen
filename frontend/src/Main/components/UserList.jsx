@@ -5,11 +5,6 @@ function UserList() {
     return(
         <>
             <UserCard/>
-            <UserCard/>
-            <UserCard/>
-            <UserCard/>
-            <UserCard/>
-            <UserCard/>
         </>
     )
 }

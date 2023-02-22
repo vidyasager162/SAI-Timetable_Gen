@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../shared/components/Header";
 import SideBar from "../components/SideBar";
 import Hero from "../components/Hero";
+// import UserList from "../components/UserList";
 // import SchedulesList from "../components/SchedulesList";
 
 function Main() {
@@ -16,6 +17,7 @@ function Main() {
                     <div className="col">
                         <Hero />
                         {/* <SchedulesList /> */}
+                        {/* <UserList /> */}
                     </div>
                 </div>
                 
