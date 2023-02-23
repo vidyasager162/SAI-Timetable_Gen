@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 function Header(props) {
-  setInterval(updateTime, 1000);
-
   const now = new Date().toLocaleTimeString();
 
   const [time, setTime] = useState(now);
@@ -11,6 +9,7 @@ function Header(props) {
     const newTime = new Date().toLocaleTimeString();
     setTime(newTime);
   }
+  setInterval(updateTime, 1000);
   const day = new Date().toDateString();
   let greeting = " ";
 

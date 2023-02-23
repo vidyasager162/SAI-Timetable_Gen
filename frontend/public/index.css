@@ -1,6 +1,7 @@
 body {
   background-color: #ededed !important;
   font-family: "DM Sans", sans-serif;
+  overflow: hidden;
 }
 
 .account-buttons {
@@ -73,6 +74,11 @@ body {
 
 .main-container {
   margin-right: 0;
+}
+
+.my-col {
+  height: 482px;
+  overflow: auto;
 }
 
 .nav-container {
