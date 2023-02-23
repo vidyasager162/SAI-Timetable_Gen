@@ -4,10 +4,13 @@ function Home(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleChange(event) {
+  function handleUsername(event) {
     setUsername(event.target.value);
-    setPassword(event.target.value);
     console.log(username);
+  }
+
+  function handlePassword(event) {
+    setPassword(event.target.value);
     console.log(password);
   }
 
@@ -27,9 +30,9 @@ function Home(props) {
                     className="form-control login-input"
                     id="floatingInput"
                     placeholder="Username"
-                    onChange={handleChange}
+                    onChange={handleUsername}
                   />
-                  <label for="floatingInput">Username</label>
+                  <label htmlFor="floatingInput">Username</label>
                 </div>
                 <div className="form-floating w-50 m-auto">
                   <input
@@ -37,9 +40,9 @@ function Home(props) {
                     className="form-control login-input"
                     id="floatingInput"
                     placeholder="Password"
-                    onChange={handleChange}
+                    onChange={handlePassword}
                   />
-                  <label for="floatingInput">Password</label>
+                  <label htmlFor="floatingInput">Password</label>
                 </div>
                 <button
                   className="btn btn-lg btn-primary login-button"

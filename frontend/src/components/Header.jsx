@@ -21,12 +21,18 @@ function Header(props) {
       <div className="container-fluid">
         <div className="row">
           <div className="col datetime">
-            <td>
-              <h5>{time}</h5>
-            </td>
-            <td>
-              <h5>{day}</h5>
-            </td>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <h5>{time}</h5>
+                  </td>
+                  <td>
+                    <h5>{day}</h5>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div className="col greeting-part">
             <h5>{greeting}</h5>
