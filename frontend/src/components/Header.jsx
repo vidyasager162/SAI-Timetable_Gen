@@ -11,12 +11,63 @@ function Header(props) {
   }
   setInterval(updateTime, 1000);
   const day = new Date().toDateString();
-  let greeting = " ";
+  let greeting = "";
 
   props.isLoggedIn
-    ? (greeting = "Good Morning, Stranger")
+    ? (greeting = "Good Morning, " + props.username)
     : (greeting = "Welcome");
-  return (
+
+  return props.isLoggedIn ? (
+    <div className="nav-container">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col datetime">
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <h5>{time}</h5>
+                  </td>
+                  <td>
+                    <h5>{day}</h5>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="col greeting-part dropdown">
+            <button
+              className="btn btn-lg btn-transparent drowpdown-toggle mb-8 p-0"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {greeting}
+            </button>
+            <ul className="dropdown-menu">
+              <li>
+                <button type="button" className="dropdown-item">
+                  Profile
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="dropdown-item"
+                  onClick={props.invertIsLoggedIn}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+              </button> */}
+      </div>
+    </div>
+  ) : (
     <div className="nav-container">
       <div className="container-fluid">
         <div className="row">
@@ -39,8 +90,8 @@ function Header(props) {
           </div>
         </div>
         {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button> */}
+                  <span className="navbar-toggler-icon"></span>
+              </button> */}
       </div>
     </div>
   );

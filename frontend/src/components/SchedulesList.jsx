@@ -2,13 +2,9 @@ import React from "react";
 import ScheduleButton from "./ScheduleButton";
 
 function SchedulesList(props) {
-  return props.tschedules.map((schedules) => {
+  return props.schedules.map((schedule) => {
     return (
-      <ScheduleButton
-        key={schedules.id}
-        id={schedules.id}
-        name={schedules.name}
-      />
+      <ScheduleButton key={schedule.id} id={schedule.id} name={schedule.name} />
     );
   });
 }
