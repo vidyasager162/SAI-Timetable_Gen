@@ -6,12 +6,15 @@ import Footer from "./Footer";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // All three constants passed to Main component to render inner-components based on their state.
   const [isAdmin, setIsAdmin] = useState(true);
   const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
+  //
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  //Passed to Home component to get the user type of the user logged in.
   function handleUser(event) {
     //setIsAdmin(true);
     //setIsTeacher(true);
@@ -26,6 +29,7 @@ function App() {
     setPassword(event.target.value);
   }
 
+  //Passed to Home component and Header component to accomodate logout by the user.
   function invertIsLoggedIn(event) {
     setIsLoggedIn((prev) => {
       return !prev;
