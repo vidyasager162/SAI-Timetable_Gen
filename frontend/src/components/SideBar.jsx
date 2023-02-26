@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 function SideBar(props) {
-  return props.isAdmin ? (
+  return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
       style={{ width: "60%", height: "482px" }}
@@ -49,7 +49,7 @@ function SideBar(props) {
         </button>
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export default SideBar;
