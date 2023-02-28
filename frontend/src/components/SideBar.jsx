@@ -4,7 +4,7 @@ function SideBar(props) {
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
-      style={{ width: "60%", height: "482px" }}
+      style={{ width: "60%", height: "390px" }}
     >
       <div className="sidebar-buttons">
         <button
@@ -38,14 +38,6 @@ function SideBar(props) {
           onClick={props.handleClick}
         >
           Courses
-        </button>
-        <button
-          type="button"
-          className="btn btn-light"
-          value="Back"
-          onClick={props.handleClick}
-        >
-          Back
         </button>
       </div>
     </div>

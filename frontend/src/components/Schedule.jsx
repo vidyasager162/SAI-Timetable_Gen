@@ -14,7 +14,7 @@ function Schedule() {
     <Schedules buttonClicked={buttonClicked} />
   ) : (
     <>
-      <div className="col schedulebtn">
+      <div className="col mybtn">
         <button
           type="button"
           className="btn btn-primary btn-lg"
@@ -24,7 +24,7 @@ function Schedule() {
           Teacher Schedules
         </button>
       </div>
-      <div className="col schedulebtn">
+      <div className="col mybtn">
         <button
           type="button"
           className="btn btn-outline-primary btn-lg"

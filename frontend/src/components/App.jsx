@@ -53,7 +53,7 @@ function App() {
           handleUser={handleUser}
         />
       )}
-      {isLoggedIn ? null : <Footer />}
+      <Footer isLoggedIn={isLoggedIn} />
     </div>
   );
 }

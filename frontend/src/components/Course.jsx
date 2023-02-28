@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Courses from "./Courses";
 
 function Course() {
   const [buttonClicked, setButtonClicked] = useState("");
@@ -7,30 +8,30 @@ function Course() {
     setButtonClicked(event.target.value);
   }
 
-  return buttonClicked === "DMACS" ? (
+  return buttonClicked === "dmacs" ? (
     <Courses buttonClicked={buttonClicked} />
-  ) : buttonClicked === "DMC" ? (
+  ) : buttonClicked === "dmc" ? (
     <Courses buttonClicked={buttonClicked} />
   ) : (
     <>
-      <div className="col schedulebtn">
+      <div className="col mybtn">
         <button
           type="button"
           className="btn btn-primary btn-lg"
           onClick={handleButtonClick}
-          value="tschedules"
+          value="dmc"
         >
-          Teacher Schedules
+          DMC
         </button>
       </div>
-      <div className="col schedulebtn">
+      <div className="col mybtn">
         <button
           type="button"
           className="btn btn-outline-primary btn-lg"
           onClick={handleButtonClick}
-          value="sschedules"
+          value="dmacs"
         >
-          Student Schedules
+          DMACS
         </button>
       </div>
     </>

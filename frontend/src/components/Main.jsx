@@ -27,9 +27,9 @@ function Main(props) {
               <User />
             ) : clicked === "Courses" ? (
               <Course />
-            ) : (
+            ) : clicked === "Back" ? (
               <Schedule />
-            )}
+            ) : null}
           </div>
         </div>
       </div>

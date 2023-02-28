@@ -1,11 +1,11 @@
 import React from "react";
 
-function ScheduleButton(props) {
+function Button(props) {
   return (
-    <div className="schedule">
+    <div className="disp">
       <button className="btn btn-primary btn-lg">{props.name}</button>
     </div>
   );
 }
 
-export default ScheduleButton;
+export default Button;
