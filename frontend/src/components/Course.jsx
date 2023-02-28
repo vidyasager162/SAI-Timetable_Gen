@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import Schedules from "./Schedules";
 
-function Schedule() {
+function Course() {
   const [buttonClicked, setButtonClicked] = useState("");
 
   function handleButtonClick(event) {
     setButtonClicked(event.target.value);
   }
 
-  return buttonClicked === "tschedules" ? (
-    <Schedules buttonClicked={buttonClicked} />
-  ) : buttonClicked === "sschedules" ? (
-    <Schedules buttonClicked={buttonClicked} />
+  return buttonClicked === "DMACS" ? (
+    <Courses buttonClicked={buttonClicked} />
+  ) : buttonClicked === "DMC" ? (
+    <Courses buttonClicked={buttonClicked} />
   ) : (
     <>
       <div className="col schedulebtn">
@@ -38,4 +37,4 @@ function Schedule() {
   );
 }
 
-export default Schedule;
+export default Course;

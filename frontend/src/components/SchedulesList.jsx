@@ -4,7 +4,13 @@ import ScheduleButton from "./ScheduleButton";
 function SchedulesList(props) {
   return props.schedules.map((schedule) => {
     return (
-      <ScheduleButton key={schedule.id} id={schedule.id} name={schedule.name} />
+      <div className="col schedulebtn">
+        <ScheduleButton
+          key={schedule.id}
+          id={schedule.id}
+          name={schedule.name}
+        />
+      </div>
     );
   });
 }

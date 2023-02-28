@@ -15,7 +15,7 @@ function App() {
   const [password, setPassword] = useState("");
 
   //Passed to Home component to get the user type of the user logged in.
-  function handleUser(event) {
+  function handleUser() {
     //setIsAdmin(true);
     //setIsTeacher(true);
     //setIsStudent(true);
@@ -30,7 +30,7 @@ function App() {
   }
 
   //Passed to Home component and Header component to accomodate logout by the user.
-  function invertIsLoggedIn(event) {
+  function invertIsLoggedIn() {
     setIsLoggedIn((prev) => {
       return !prev;
     });
