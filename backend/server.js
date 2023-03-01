@@ -5,8 +5,6 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-app.use(cors());
-
 app.use(
   cors({
     origin: "*",
@@ -15,6 +13,8 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.set("strictQuery", false);
@@ -27,17 +27,63 @@ const userSchema = new mongoose.Schema({
   password: String,
   email: String,
   usertype: Number,
+  cookieID: String,
 });
 
 const Users = mongoose.model("user", userSchema);
 
+// Users.findOne({ username: "vs" }, (err, user) => {
+//   if (err) throw err;
+//   else console.log("user: ", user);
+// });
+
 app.post("/login", (req, res) => {
-  Users.findOne({ username: req.body.username }, (err) => {
+  console.log(req.body);
+  Users.findOne({ username: req.body.username }, (err, userFound) => {
     if (err) throw err;
-    else {
-      res.send({ success: "802" });
+    else if (userFound) {
+      console.log(userFound);
+      if (req.body.password === userFound.password) {
+        userFound.cookieID = req.body.cookieID;
+        userFound.save();
+        res.send({
+          message: "802",
+          user: userFound,
+        });
+      } else {
+        res.send({
+          message: "801",
+        });
+      }
+    } else if (!userFound) {
+      res.send({
+        message: "800",
+      });
     }
   });
+});
+
+app.post("/retain-session", (req, res) => {
+  Users.findOne(
+    {
+      username: req.body.username,
+    },
+    (err, userFound) => {
+      if (err) throw err;
+      else if (userFound) {
+        if (userFound.cookieID === req.body.cookieID) {
+          res.send({
+            message: "802",
+            user: userFound,
+          });
+        }
+      } else if (!userFound) {
+        res.send({
+          message: "800",
+        });
+      }
+    }
+  );
 });
 
 app.listen(8000, () => {

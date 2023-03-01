@@ -14,7 +14,7 @@ function Header(props) {
   let greeting = "";
 
   props.isLoggedIn
-    ? (greeting = "Good Morning, " + props.username)
+    ? (greeting = "Good Morning, " + props.User.firstname)
     : (greeting = "Welcome");
 
   return props.isLoggedIn ? (
@@ -54,7 +54,7 @@ function Header(props) {
                 <button
                   type="button"
                   className="dropdown-item"
-                  onClick={props.invertIsLoggedIn}
+                  onClick={props.logOut}
                 >
                   Logout
                 </button>

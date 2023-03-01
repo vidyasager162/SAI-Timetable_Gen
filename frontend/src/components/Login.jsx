@@ -15,7 +15,6 @@ function Login(props) {
               id="floatingInput"
               placeholder="Username"
               name="username"
-              onChange={props.handleUsername}
             />
             <label htmlFor="floatingInput">Username</label>
           </div>
@@ -26,7 +25,6 @@ function Login(props) {
               id="floatingPassword"
               placeholder="Password"
               name="password"
-              onChange={props.handlePassword}
             />
             <label htmlFor="floatingInput">Password</label>
           </div>
