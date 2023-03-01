@@ -30,12 +30,30 @@ const userSchema = new mongoose.Schema({
   cookieID: String,
 });
 
+const quoteSchema = new mongoose.Schema({
+  quote: String,
+});
+
 const Users = mongoose.model("user", userSchema);
+
+const Quotes = mongoose.model("quote", quoteSchema);
 
 // Users.findOne({ username: "vs" }, (err, user) => {
 //   if (err) throw err;
 //   else console.log("user: ", user);
 // });
+
+app.get("/gen-quote", (req, res) => {
+  Quotes.find((err, quote) => {
+    if (err) throw err;
+    else if (quote) {
+      res.send({
+        message: "902",
+        quotes: quote,
+      });
+    }
+  });
+});
 
 app.post("/login", (req, res) => {
   console.log(req.body);
