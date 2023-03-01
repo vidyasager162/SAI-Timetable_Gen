@@ -1,42 +1,16 @@
 import React from "react";
+import Login from "./Login";
 
 function Home(props) {
   return (
     <div className="container col-xxl-8 px-4 py-3">
       <div className="row flex-lg-row-reverse align-items-center g-5 py-5 hero-landing">
         <div className="col-10 col-sm-8 col-lg-6 text-center">
-          <div className="form-signin w-100 m-auto container">
-            <form onSubmit={props.invertIsLoggedIn}>
-              <div className="form-container">
-                <div>
-                  <h1 className="h3 p-4 fw-normal m-0">Login</h1>
-                </div>
-                <div className="form-floating w-50 m-auto">
-                  <input
-                    type="text"
-                    className="form-control login-input"
-                    id="floatingInput"
-                    placeholder="Username"
-                    onChange={props.handleUsername}
-                  />
-                  <label htmlFor="floatingInput">Username</label>
-                </div>
-                <div className="form-floating w-50 m-auto">
-                  <input
-                    type="password"
-                    className="form-control login-input"
-                    id="floatingPassword"
-                    placeholder="Password"
-                    onChange={props.handlePassword}
-                  />
-                  <label htmlFor="floatingInput">Password</label>
-                </div>
-                <button className="btn btn-lg btn-primary login-button">
-                  Login
-                </button>
-              </div>
-            </form>
-          </div>
+          <Login
+            handleLogin={props.handleLogin}
+            handleUsername={props.handleUsername}
+            handlePassword={props.handlePassword}
+          />
         </div>
         <div className="col-lg-6">
           <div className="Hero-text container">

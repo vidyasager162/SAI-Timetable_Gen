@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Header from "./Header";
-import Main from "./Main";
+import Main from "./Main/Main";
 import Home from "./Home";
 import Footer from "./Footer";
+import uniqid from "uniqid";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +37,17 @@ function App() {
     });
   }
 
+  function handleLogin(event) {
+    event.preventDefault();
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      username: payload.get("username"),
+      password: payload.get("password"),
+      cookieID: uniqid(), //you left here
+    };
+    invertIsLoggedIn();
+  }
+
   return (
     <div>
       <Header
@@ -47,7 +59,7 @@ function App() {
         <Main isAdmin={isAdmin} isTeacher={isTeacher} isStudent={isStudent} />
       ) : (
         <Home
-          invertIsLoggedIn={invertIsLoggedIn}
+          handleLogin={handleLogin}
           handleUsername={handleUsername}
           handlePassword={handlePassword}
           handleUser={handleUser}

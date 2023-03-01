@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import SideBar from "./SideBar";
-import User from "./User";
-import Schedule from "./Schedule";
-import Course from "./Course";
+import User from "../User/User";
+import Schedule from "../Schedule/Schedule";
+import Course from "../Course/Course";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");

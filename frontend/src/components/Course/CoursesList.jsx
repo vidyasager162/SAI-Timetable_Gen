@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "./Button";
+import Button from "../Button";
 
 function CoursesList(props) {
   return props.courses.map((course) => {
