@@ -1,7 +1,16 @@
 body {
-  background-color: #ededed !important;
+  background-color: #000 !important;
   font-family: "DM Sans", sans-serif;
   overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #0dcaf0;
 }
 
 .account-buttons {
@@ -9,24 +18,24 @@ body {
 }
 
 .btn-primary {
-  background-color: #004a7c;
-  border-color: #004a7c;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
 }
 
 .btn-primary:hover {
-  background-color: #ededed;
-  border-color: #004a7c;
-  color: #004a7c;
+  background-color: #121212;
+  border-color: #0dcaf0;
+  color: #0dcaf0;
 }
 
 .btn-outline-primary {
-  border-color: #004a7c;
-  color: #004a7c;
+  border-color: #0dcaf0;
+  color: #0dcaf0;
 }
 
 .btn-outline-primary:hover {
-  background-color: #004a7c;
-  border-color: #004a7c;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
 }
 
 .datetime td {
@@ -44,8 +53,12 @@ body {
 }
 
 .form-signin {
-  background-color: white !important;
+  background-color: #121212 !important;
   border-radius: 5px;
+}
+
+.greeting {
+  color: #0dcaf0;
 }
 
 .greeting-part {
@@ -69,7 +82,8 @@ body {
 }
 
 .login-input {
-  background-color: #ededed;
+  background-color: #000;
+  border-color: #121212;
 }
 
 .main-container {
@@ -101,12 +115,21 @@ body {
 
 .sidebar {
   margin: 0 !important;
+  background-color: #121212 !important;
 }
 
 .sidebar-buttons button {
   display: block;
   margin-top: 45%;
   margin-bottom: 45%;
+  background-color: #121212 !important;
+  border-color: #121212 !important;
+  color: #0dcaf0;
+}
+
+.sidebar-buttons button:hover {
+  color: #0dcaf0;
+  border-color: #0dcaf0;
 }
 
 .toggle-container {

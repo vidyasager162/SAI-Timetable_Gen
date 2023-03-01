@@ -28,8 +28,10 @@ function Main(props) {
             ) : clicked === "Courses" ? (
               <Course />
             ) : clicked === "Back" ? (
-              <Schedule />
-            ) : null}
+              <h3 className="text-muted">SAITimetableGen</h3>
+            ) : (
+              <h3 className="text-muted">SAITimetableGen</h3>
+            )}
           </div>
         </div>
       </div>

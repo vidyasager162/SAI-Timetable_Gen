@@ -37,7 +37,7 @@ function Header(props) {
           </div>
           <div className="col greeting-part dropdown">
             <button
-              className="btn btn-lg btn-transparent drowpdown-toggle mb-8 p-0"
+              className="btn btn-lg btn-transparent drowpdown-toggle mb-8 p-0 greeting"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
