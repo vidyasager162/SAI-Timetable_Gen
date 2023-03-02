@@ -18,7 +18,7 @@ function Home(props) {
               className="btn btn-primary btn-lg px-4 me-md-2 quote-container"
               onClick={props.generateQuote}
             >
-              <p className="quote">{props.quotation}</p>
+              <p className="quote">{'"' + props.quotation + '"'}</p>
             </button>
           </div>
           {/*</div>*/}

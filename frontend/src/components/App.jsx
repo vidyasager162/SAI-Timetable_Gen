@@ -14,7 +14,7 @@ function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
-  const [quotation, setQuotation] = useState("");
+  const [quotation, setQuotation] = useState("Love All, Serve All");
   //const [password, setPassword] = useState("");
 
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
