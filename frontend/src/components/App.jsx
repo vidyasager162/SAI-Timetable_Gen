@@ -14,11 +14,10 @@ function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
+  const [quotation, setQuotation] = useState("");
   //const [password, setPassword] = useState("");
 
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
-
-  //Passed to Home component to get the user type of the user logged in.
 
   if (checkforCookies === true && cookie.userSaved === "true") {
     setCheckForCookies(false);
@@ -82,6 +81,28 @@ function App() {
     setCookie("cookieID", "");
   }
 
+  function generateQuote() {
+    let number = Math.floor(Math.random() * 10);
+    const reqData = {
+      quote_id: number,
+    };
+    fetch("http://192.168.34.129:8000/gen-quote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setQuotation(data.quote.quote);
+          console.log(data);
+        }
+      });
+  }
+
   /*function handleUsername(event) {
     setUsername(event.target.value);
   }
@@ -139,7 +160,12 @@ function App() {
       {isLoggedIn ? (
         <Main isAdmin={isAdmin} isTeacher={isTeacher} isStudent={isStudent} />
       ) : (
-        <Home handleLogin={handleLogin} handleUser={handleUser} />
+        <Home
+          handleLogin={handleLogin}
+          handleUser={handleUser}
+          generateQuote={generateQuote}
+          quotation={quotation}
+        />
       )}
       {isLoggedIn ? null : <Footer />}
     </div>
