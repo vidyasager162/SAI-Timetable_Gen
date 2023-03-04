@@ -110,6 +110,10 @@ body {
   margin-bottom: 45%;
 }
 
+.timetable-container {
+  padding: 8% 8% 1% 8%;
+}
+
 .toggle-container {
   margin: 0;
 }

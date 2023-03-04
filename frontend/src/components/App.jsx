@@ -14,9 +14,8 @@ function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
-  const [quotation, setQuotation] = useState("Love All, Serve All");
+  const [quotation, setQuotation] = useState("");
   //const [password, setPassword] = useState("");
-
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
 
   if (checkforCookies === true && cookie.userSaved === "true") {
@@ -47,7 +46,7 @@ function App() {
   }
 
   function handleUser(userType) {
-    if (userType === 0) {
+    if (userType === 0 || userType === 9) {
       setIsAdmin(true);
     } else if (userType === 1) {
       setIsTeacher(true);
@@ -79,6 +78,9 @@ function App() {
     setCookie("username", "");
     setCookie("password", "");
     setCookie("cookieID", "");
+    setIsAdmin(false);
+    setIsStudent(false);
+    setIsTeacher(false);
   }
 
   function generateQuote() {
@@ -152,6 +154,10 @@ function App() {
       .catch((error) => {
         console.error("Error:", error);
       });
+  }
+
+  function handleCourseSubmit(event) {
+    event.preventDefault();
   }
 
   return (

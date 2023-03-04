@@ -26,7 +26,7 @@ function Login(props) {
               placeholder="Password"
               name="password"
             />
-            <label htmlFor="floatingInput">Password</label>
+            <label htmlFor="floatingPassword">Password</label>
           </div>
           <button className="btn btn-lg btn-primary login-button">Login</button>
         </div>

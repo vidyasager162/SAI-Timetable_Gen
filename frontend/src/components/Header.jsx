@@ -2,19 +2,32 @@ import React, { useState } from "react";
 
 function Header(props) {
   const now = new Date().toLocaleTimeString();
+  const nowRef = new Date().getHours();
 
   const [time, setTime] = useState(now);
+  const [refTime, setRefTime] = useState(nowRef);
 
   function updateTime() {
+    const newRefTime = new Date().getHours();
     const newTime = new Date().toLocaleTimeString();
     setTime(newTime);
+    setRefTime(newRefTime);
   }
+
   setInterval(updateTime, 1000);
   const day = new Date().toDateString();
   let greeting = "";
 
   props.isLoggedIn
-    ? (greeting = "Good Morning, " + props.User.firstname)
+    ? refTime >= 0 && refTime < 12
+      ? (greeting = "Good Morning, " + props.User.firstname)
+      : refTime >= 12 && refTime < 16
+      ? (greeting = "Good Afternoon, " + props.User.firstname)
+      : refTime >= 16 && refTime < 20
+      ? (greeting = "Good Evening, " + props.User.firstname)
+      : refTime >= 20 && refTime < 0
+      ? (greeting = "Good Night, " + props.User.firstname)
+      : (greeting = "Good Day, " + props.User.firstname)
     : (greeting = "Welcome");
 
   return props.isLoggedIn ? (

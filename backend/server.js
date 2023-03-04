@@ -20,10 +20,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://localhost:27017/projectDB");
 
+const departmentSchema = new mongoose.Schema({
+  dept_id: String,
+  dept_name: String,
+});
+
+const courseSchema = new mongoose.Schema({
+  course_id: String,
+  course_name: String,
+  department: String,
+});
+
+const subjectSchema = new mongoose.Schema({
+  sub_id: String,
+  sub_name: String,
+  course: String,
+});
+
 const userSchema = new mongoose.Schema({
   firstname: String,
   lastname: String,
   username: String,
+  courses: [String],
+  subjects: [String],
+  department: String,
+  semester: Number,
   password: String,
   email: String,
   usertype: Number,
@@ -35,8 +56,10 @@ const quoteSchema = new mongoose.Schema({
   quote: String,
 });
 
+const Departments = mongoose.model("department", departmentSchema);
+const Courses = mongoose.model("course", courseSchema);
+const Subjects = mongoose.model("subject", subjectSchema);
 const Users = mongoose.model("user", userSchema);
-
 const Quotes = mongoose.model("quote", quoteSchema);
 
 //Quotes.insertMany(quotes);

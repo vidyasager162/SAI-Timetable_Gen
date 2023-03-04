@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Courses from "./Courses";
 
-function Course() {
-  const [buttonClicked, setButtonClicked] = useState("");
-
-  function handleButtonClick(event) {
-    setButtonClicked(event.target.value);
-  }
-
-  return buttonClicked === "dmacs" ? (
-    <Courses buttonClicked={buttonClicked} />
-  ) : buttonClicked === "dmc" ? (
-    <Courses buttonClicked={buttonClicked} />
+function Course(props) {
+  return props.buttonClicked === "dmacs" ? (
+    <Courses buttonClicked={props.buttonClicked} />
+  ) : props.buttonClicked === "dmc" ? (
+    <Courses buttonClicked={props.buttonClicked} />
   ) : (
     <>
       <div className="col mybtn">
         <button
           type="button"
           className="btn btn-primary btn-lg"
-          onClick={handleButtonClick}
-          value="dmc"
+          onClick={props.handleButtonClick}
+          name="dmc"
         >
           DMC
         </button>
@@ -28,8 +22,8 @@ function Course() {
         <button
           type="button"
           className="btn btn-outline-primary btn-lg"
-          onClick={handleButtonClick}
-          value="dmacs"
+          onClick={props.handleButtonClick}
+          name="dmacs"
         >
           DMACS
         </button>
