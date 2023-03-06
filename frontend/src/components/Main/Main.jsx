@@ -5,11 +5,15 @@ import User from "../User/User";
 import Schedule from "../Schedule/Schedule";
 import Course from "../Course/Course";
 import AddCourse from "../Form/AddCourse";
+import AddDepartment from "../Form/AddDepartment";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
   const [buttonClicked, setButtonClicked] = useState("");
   const [isAddCourse, setIsAddCourse] = useState(false);
+  const [isAddDepartment, setIsAddDepartment] = useState(false);
+  const [isAddTeacher, setIsAddTeacher] = useState(false);
+  const [isAddStudent, setIsAddStudent] = useState(false);
 
   function handleClick(event) {
     setClicked(event.target.name);
@@ -31,12 +35,38 @@ function Main(props) {
     setIsAddCourse(true);
   }
 
+  function handleAddDepartment() {
+    setIsAddDepartment(true);
+  }
+
+  function invertIsAddCourse() {
+    setIsAddCourse(false);
+  }
+
+  function invertIsAddDepartment() {
+    setIsAddDepartment(false);
+  }
+
   return props.isAdmin ? (
     isAddCourse ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddCourse handleCourseSubmit={props.handleCourseSubmit} />
+            <AddCourse
+              handleCourseSubmit={props.handleCourseSubmit}
+              invertIsAddCourse={invertIsAddCourse}
+            />
+          </div>
+        </div>
+      </div>
+    ) : isAddDepartment ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <AddDepartment
+              handleDepartmentSubmit={props.handleDepartmentSubmit}
+              invertIsAddDepartment={invertIsAddDepartment}
+            />
           </div>
         </div>
       </div>
@@ -51,6 +81,7 @@ function Main(props) {
               buttonClicked={buttonClicked}
               handleUserBack={handleUserBack}
               handleAddCourse={handleAddCourse}
+              handleAddDepartment={handleAddDepartment}
             />
           </div>
           <div className="col my-col">
@@ -238,11 +269,7 @@ function Main(props) {
       </div>
       <div className="row actions-container text-center">
         <div className="col">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={props.printComponent}
-          >
+          <button type="button" className="btn btn-primary">
             Download
           </button>
         </div>

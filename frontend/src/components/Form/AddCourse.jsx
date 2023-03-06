@@ -1,9 +1,9 @@
 import React from "react";
 
-function AddCourse() {
+function AddCourse(props) {
   return (
     <div className="form-signin w-100 m-auto container">
-      <form onSubmit={} method="POST">
+      <form onSubmit={props.handleCourseSubmit} method="POST">
         <div className="form-container">
           <div>
             <h1 className="h3 p-4 fw-normal m-auto text-center">Add Course</h1>
@@ -39,7 +39,14 @@ function AddCourse() {
             <label htmlFor="floatingInput">Department ID</label>
           </div>
           <div className="text-align-center">
-            <button className="btn btn-lg btn-primary">Add</button>
+            <button className="btn btn-lg btn-primary login-button">Add</button>
+            <button
+              type="button"
+              className="btn btn-lg btn-primary login-button"
+              onClick={props.invertIsAddCourse}
+            >
+              Back
+            </button>
           </div>
         </div>
       </form>

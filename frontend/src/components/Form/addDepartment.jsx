@@ -1,12 +1,14 @@
 import React from "react";
 
-function addDepartment(props) {
+function AddDepartment(props) {
   return (
-    <div className="form-dept w-100 m-auto container">
-      <form>
+    <div className="form-signin w-100 m-auto container">
+      <form onSubmit={props.handleDepartmentSubmit} method="POST">
         <div className="form-container">
           <div>
-            <h1 className="h3 p-4 fw-normal m-0">Add Department</h1>
+            <h1 className="h3 p-4 fw-normal m-auto text-center">
+              Add Department
+            </h1>
           </div>
           <div className="form-floating w-50 m-auto">
             <input
@@ -29,10 +31,17 @@ function addDepartment(props) {
             <label htmlFor="floatingInput">Department ID</label>
           </div>
           <button className="btn btn-lg btn-primary login-button">Add</button>
+          <button
+            type="button"
+            className="btn btn-lg btn-primary login-button"
+            onClick={props.invertIsAddDepartment}
+          >
+            Back
+          </button>
         </div>
       </form>
     </div>
   );
 }
 
-export default addDepartment;
+export default AddDepartment;

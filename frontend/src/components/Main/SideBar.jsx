@@ -158,40 +158,18 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
-            name="Schedules"
-            onClick={props.handleClick}
+            name="Add Department"
+            onClick={props.handleAddDepartment}
           >
-            Schedules
-          </button>
-          <button
-            type="button"
-            className="btn btn-light"
-            name="Teachers"
-            onClick={props.handleClick}
-          >
-            Teachers
-          </button>
-          <button
-            type="button"
-            className="btn btn-light"
-            name="Students"
-            onClick={props.handleClick}
-          >
-            Students
-          </button>
-          <button
-            type="button"
-            className="btn btn-light"
-            name="Courses"
-            onClick={props.handleClick}
-          >
-            Courses
+            Add Department
           </button>
           <button
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={(props.handleClick, props.handleBack)}
+            onClick={
+              (props.handleClick, props.handleBack, props.handleUserBack)
+            }
           >
             Back
           </button>

@@ -160,11 +160,21 @@ function App() {
     event.preventDefault();
   }
 
+  function handleDepartmentSubmit(event) {
+    event.preventDefault();
+  }
+
   return (
     <div>
       <Header isLoggedIn={isLoggedIn} User={User} logOut={logOut} />
       {isLoggedIn ? (
-        <Main isAdmin={isAdmin} isTeacher={isTeacher} isStudent={isStudent} />
+        <Main
+          isAdmin={isAdmin}
+          isTeacher={isTeacher}
+          isStudent={isStudent}
+          handleCourseSubmit={handleCourseSubmit}
+          handleDepartmentSubmit={handleDepartmentSubmit}
+        />
       ) : (
         <Home
           handleLogin={handleLogin}
