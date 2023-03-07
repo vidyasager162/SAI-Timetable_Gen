@@ -141,6 +141,8 @@ function Main(props) {
                 <Course
                   handleButtonClick={handleButtonClick}
                   buttonClicked={buttonClicked}
+                  departments={props.departments}
+                  getDepartments={props.getDepartments}
                 />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>

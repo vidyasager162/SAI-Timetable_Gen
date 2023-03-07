@@ -17,6 +17,7 @@ function App() {
   const [quotation, setQuotation] = useState("");
   //const [password, setPassword] = useState("");
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
+  const [departments, setDepartments] = useState([]);
 
   if (checkforCookies === true && cookie.userSaved === "true") {
     setCheckForCookies(false);
@@ -153,6 +154,31 @@ function App() {
 
   function handleCourseSubmit(event) {
     event.preventDefault();
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      course_id: payload.get("courseid"),
+      course_name: payload.get("coursename"),
+      department: payload.get("deptid"),
+    };
+    fetch("http://192.168.34.129:8000/add-course", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        if (payload.message === "702") {
+          console.log("Course added successfully.");
+        } else {
+          console.log("There was a problem adding the Course.");
+        }
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
   }
 
   function handleStudentSubmit(event) {
@@ -170,7 +196,7 @@ function App() {
       dept_id: payload.get("deptid"),
       dept_name: payload.get("deptname"),
     };
-    fetch("http://192.168.34.129:8000/addDepartment", {
+    fetch("http://192.168.34.129:8000/add-department", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -191,7 +217,22 @@ function App() {
       });
   }
 
-  function getDepartments() {}
+  function getDepartments() {
+    fetch("http://192.168.34.129:8000/get-departments", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setDepartments(data.departments);
+          console.log(data.departments);
+        }
+      });
+  }
 
   return (
     <div>
@@ -205,6 +246,8 @@ function App() {
           handleDepartmentSubmit={handleDepartmentSubmit}
           handleTeacherSubmit={handleTeacherSubmit}
           handleStudentSubmit={handleStudentSubmit}
+          getDepartments={getDepartments}
+          departments={departments}
         />
       ) : (
         <Home

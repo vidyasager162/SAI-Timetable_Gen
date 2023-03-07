@@ -40,9 +40,9 @@ function Courses(props) {
     },
   ];
 
-  return props.buttonClicked === "dmc" ? (
+  return props.buttonClicked === "DMC" ? (
     <CoursesList courses={DMC_COURSES} />
-  ) : props.buttonClicked === "dmacs" ? (
+  ) : props.buttonClicked === "DMACS" ? (
     <CoursesList courses={DMACS_COURSES} />
   ) : null;
 }

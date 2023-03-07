@@ -121,7 +121,7 @@ app.get("/gen-quote", (req, res) => {
   });
 });
 
-app.get("/getDepartments", (req, res) => {
+app.get("/get-departments", (req, res) => {
   Departments.find((err, departmentsFound) => {
     if (err) throw err;
     else if (departmentsFound) {
@@ -182,11 +182,29 @@ app.post("/retain-session", (req, res) => {
   );
 });
 
-app.post("/addDepartment", (req, res) => {
+app.post("/add-department", (req, res) => {
   Departments.create(
     {
       dept_id: req.body.dept_id,
       dept_name: req.body.dept_name,
+    },
+    (err) => {
+      if (err) throw err;
+      else {
+        res.send({
+          message: "702",
+        });
+      }
+    }
+  );
+});
+
+app.post("/add-course", (req, res) => {
+  Courses.create(
+    {
+      course_id: req.body.course_id,
+      course_name: req.body.course_name,
+      department: req.body.department,
     },
     (err) => {
       if (err) throw err;

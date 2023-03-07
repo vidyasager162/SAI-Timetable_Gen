@@ -21,7 +21,7 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={(props.handleClick, props.handleBack)}
+            onClick={props.handleBack}
           >
             Back
           </button>
@@ -61,7 +61,7 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Courses"
-            onClick={(props.handleClick, props.getDepartments)}
+            onClick={props.handleClick}
           >
             Courses
           </button>
@@ -69,7 +69,7 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={(props.handleClick, props.handleBack)}
+            onClick={props.handleBack}
           >
             Back
           </button>
@@ -94,7 +94,7 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Back"
-          onClick={(props.handleClick, props.handleBack, props.handleUserBack)}
+          onClick={props.handleUserBack}
         >
           Back
         </button>
@@ -118,7 +118,7 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Back"
-          onClick={(props.handleClick, props.handleBack, props.handleUserBack)}
+          onClick={props.handleUserBack}
         >
           Back
         </button>
@@ -143,7 +143,7 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={(props.handleClick, props.handleBack)}
+            onClick={props.handleBack}
           >
             Back
           </button>
@@ -167,9 +167,7 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={
-              (props.handleClick, props.handleBack, props.handleUserBack)
-            }
+            onClick={props.handleUserBack}
           >
             Back
           </button>
@@ -218,7 +216,7 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Back"
-          onClick={(props.handleClick, props.handleBack)}
+          onClick={props.handleBack}
         >
           Back
         </button>
