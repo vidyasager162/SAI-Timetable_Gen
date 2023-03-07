@@ -6,6 +6,8 @@ import Schedule from "../Schedule/Schedule";
 import Course from "../Course/Course";
 import AddCourse from "../Form/AddCourse";
 import AddDepartment from "../Form/AddDepartment";
+import AddTeacher from "../Form/AddTeacher";
+import AddStudent from "../Form/AddStudent";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
@@ -47,6 +49,22 @@ function Main(props) {
     setIsAddDepartment(false);
   }
 
+  function handleAddTeacher() {
+    setIsAddTeacher(true);
+  }
+
+  function handleAddStudent() {
+    setIsAddStudent(true);
+  }
+
+  function invertIsAddTeacher() {
+    setIsAddTeacher(false);
+  }
+
+  function invertIsAddStudent() {
+    setIsAddStudent(false);
+  }
+
   return props.isAdmin ? (
     isAddCourse ? (
       <div className="container-fluid p-0">
@@ -70,6 +88,28 @@ function Main(props) {
           </div>
         </div>
       </div>
+    ) : isAddTeacher ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <AddTeacher
+              handleTeacherSubmit={props.handleTeacherSubmit}
+              invertIsAddTeacher={invertIsAddTeacher}
+            />
+          </div>
+        </div>
+      </div>
+    ) : isAddStudent ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <AddStudent
+              handleStudentSubmit={props.handleStudentSubmit}
+              invertIsAddStudent={invertIsAddStudent}
+            />
+          </div>
+        </div>
+      </div>
     ) : (
       <div className="container-fluid p-0">
         <div className="row main-container">
@@ -82,6 +122,8 @@ function Main(props) {
               handleUserBack={handleUserBack}
               handleAddCourse={handleAddCourse}
               handleAddDepartment={handleAddDepartment}
+              handleAddTeacher={handleAddTeacher}
+              handleAddStudent={handleAddStudent}
             />
           </div>
           <div className="col my-col">
