@@ -20,6 +20,45 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://localhost:27017/projectDB");
 
+// let quotes = [
+//   {
+//     quote_id: 1,
+//     quote: "Love All, Serve All",
+//   },
+//   {
+//     quote_id: 2,
+//     quote: "Help Ever, Hurt Never",
+//   },
+//   {
+//     quote_id: 3,
+//     quote: "Life is a challenge, meet it!",
+//   },
+//   {
+//     quote_id: 4,
+//     quote: "Life is a dream, realize it!",
+//   },
+//   {
+//     quote_id: 5,
+//     quote: "Life is a game, play it!",
+//   },
+//   {
+//     quote_id: 6,
+//     quote: "Life is love, enjoy it!",
+//   },
+//   {
+//     quote_id: 7,
+//     quote: "Study to be steady",
+//   },
+//   {
+//     quote_id: 8,
+//     quote: "Gratitude is our life-breath",
+//   },
+//   {
+//     quote_id: 9,
+//     quote: "Work is worship. Duty is God",
+//   },
+// ];
+
 const departmentSchema = new mongoose.Schema({
   dept_id: String,
   dept_name: String,
@@ -62,20 +101,33 @@ const Subjects = mongoose.model("subject", subjectSchema);
 const Users = mongoose.model("user", userSchema);
 const Quotes = mongoose.model("quote", quoteSchema);
 
-//Quotes.insertMany(quotes);
+// Quotes.insertMany(quotes);
 
 // Users.findOne({ username: "vs" }, (err, user) => {
 //   if (err) throw err;
 //   else console.log("user: ", user);
 // });
 
-app.post("/gen-quote", (req, res) => {
-  Quotes.findOne({ quote_id: req.body.quote_id }, (err, quoteFound) => {
+app.get("/gen-quote", (req, res) => {
+  let number = Math.floor(Math.random() * 10);
+  Quotes.findOne({ quote_id: number }, (err, quoteFound) => {
     if (err) throw err;
     else if (quoteFound) {
       res.send({
         message: "902",
         quote: quoteFound,
+      });
+    }
+  });
+});
+
+app.get("/getDepartments", (req, res) => {
+  Departments.find((err, departmentsFound) => {
+    if (err) throw err;
+    else if (departmentsFound) {
+      res.send({
+        message: "902",
+        departments: departmentsFound,
       });
     }
   });
@@ -130,45 +182,23 @@ app.post("/retain-session", (req, res) => {
   );
 });
 
+app.post("/addDepartment", (req, res) => {
+  Departments.create(
+    {
+      dept_id: req.body.dept_id,
+      dept_name: req.body.dept_name,
+    },
+    (err) => {
+      if (err) throw err;
+      else {
+        res.send({
+          message: "702",
+        });
+      }
+    }
+  );
+});
+
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
 });
-
-// let quotes = [
-//   {
-//     quote_id: 1,
-//     quote: "Love All, Serve All",
-//   },
-//   {
-//     quote_id: 2,
-//     quote: "Help Ever, Hurt Never",
-//   },
-//   {
-//     quote_id: 3,
-//     quote: "Life is a challenge, meet it!",
-//   },
-//   {
-//     quote_id: 4,
-//     quote: "Life is a dream, realize it!",
-//   },
-//   {
-//     quote_id: 5,
-//     quote: "Life is a game, play it!",
-//   },
-//   {
-//     quote_id: 6,
-//     quote: "Life is love, enjoy it!",
-//   },
-//   {
-//     quote_id: 7,
-//     quote: "Study to be steady",
-//   },
-//   {
-//     quote_id: 8,
-//     quote: "Gratitude is our life-breath",
-//   },
-//   {
-//     quote_id: 9,
-//     quote: "Work is worship. Duty is God",
-//   },
-// ];

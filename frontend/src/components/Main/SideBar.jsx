@@ -61,7 +61,7 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Courses"
-            onClick={props.handleClick}
+            onClick={(props.handleClick, props.getDepartments)}
           >
             Courses
           </button>
@@ -86,7 +86,7 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Add Student"
-          onClick={props.handleClick}
+          onClick={props.handleAddStudent}
         >
           Add Student
         </button>
@@ -110,7 +110,7 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Add Teacher"
-          onClick={props.handleClick}
+          onClick={props.handleAddTeacher}
         >
           Add Teacher
         </button>

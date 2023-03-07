@@ -84,17 +84,12 @@ function App() {
   }
 
   function generateQuote() {
-    let number = Math.floor(Math.random() * 10);
-    const reqData = {
-      quote_id: number,
-    };
     fetch("http://192.168.34.129:8000/gen-quote", {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
       mode: "cors",
-      body: JSON.stringify(reqData),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -160,9 +155,43 @@ function App() {
     event.preventDefault();
   }
 
-  function handleDepartmentSubmit(event) {
+  function handleStudentSubmit(event) {
     event.preventDefault();
   }
+
+  function handleTeacherSubmit(event) {
+    event.preventDefault();
+  }
+
+  function handleDepartmentSubmit(event) {
+    event.preventDefault();
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      dept_id: payload.get("deptid"),
+      dept_name: payload.get("deptname"),
+    };
+    fetch("http://192.168.34.129:8000/addDepartment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        if (payload.message === "702") {
+          console.log("Department added successfully.");
+        } else {
+          console.log("There was a problem adding the Department.");
+        }
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  }
+
+  function getDepartments() {}
 
   return (
     <div>
@@ -174,6 +203,8 @@ function App() {
           isStudent={isStudent}
           handleCourseSubmit={handleCourseSubmit}
           handleDepartmentSubmit={handleDepartmentSubmit}
+          handleTeacherSubmit={handleTeacherSubmit}
+          handleStudentSubmit={handleStudentSubmit}
         />
       ) : (
         <Home
