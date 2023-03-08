@@ -8,7 +8,7 @@ function Course(props) {
   }, []);
   return props.buttonClicked === "DMACS"
     ? props.courses
-        .filter((course) => course.department === "DMACS")
+        .filter((course) => course.dept_id === "DMACS")
         .map((filteredCourse) => {
           return (
             <div className="col mybtn">
@@ -25,7 +25,7 @@ function Course(props) {
         })
     : props.buttonClicked === "DMC"
     ? props.courses
-        .filter((course) => course.department === "DMC")
+        .filter((course) => course.dept_id === "DMC")
         .map((filteredCourse) => {
           return (
             <div className="col mybtn">

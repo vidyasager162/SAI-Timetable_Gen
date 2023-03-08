@@ -20,6 +20,11 @@ function App() {
   const [departments, setDepartments] = useState([]);
   const [courses, setCourses] = useState([]);
   const [subjects, setSubjects] = useState([]);
+  const [isAddDepartment, setIsAddDepartment] = useState(false);
+  const [isAddSubject, setIsAddSubject] = useState(false);
+  const [isAddCourse, setIsAddCourse] = useState(false);
+  const [isAddTeacher, setIsAddTeacher] = useState(false);
+  const [isAddStudent, setIsAddStudent] = useState(false);
 
   if (checkforCookies === true && cookie.userSaved === "true") {
     setCheckForCookies(false);
@@ -46,6 +51,46 @@ function App() {
       .catch((error) => {
         console.error("Error:", error);
       });
+  }
+
+  function handleAddDepartment() {
+    setIsAddDepartment(true);
+  }
+
+  function invertIsAddDepartment() {
+    setIsAddDepartment(false);
+  }
+
+  function handleAddCourse() {
+    setIsAddCourse(true);
+  }
+
+  function invertIsAddCourse() {
+    setIsAddCourse(false);
+  }
+
+  function handleAddSubject() {
+    setIsAddSubject(true);
+  }
+
+  function invertIsAddSubject() {
+    setIsAddSubject(false);
+  }
+
+  function handleAddTeacher() {
+    setIsAddTeacher(true);
+  }
+
+  function invertIsAddTeacher() {
+    setIsAddTeacher(false);
+  }
+
+  function handleAddStudent() {
+    setIsAddStudent(true);
+  }
+
+  function invertIsAddStudent() {
+    setIsAddStudent(false);
   }
 
   function handleUser(userType) {
@@ -160,7 +205,7 @@ function App() {
     const reqPayload = {
       course_id: payload.get("courseid"),
       course_name: payload.get("coursename"),
-      department: payload.get("deptid"),
+      dept_id: payload.get("deptid"),
     };
     fetch("http://192.168.34.129:8000/add-course", {
       method: "POST",
@@ -181,6 +226,7 @@ function App() {
       .catch((error) => {
         console.log("Error: ", error);
       });
+    invertIsAddCourse();
   }
 
   function handleSubjectSubmit(event) {
@@ -189,8 +235,7 @@ function App() {
     const reqPayload = {
       sub_id: payload.get("subjectid"),
       sub_name: payload.get("subjectname"),
-      semester: payload.get("semester"),
-      course: payload.get("courseid"),
+      course_id: payload.get("courseid"),
     };
     fetch("http://192.168.34.129:8000/add-subject", {
       method: "POST",
@@ -211,6 +256,7 @@ function App() {
       .catch((error) => {
         console.log("Error: ", error);
       });
+    invertIsAddSubject();
   }
 
   function handleStudentSubmit(event) {
@@ -247,6 +293,7 @@ function App() {
       .catch((error) => {
         console.log("Error: ", error);
       });
+    invertIsAddDepartment();
   }
 
   function getDepartments() {
@@ -308,6 +355,15 @@ function App() {
           isAdmin={isAdmin}
           isTeacher={isTeacher}
           isStudent={isStudent}
+          isAddDepartment={isAddDepartment}
+          isAddCourse={isAddCourse}
+          isAddSubject={isAddSubject}
+          handleAddDepartment={handleAddDepartment}
+          invertIsAddDepartment={invertIsAddDepartment}
+          handleAddCourse={handleAddCourse}
+          invertIsAddCourse={invertIsAddCourse}
+          handleAddSubject={handleAddSubject}
+          invertIsAddSubject={invertIsAddSubject}
           handleCourseSubmit={handleCourseSubmit}
           handleDepartmentSubmit={handleDepartmentSubmit}
           handleTeacherSubmit={handleTeacherSubmit}

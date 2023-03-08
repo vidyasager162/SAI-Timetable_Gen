@@ -20,44 +20,44 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://localhost:27017/projectDB");
 
-// let quotes = [
-//   {
-//     quote_id: 1,
-//     quote: "Love All, Serve All",
-//   },
-//   {
-//     quote_id: 2,
-//     quote: "Help Ever, Hurt Never",
-//   },
-//   {
-//     quote_id: 3,
-//     quote: "Life is a challenge, meet it!",
-//   },
-//   {
-//     quote_id: 4,
-//     quote: "Life is a dream, realize it!",
-//   },
-//   {
-//     quote_id: 5,
-//     quote: "Life is a game, play it!",
-//   },
-//   {
-//     quote_id: 6,
-//     quote: "Life is love, enjoy it!",
-//   },
-//   {
-//     quote_id: 7,
-//     quote: "Study to be steady",
-//   },
-//   {
-//     quote_id: 8,
-//     quote: "Gratitude is our life-breath",
-//   },
-//   {
-//     quote_id: 9,
-//     quote: "Work is worship. Duty is God",
-//   },
-// ];
+let quotes = [
+  {
+    quote_id: 1,
+    quote: "Love All, Serve All",
+  },
+  {
+    quote_id: 2,
+    quote: "Help Ever, Hurt Never",
+  },
+  {
+    quote_id: 3,
+    quote: "Life is a challenge, meet it!",
+  },
+  {
+    quote_id: 4,
+    quote: "Life is a dream, realize it!",
+  },
+  {
+    quote_id: 5,
+    quote: "Life is a game, play it!",
+  },
+  {
+    quote_id: 6,
+    quote: "Life is love, enjoy it!",
+  },
+  {
+    quote_id: 7,
+    quote: "Study to be steady",
+  },
+  {
+    quote_id: 8,
+    quote: "Gratitude is our life-breath",
+  },
+  {
+    quote_id: 9,
+    quote: "Work is worship. Duty is God",
+  },
+];
 
 const departmentSchema = new mongoose.Schema({
   dept_id: String,
@@ -67,25 +67,35 @@ const departmentSchema = new mongoose.Schema({
 const courseSchema = new mongoose.Schema({
   course_id: String,
   course_name: String,
-  department: String,
+  dept_id: String,
 });
 
 const subjectSchema = new mongoose.Schema({
   sub_id: String,
   sub_name: String,
-  course: String,
-  semester: Number,
+  course_id: String,
 });
 
-const userSchema = new mongoose.Schema({
+const teacherSchema = new mongoose.Schema({
   name: String,
   username: String,
-  courses: [String],
-  subjects: [String],
-  department: String,
-  semesters: [Number],
   password: String,
   email: String,
+  coursesTaught: [String],
+  subjectsTaught: [String],
+  department: String,
+  usertype: Number,
+  cookieID: String,
+});
+
+const studentSchema = new mongoose.Schema({
+  name: String,
+  username: String,
+  password: String,
+  email: String,
+  course: String,
+  subjects: [String],
+  department: String,
   usertype: Number,
   cookieID: String,
 });
@@ -98,10 +108,19 @@ const quoteSchema = new mongoose.Schema({
 const Departments = mongoose.model("department", departmentSchema);
 const Courses = mongoose.model("course", courseSchema);
 const Subjects = mongoose.model("subject", subjectSchema);
-const Users = mongoose.model("user", userSchema);
+const Teachers = mongoose.model("teacher", teacherSchema);
+const Students = mongoose.model("student", studentSchema);
 const Quotes = mongoose.model("quote", quoteSchema);
 
-// Quotes.insertMany(quotes);
+Quotes.find({}, (err, quotesFound) => {
+  if (!err) {
+    if (quotesFound.length === 0) {
+      Quotes.insertMany(quotes);
+    }
+  } else {
+    console.log(err);
+  }
+});
 
 // Users.findOne({ username: "vs" }, (err, user) => {
 //   if (err) throw err;
@@ -159,23 +178,48 @@ app.get("/get-subjects", (req, res) => {
 
 app.post("/login", (req, res) => {
   console.log(req.body);
-  Users.findOne({ username: req.body.username }, (err, userFound) => {
-    if (err) throw err;
-    else if (userFound) {
-      console.log(userFound);
-      if (req.body.password === userFound.password) {
-        userFound.cookieID = req.body.cookieID;
-        userFound.save();
+  Teachers.findOne({ username: req.body.username }, (err, teacherFound) => {
+    if (!teacherFound) {
+      Students.findOne(
+        { username: req.body.username },
+        (error, studentFound) => {
+          if (error) throw error;
+          else if (studentFound) {
+            console.log(studentFound);
+            if (req.body.password === studentFound.password) {
+              studentFound.cookieID = req.body.cookieID;
+              studentFound.save();
+              res.send({
+                message: "802",
+                user: studentFound,
+              });
+            } else {
+              res.send({
+                message: "801",
+              });
+            }
+          } else if (!studentFound) {
+            res.send({
+              message: "800",
+            });
+          }
+        }
+      );
+    } else if (teacherFound) {
+      console.log(teacherFound);
+      if (req.body.password === teacherFound.password) {
+        teacherFound.cookieID = req.body.cookieID;
+        teacherFound.save();
         res.send({
           message: "802",
-          user: userFound,
+          user: teacherFound,
         });
       } else {
         res.send({
           message: "801",
         });
       }
-    } else if (!userFound) {
+    } else if (!teacherFound) {
       res.send({
         message: "800",
       });
@@ -184,20 +228,40 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/retain-session", (req, res) => {
-  Users.findOne(
+  Teachers.findOne(
     {
       username: req.body.username,
     },
-    (err, userFound) => {
-      if (err) throw err;
-      else if (userFound) {
-        if (userFound.cookieID === req.body.cookieID) {
+    (err, teacherFound) => {
+      if (!teacherFound) {
+        Students.findOne(
+          {
+            username: req.body.username,
+          },
+          (error, studentFound) => {
+            if (error) throw error;
+            else if (studentFound) {
+              if (studentFound.cookieID === req.body.cookieID) {
+                res.send({
+                  message: "802",
+                  user: studentFound,
+                });
+              } else {
+                res.send({
+                  message: "800",
+                });
+              }
+            }
+          }
+        );
+      } else if (teacherFound) {
+        if (teacherFound.cookieID === req.body.cookieID) {
           res.send({
             message: "802",
-            user: userFound,
+            user: teacherFound,
           });
         }
-      } else if (!userFound) {
+      } else {
         res.send({
           message: "800",
         });
@@ -228,7 +292,7 @@ app.post("/add-course", (req, res) => {
     {
       course_id: req.body.course_id,
       course_name: req.body.course_name,
-      department: req.body.department,
+      dept_id: req.body.dept_id,
     },
     (err) => {
       if (err) throw err;

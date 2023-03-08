@@ -14,11 +14,6 @@ import AddSubject from "../Form/AddSubject";
 function Main(props) {
   const [clicked, setClicked] = useState("");
   const [buttonClicked, setButtonClicked] = useState("");
-  const [isAddSubject, setIsAddSubject] = useState(false);
-  const [isAddCourse, setIsAddCourse] = useState(false);
-  const [isAddDepartment, setIsAddDepartment] = useState(false);
-  const [isAddTeacher, setIsAddTeacher] = useState(false);
-  const [isAddStudent, setIsAddStudent] = useState(false);
 
   function handleClick(event) {
     setClicked(event.target.name);
@@ -36,98 +31,59 @@ function Main(props) {
     setButtonClicked("");
   }
 
-  function handleAddCourse() {
-    setIsAddCourse(true);
-  }
-
-  function invertIsAddCourse() {
-    setIsAddCourse(false);
-  }
-
-  function handleAddDepartment() {
-    setIsAddDepartment(true);
-  }
-
-  function invertIsAddDepartment() {
-    setIsAddDepartment(false);
-  }
-
-  function handleAddSubject() {
-    setIsAddSubject(true);
-  }
-
-  function invertIsAddSubject() {
-    setIsAddSubject(false);
-  }
-
-  function handleAddTeacher() {
-    setIsAddTeacher(true);
-  }
-
-  function invertIsAddTeacher() {
-    setIsAddTeacher(false);
-  }
-
-  function handleAddStudent() {
-    setIsAddStudent(true);
-  }
-
-  function invertIsAddStudent() {
-    setIsAddStudent(false);
-  }
-
   return props.isAdmin ? (
-    isAddCourse ? (
+    props.isAddCourse ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
             <AddCourse
               handleCourseSubmit={props.handleCourseSubmit}
-              invertIsAddCourse={invertIsAddCourse}
+              invertIsAddCourse={props.invertIsAddCourse}
             />
           </div>
         </div>
       </div>
-    ) : isAddDepartment ? (
+    ) : props.isAddDepartment ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
             <AddDepartment
               handleDepartmentSubmit={props.handleDepartmentSubmit}
-              invertIsAddDepartment={invertIsAddDepartment}
+              invertIsAddDepartment={props.invertIsAddDepartment}
+              handleAddDepartment={props.handleAddDepartment}
             />
           </div>
         </div>
       </div>
-    ) : isAddTeacher ? (
+    ) : props.isAddTeacher ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
             <AddTeacher
               handleTeacherSubmit={props.handleTeacherSubmit}
-              invertIsAddTeacher={invertIsAddTeacher}
+              invertIsAddTeacher={props.invertIsAddTeacher}
             />
           </div>
         </div>
       </div>
-    ) : isAddStudent ? (
+    ) : props.isAddStudent ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
             <AddStudent
               handleStudentSubmit={props.handleStudentSubmit}
-              invertIsAddStudent={invertIsAddStudent}
+              invertIsAddStudent={props.invertIsAddStudent}
             />
           </div>
         </div>
       </div>
-    ) : isAddSubject ? (
+    ) : props.isAddSubject ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
             <AddSubject
               handleSubjectSubmit={props.handleSubjectSubmit}
-              invertIsAddSubject={invertIsAddSubject}
+              invertIsAddSubject={props.invertIsAddSubject}
             />
           </div>
         </div>
@@ -142,11 +98,11 @@ function Main(props) {
               clicked={clicked}
               buttonClicked={buttonClicked}
               handleUserBack={handleUserBack}
-              handleAddCourse={handleAddCourse}
-              handleAddDepartment={handleAddDepartment}
-              handleAddTeacher={handleAddTeacher}
-              handleAddStudent={handleAddStudent}
-              handleAddSubject={handleAddSubject}
+              handleAddCourse={props.handleAddCourse}
+              handleAddDepartment={props.handleAddDepartment}
+              handleAddTeacher={props.handleAddTeacher}
+              handleAddStudent={props.handleAddStudent}
+              handleAddSubject={props.handleAddSubject}
             />
           </div>
           <div className="col my-col">

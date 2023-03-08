@@ -33,16 +33,6 @@ function AddSubject(props) {
               type="text"
               className="form-control login-input"
               id="floatingInput"
-              placeholder="Semester"
-              name="semester"
-            />
-            <label htmlFor="floatingInput">Semester</label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
               placeholder="Course ID"
               name="courseid"
             />
