@@ -74,16 +74,16 @@ const subjectSchema = new mongoose.Schema({
   sub_id: String,
   sub_name: String,
   course: String,
+  semester: Number,
 });
 
 const userSchema = new mongoose.Schema({
-  firstname: String,
-  lastname: String,
+  name: String,
   username: String,
   courses: [String],
   subjects: [String],
   department: String,
-  semester: Number,
+  semesters: [Number],
   password: String,
   email: String,
   usertype: Number,
@@ -128,6 +128,30 @@ app.get("/get-departments", (req, res) => {
       res.send({
         message: "902",
         departments: departmentsFound,
+      });
+    }
+  });
+});
+
+app.get("/get-courses", (req, res) => {
+  Courses.find((err, coursesFound) => {
+    if (err) throw err;
+    else if (coursesFound) {
+      res.send({
+        message: "902",
+        courses: coursesFound,
+      });
+    }
+  });
+});
+
+app.get("/get-subjects", (req, res) => {
+  Subjects.find((err, subjectsFound) => {
+    if (err) throw err;
+    else if (subjectsFound) {
+      res.send({
+        message: "902",
+        subjects: subjectsFound,
       });
     }
   });
@@ -205,6 +229,25 @@ app.post("/add-course", (req, res) => {
       course_id: req.body.course_id,
       course_name: req.body.course_name,
       department: req.body.department,
+    },
+    (err) => {
+      if (err) throw err;
+      else {
+        res.send({
+          message: "702",
+        });
+      }
+    }
+  );
+});
+
+app.post("/add-subject", (req, res) => {
+  Subjects.create(
+    {
+      sub_id: req.body.sub_id,
+      sub_name: req.body.sub_name,
+      semester: req.body.semester,
+      course: req.body.course,
     },
     (err) => {
       if (err) throw err;

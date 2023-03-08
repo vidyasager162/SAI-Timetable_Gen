@@ -4,14 +4,17 @@ import SideBar from "./SideBar";
 import User from "../User/User";
 import Schedule from "../Schedule/Schedule";
 import Course from "../Course/Course";
+import Subject from "../Subject/Subject";
 import AddCourse from "../Form/AddCourse";
 import AddDepartment from "../Form/AddDepartment";
 import AddTeacher from "../Form/AddTeacher";
 import AddStudent from "../Form/AddStudent";
+import AddSubject from "../Form/AddSubject";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
   const [buttonClicked, setButtonClicked] = useState("");
+  const [isAddSubject, setIsAddSubject] = useState(false);
   const [isAddCourse, setIsAddCourse] = useState(false);
   const [isAddDepartment, setIsAddDepartment] = useState(false);
   const [isAddTeacher, setIsAddTeacher] = useState(false);
@@ -21,44 +24,52 @@ function Main(props) {
     setClicked(event.target.name);
   }
 
-  function handleBack() {
-    setButtonClicked("");
+  function handleUserBack() {
+    setClicked("");
   }
 
   function handleButtonClick(event) {
     setButtonClicked(event.target.name);
   }
 
-  function handleUserBack() {
-    setClicked("");
+  function handleBack() {
+    setButtonClicked("");
   }
 
   function handleAddCourse() {
     setIsAddCourse(true);
   }
 
-  function handleAddDepartment() {
-    setIsAddDepartment(true);
-  }
-
   function invertIsAddCourse() {
     setIsAddCourse(false);
+  }
+
+  function handleAddDepartment() {
+    setIsAddDepartment(true);
   }
 
   function invertIsAddDepartment() {
     setIsAddDepartment(false);
   }
 
+  function handleAddSubject() {
+    setIsAddSubject(true);
+  }
+
+  function invertIsAddSubject() {
+    setIsAddSubject(false);
+  }
+
   function handleAddTeacher() {
     setIsAddTeacher(true);
   }
 
-  function handleAddStudent() {
-    setIsAddStudent(true);
-  }
-
   function invertIsAddTeacher() {
     setIsAddTeacher(false);
+  }
+
+  function handleAddStudent() {
+    setIsAddStudent(true);
   }
 
   function invertIsAddStudent() {
@@ -110,6 +121,17 @@ function Main(props) {
           </div>
         </div>
       </div>
+    ) : isAddSubject ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <AddSubject
+              handleSubjectSubmit={props.handleSubjectSubmit}
+              invertIsAddSubject={invertIsAddSubject}
+            />
+          </div>
+        </div>
+      </div>
     ) : (
       <div className="container-fluid p-0">
         <div className="row main-container">
@@ -124,6 +146,7 @@ function Main(props) {
               handleAddDepartment={handleAddDepartment}
               handleAddTeacher={handleAddTeacher}
               handleAddStudent={handleAddStudent}
+              handleAddSubject={handleAddSubject}
             />
           </div>
           <div className="col my-col">
@@ -143,6 +166,13 @@ function Main(props) {
                   buttonClicked={buttonClicked}
                   departments={props.departments}
                   getDepartments={props.getDepartments}
+                  courses={props.courses}
+                  getCourses={props.getCourses}
+                />
+              ) : clicked === "Subjects" ? (
+                <Subject
+                  subjects={props.subjects}
+                  getSubjects={props.getSubjects}
                 />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>

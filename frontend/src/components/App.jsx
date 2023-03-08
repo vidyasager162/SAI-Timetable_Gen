@@ -18,6 +18,8 @@ function App() {
   //const [password, setPassword] = useState("");
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
   const [departments, setDepartments] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [subjects, setSubjects] = useState([]);
 
   if (checkforCookies === true && cookie.userSaved === "true") {
     setCheckForCookies(false);
@@ -181,6 +183,36 @@ function App() {
       });
   }
 
+  function handleSubjectSubmit(event) {
+    event.preventDefault();
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      sub_id: payload.get("subjectid"),
+      sub_name: payload.get("subjectname"),
+      semester: payload.get("semester"),
+      course: payload.get("courseid"),
+    };
+    fetch("http://192.168.34.129:8000/add-subject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        if (payload.message === "702") {
+          console.log("Subject added successfully.");
+        } else {
+          console.log("There was a problem adding the Subject.");
+        }
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  }
+
   function handleStudentSubmit(event) {
     event.preventDefault();
   }
@@ -234,6 +266,40 @@ function App() {
       });
   }
 
+  function getCourses() {
+    fetch("http://192.168.34.129:8000/get-courses", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setCourses(data.courses);
+          console.log(data.courses);
+        }
+      });
+  }
+
+  function getSubjects() {
+    fetch("http://192.168.34.129:8000/get-subjects", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setSubjects(data.subjects);
+          console.log(data.subjects);
+        }
+      });
+  }
+
   return (
     <div>
       <Header isLoggedIn={isLoggedIn} User={User} logOut={logOut} />
@@ -246,8 +312,13 @@ function App() {
           handleDepartmentSubmit={handleDepartmentSubmit}
           handleTeacherSubmit={handleTeacherSubmit}
           handleStudentSubmit={handleStudentSubmit}
+          handleSubjectSubmit={handleSubjectSubmit}
           getDepartments={getDepartments}
           departments={departments}
+          getCourses={getCourses}
+          courses={courses}
+          getSubjects={getSubjects}
+          subjects={subjects}
         />
       ) : (
         <Home

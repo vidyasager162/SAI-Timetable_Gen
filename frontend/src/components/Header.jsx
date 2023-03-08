@@ -20,14 +20,14 @@ function Header(props) {
 
   props.isLoggedIn
     ? refTime >= 0 && refTime < 12
-      ? (greeting = "Good Morning, " + props.User.firstname)
+      ? (greeting = "Good Morning, " + props.User.name)
       : refTime >= 12 && refTime < 16
-      ? (greeting = "Good Afternoon, " + props.User.firstname)
+      ? (greeting = "Good Afternoon, " + props.User.name)
       : refTime >= 16 && refTime < 20
-      ? (greeting = "Good Evening, " + props.User.firstname)
+      ? (greeting = "Good Evening, " + props.User.name)
       : refTime >= 20 && refTime < 0
-      ? (greeting = "Good Night, " + props.User.firstname)
-      : (greeting = "Good Day, " + props.User.firstname)
+      ? (greeting = "Good Night, " + props.User.name)
+      : (greeting = "Good Day, " + props.User.name)
     : (greeting = "Welcome");
 
   return props.isLoggedIn ? (

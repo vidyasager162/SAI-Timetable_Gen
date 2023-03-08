@@ -1,50 +1,12 @@
-import React from "react";
-import CoursesList from "./CoursesList";
+// import React from "react";
+// import CoursesList from "./CoursesList";
 
-function Courses(props) {
-  const DMC_COURSES = [
-    {
-      id: "dmc1",
-      name: "BBA I",
-    },
-    {
-      id: "dmc2",
-      name: "BBA II",
-    },
-    {
-      id: "dmc3",
-      name: "BBA III",
-    },
-  ];
+// function Courses(props) {
+//   return props.buttonClicked === "DMC" ? (
+//     <CoursesList courses={props.courses} />
+//   ) : props.buttonClicked === "DMACS" ? (
+//     <CoursesList courses={props.courses} />
+//   ) : null;
+// }
 
-  const DMACS_COURSES = [
-    {
-      id: "dmacs1",
-      name: "I BSc",
-    },
-    {
-      id: "dmacs2",
-      name: "II BSc",
-    },
-    {
-      id: "dmacs3",
-      name: "III BSc",
-    },
-    {
-      id: "dmacs4",
-      name: "I MSc",
-    },
-    {
-      id: "dmacs5",
-      name: "II MSc",
-    },
-  ];
-
-  return props.buttonClicked === "DMC" ? (
-    <CoursesList courses={DMC_COURSES} />
-  ) : props.buttonClicked === "DMACS" ? (
-    <CoursesList courses={DMACS_COURSES} />
-  ) : null;
-}
-
-export default Courses;
+// export default Courses;

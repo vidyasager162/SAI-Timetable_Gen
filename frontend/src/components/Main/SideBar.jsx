@@ -68,6 +68,14 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
+            name="Subjects"
+            onClick={props.handleClick}
+          >
+            Subjects
+          </button>
+          <button
+            type="button"
+            className="btn btn-light"
             name="Back"
             onClick={props.handleBack}
           >
@@ -125,7 +133,7 @@ function SideBar(props) {
       </div>
     </div>
   ) : props.clicked === "Courses" ? (
-    props.buttonClicked === "dmc" || props.buttonClicked === "dmacs" ? (
+    props.buttonClicked === "DMC" || props.buttonClicked === "DMACS" ? (
       <div
         className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
         style={{ width: "60%", height: "482px" }}
@@ -174,6 +182,30 @@ function SideBar(props) {
         </div>
       </div>
     )
+  ) : props.clicked === "Subjects" ? (
+    <div
+      className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
+      style={{ width: "60%", height: "482px" }}
+    >
+      <div className="sidebar-buttons">
+        <button
+          type="button"
+          className="btn btn-light"
+          name="Add Subject"
+          onClick={props.handleAddSubject}
+        >
+          Add Subject
+        </button>
+        <button
+          type="button"
+          className="btn btn-light"
+          name="Back"
+          onClick={props.handleUserBack}
+        >
+          Back
+        </button>
+      </div>
+    </div>
   ) : (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
@@ -211,6 +243,14 @@ function SideBar(props) {
           onClick={props.handleClick}
         >
           Courses
+        </button>
+        <button
+          type="button"
+          className="btn btn-light"
+          name="Subjects"
+          onClick={props.handleClick}
+        >
+          Subjects
         </button>
         <button
           type="button"
