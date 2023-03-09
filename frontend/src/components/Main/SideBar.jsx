@@ -2,8 +2,7 @@ import React from "react";
 
 function SideBar(props) {
   return props.clicked === "Schedules" ? (
-    props.buttonClicked === "tschedules" ||
-    props.buttonClicked === "sschedules" ? (
+    props.buttonClicked !== "" ? (
       <div
         className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
         style={{ width: "60%", height: "482px" }}
@@ -133,7 +132,7 @@ function SideBar(props) {
       </div>
     </div>
   ) : props.clicked === "Courses" ? (
-    props.buttonClicked === "DMC" || props.buttonClicked === "DMACS" ? (
+    props.buttonClicked !== "" ? (
       <div
         className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
         style={{ width: "60%", height: "482px" }}
