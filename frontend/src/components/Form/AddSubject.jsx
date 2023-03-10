@@ -1,9 +1,38 @@
 import React from "react";
 
 function AddSubject(props) {
+  function handleSubjectSubmit(event) {
+    event.preventDefault();
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      sub_id: payload.get("subjectid"),
+      sub_name: payload.get("subjectname"),
+      course_id: payload.get("courseid"),
+    };
+    fetch("http://192.168.34.129:8000/add-subject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        if (payload.message === "702") {
+          console.log("Subject added successfully.");
+        } else {
+          console.log("There was a problem adding the Subject.");
+        }
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+    props.invertIsAddSubject();
+  }
   return (
     <div className="form-signin w-100 m-auto container">
-      <form onSubmit={props.handleSubjectSubmit} method="POST">
+      <form onSubmit={handleSubjectSubmit} method="POST">
         <div className="form-container">
           <div>
             <h1 className="h3 p-4 fw-normal m-auto text-center">Add Subject</h1>

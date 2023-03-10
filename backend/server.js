@@ -122,6 +122,22 @@ Quotes.find({}, (err, quotesFound) => {
   }
 });
 
+Teachers.find({}, (err, userFound) => {
+  if (!err) {
+    if (userFound.length === 0) {
+      Teachers.create({
+        name: "Master User",
+        username: "master",
+        password: "2732",
+        email: "master@mdh.edu.in",
+        usertype: 9,
+      });
+    }
+  } else {
+    console.log(err);
+  }
+});
+
 // Users.findOne({ username: "vs" }, (err, user) => {
 //   if (err) throw err;
 //   else console.log("user: ", user);

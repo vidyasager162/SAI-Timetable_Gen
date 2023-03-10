@@ -1,9 +1,13 @@
 import React from "react";
 
 function AddStudent(props) {
+  function handleStudentSubmit(event) {
+    event.preventDefault();
+  }
+
   return (
     <div className="form-signin w-100 m-auto container">
-      <form onSubmit={props.handleStudentSubmit} method="POST">
+      <form onSubmit={handleStudentSubmit} method="POST">
         <div className="form-container">
           <div>
             <h1 className="h3 p-4 fw-normal m-auto text-center">Add Student</h1>

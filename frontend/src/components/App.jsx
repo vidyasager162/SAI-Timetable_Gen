@@ -15,16 +15,7 @@ function App() {
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
   const [quotation, setQuotation] = useState("");
-  //const [password, setPassword] = useState("");
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
-  const [departments, setDepartments] = useState([]);
-  const [courses, setCourses] = useState([]);
-  const [subjects, setSubjects] = useState([]);
-  const [isAddDepartment, setIsAddDepartment] = useState(false);
-  const [isAddSubject, setIsAddSubject] = useState(false);
-  const [isAddCourse, setIsAddCourse] = useState(false);
-  const [isAddTeacher, setIsAddTeacher] = useState(false);
-  const [isAddStudent, setIsAddStudent] = useState(false);
 
   if (checkforCookies === true && cookie.userSaved === "true") {
     setCheckForCookies(false);
@@ -51,46 +42,6 @@ function App() {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }
-
-  function handleAddDepartment() {
-    setIsAddDepartment(true);
-  }
-
-  function invertIsAddDepartment() {
-    setIsAddDepartment(false);
-  }
-
-  function handleAddCourse() {
-    setIsAddCourse(true);
-  }
-
-  function invertIsAddCourse() {
-    setIsAddCourse(false);
-  }
-
-  function handleAddSubject() {
-    setIsAddSubject(true);
-  }
-
-  function invertIsAddSubject() {
-    setIsAddSubject(false);
-  }
-
-  function handleAddTeacher() {
-    setIsAddTeacher(true);
-  }
-
-  function invertIsAddTeacher() {
-    setIsAddTeacher(false);
-  }
-
-  function handleAddStudent() {
-    setIsAddStudent(true);
-  }
-
-  function invertIsAddStudent() {
-    setIsAddStudent(false);
   }
 
   function handleUser(userType) {
@@ -148,15 +99,6 @@ function App() {
       });
   }
 
-  /*function handleUsername(event) {
-    setUsername(event.target.value);
-  }
-
-  function handlePassword(event) {
-    setPassword(event.target.value);
-    console.log(password);
-  }*/
-
   //Passed to Home component and Header component to accomodate logout by the user.
   function invertIsLoggedIn() {
     setIsLoggedIn((prev) => {
@@ -199,189 +141,11 @@ function App() {
       });
   }
 
-  function handleCourseSubmit(event) {
-    event.preventDefault();
-    const payload = new FormData(event.currentTarget);
-    const reqPayload = {
-      course_id: payload.get("courseid"),
-      course_name: payload.get("coursename"),
-      dept_id: payload.get("deptid"),
-    };
-    fetch("http://192.168.34.129:8000/add-course", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(reqPayload),
-    })
-      .then((res) => res.json())
-      .then((payload) => {
-        if (payload.message === "702") {
-          console.log("Course added successfully.");
-        } else {
-          console.log("There was a problem adding the Course.");
-        }
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
-    invertIsAddCourse();
-  }
-
-  function handleSubjectSubmit(event) {
-    event.preventDefault();
-    const payload = new FormData(event.currentTarget);
-    const reqPayload = {
-      sub_id: payload.get("subjectid"),
-      sub_name: payload.get("subjectname"),
-      course_id: payload.get("courseid"),
-    };
-    fetch("http://192.168.34.129:8000/add-subject", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(reqPayload),
-    })
-      .then((res) => res.json())
-      .then((payload) => {
-        if (payload.message === "702") {
-          console.log("Subject added successfully.");
-        } else {
-          console.log("There was a problem adding the Subject.");
-        }
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
-    invertIsAddSubject();
-  }
-
-  function handleStudentSubmit(event) {
-    event.preventDefault();
-  }
-
-  function handleTeacherSubmit(event) {
-    event.preventDefault();
-  }
-
-  function handleDepartmentSubmit(event) {
-    event.preventDefault();
-    const payload = new FormData(event.currentTarget);
-    const reqPayload = {
-      dept_id: payload.get("deptid"),
-      dept_name: payload.get("deptname"),
-    };
-    fetch("http://192.168.34.129:8000/add-department", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(reqPayload),
-    })
-      .then((res) => res.json())
-      .then((payload) => {
-        if (payload.message === "702") {
-          console.log("Department added successfully.");
-        } else {
-          console.log("There was a problem adding the Department.");
-        }
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
-    invertIsAddDepartment();
-  }
-
-  function getDepartments() {
-    fetch("http://192.168.34.129:8000/get-departments", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setDepartments(data.departments);
-          console.log(data.departments);
-        }
-      });
-  }
-
-  function getCourses() {
-    fetch("http://192.168.34.129:8000/get-courses", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setCourses(data.courses);
-          console.log(data.courses);
-        }
-      });
-  }
-
-  function getSubjects() {
-    fetch("http://192.168.34.129:8000/get-subjects", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setSubjects(data.subjects);
-          console.log(data.subjects);
-        }
-      });
-  }
-
   return (
     <div>
       <Header isLoggedIn={isLoggedIn} User={User} logOut={logOut} />
       {isLoggedIn ? (
-        <Main
-          isAdmin={isAdmin}
-          isTeacher={isTeacher}
-          isStudent={isStudent}
-          isAddDepartment={isAddDepartment}
-          isAddCourse={isAddCourse}
-          isAddSubject={isAddSubject}
-          isAddTeacher={isAddTeacher}
-          isAddStudent={isAddStudent}
-          handleAddDepartment={handleAddDepartment}
-          invertIsAddDepartment={invertIsAddDepartment}
-          handleAddCourse={handleAddCourse}
-          invertIsAddCourse={invertIsAddCourse}
-          handleAddSubject={handleAddSubject}
-          invertIsAddSubject={invertIsAddSubject}
-          handleAddTeacher={handleAddTeacher}
-          invertIsAddTeacher={invertIsAddTeacher}
-          handleAddStudent={handleAddStudent}
-          invertIsAddStudent={invertIsAddStudent}
-          handleCourseSubmit={handleCourseSubmit}
-          handleDepartmentSubmit={handleDepartmentSubmit}
-          handleTeacherSubmit={handleTeacherSubmit}
-          handleStudentSubmit={handleStudentSubmit}
-          handleSubjectSubmit={handleSubjectSubmit}
-          getDepartments={getDepartments}
-          departments={departments}
-          getCourses={getCourses}
-          courses={courses}
-          getSubjects={getSubjects}
-          subjects={subjects}
-        />
+        <Main isAdmin={isAdmin} isTeacher={isTeacher} isStudent={isStudent} />
       ) : (
         <Home
           handleLogin={handleLogin}

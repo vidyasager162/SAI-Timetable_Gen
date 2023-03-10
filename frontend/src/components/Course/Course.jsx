@@ -1,16 +1,51 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function Course(props) {
+  const [departments, setDepartments] = useState([]);
+  const [courses, setCourses] = useState([]);
+  function getDepartments() {
+    fetch("http://192.168.34.129:8000/get-departments", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setDepartments(data.departments);
+          console.log(data.departments);
+        }
+      });
+  }
+
+  function getCourses() {
+    fetch("http://192.168.34.129:8000/get-courses", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setCourses(data.courses);
+          console.log(data.courses);
+        }
+      });
+  }
+
   useEffect(() => {
-    props.getDepartments();
-    props.getCourses();
+    getDepartments();
+    getCourses();
     // eslint-disable-next-line
   }, []);
-
-  return props.departments.map((department) => {
+  return departments.map((department) => {
     console.log("inside the first map");
     return props.buttonClicked === department.dept_id ? (
-      props.courses
+      courses
         .filter((course) => course.dept_id === department.dept_id)
         .map((filteredCourse) => {
           return (
