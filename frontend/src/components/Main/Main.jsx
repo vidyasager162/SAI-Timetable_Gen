@@ -10,6 +10,7 @@ import AddDepartment from "../Form/AddDepartment";
 import AddTeacher from "../Form/AddTeacher";
 import AddStudent from "../Form/AddStudent";
 import AddSubject from "../Form/AddSubject";
+import CreateSchedule from "../Form/CreateSchedule";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
@@ -19,6 +20,7 @@ function Main(props) {
   const [isAddCourse, setIsAddCourse] = useState(false);
   const [isAddTeacher, setIsAddTeacher] = useState(false);
   const [isAddStudent, setIsAddStudent] = useState(false);
+  const [isCreateSchedule, setIsCreateSchedule] = useState(false);
 
   function handleAddDepartment() {
     setIsAddDepartment(true);
@@ -60,6 +62,14 @@ function Main(props) {
     setIsAddStudent(false);
   }
 
+  function handleCreateSchedule() {
+    setIsCreateSchedule(true);
+  }
+
+  function invertIsCreateSchedule() {
+    setIsCreateSchedule(false);
+  }
+
   function handleClick(event) {
     setClicked(event.target.name);
   }
@@ -89,10 +99,7 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddDepartment
-              invertIsAddDepartment={invertIsAddDepartment}
-              handleAddDepartment={handleAddDepartment}
-            />
+            <AddDepartment invertIsAddDepartment={invertIsAddDepartment} />
           </div>
         </div>
       </div>
@@ -120,6 +127,14 @@ function Main(props) {
           </div>
         </div>
       </div>
+    ) : isCreateSchedule ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <CreateSchedule invertIsCreateSchedule={invertIsCreateSchedule} />
+          </div>
+        </div>
+      </div>
     ) : (
       <div className="container-fluid p-0">
         <div className="row main-container">
@@ -135,6 +150,7 @@ function Main(props) {
               handleAddTeacher={handleAddTeacher}
               handleAddStudent={handleAddStudent}
               handleAddSubject={handleAddSubject}
+              handleCreateSchedule={handleCreateSchedule}
             />
           </div>
           <div className="col my-col">
@@ -145,9 +161,9 @@ function Main(props) {
                   buttonClicked={buttonClicked}
                 />
               ) : clicked === "Teachers" ? (
-                <User />
+                <User clicked={clicked} />
               ) : clicked === "Students" ? (
-                <User />
+                <User clicked={clicked} />
               ) : clicked === "Courses" ? (
                 <Course
                   handleButtonClick={handleButtonClick}

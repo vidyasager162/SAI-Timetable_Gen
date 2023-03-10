@@ -143,6 +143,30 @@ Teachers.find({}, (err, userFound) => {
 //   else console.log("user: ", user);
 // });
 
+app.get("/get-teachers", (req, res) => {
+  Teachers.find({}, (err, teachers) => {
+    if (err) throw err;
+    else if (teachers) {
+      res.send({
+        message: "902",
+        teachers: teachers,
+      });
+    }
+  });
+});
+
+app.get("/get-students", (req, res) => {
+  Students.find({}, (err, students) => {
+    if (err) throw err;
+    else if (students) {
+      res.send({
+        message: "902",
+        students: students,
+      });
+    }
+  });
+});
+
 app.get("/gen-quote", (req, res) => {
   let number = Math.floor(Math.random() * 10);
   Quotes.findOne({ quote_id: number }, (err, quoteFound) => {
@@ -338,6 +362,61 @@ app.post("/add-subject", (req, res) => {
       }
     }
   );
+});
+
+app.post("/add-teacher", (req, res) => {
+  Teachers.create(
+    {
+      name: req.body.name,
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      coursesTaught: req.body.coursesTaught,
+      subjectsTaught: req.body.subjectsTaught,
+      department: req.body.department,
+      usertype: req.body.usertype,
+    },
+    (err) => {
+      if (err) throw err;
+      else {
+        console.log(req.body);
+        res.send({
+          message: "702",
+        });
+      }
+    }
+  );
+});
+
+app.post("/add-student", (req, res) => {
+  Students.create(
+    {
+      name: req.body.name,
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      course: req.body.course,
+      subjects: req.body.subjects,
+      department: req.body.department,
+      usertype: req.body.usertype,
+    },
+    (err) => {
+      if (err) throw err;
+      else {
+        console.log(req.body);
+        res.send({
+          message: "702",
+        });
+      }
+    }
+  );
+});
+
+app.post("/create-schedule", (req, res) => {
+  console.log(req.body);
+  res.send({
+    message: "702",
+  });
 });
 
 app.listen(8000, () => {

@@ -1,77 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserList from "./UserList";
 
 function User(props) {
-  // const USERS = [
-  //   {
-  //     id: "u1",
-  //     name: "Vidyasager",
-  //     class: "III BSc",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u2",
-  //     name: "Rituraj Pradhan",
-  //     class: "III BSc",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u3",
-  //     name: "Vignesh Sai Sankalp Sham",
-  //     class: "III BSc",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u4",
-  //     name: "Suman Chettri",
-  //     class: "III BBA",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u5",
-  //     name: "Agaventi Bhargav",
-  //     class: "III BBA",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u6",
-  //     name: "Harshit Goyal",
-  //     class: "II BBA",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u7",
-  //     name: "Saish Hebbar",
-  //     class: "III BBA",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u8",
-  //     name: "Siva Rama Varma",
-  //     class: "III BSc",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u2",
-  //     name: "Rituraj Pradhan",
-  //     class: "III BSc",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u2",
-  //     name: "Rituraj Pradhan",
-  //     class: "III BSc",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  //   {
-  //     id: "u2",
-  //     name: "Rituraj Pradhan",
-  //     class: "III BSc",
-  //     img: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358__340.jpg",
-  //   },
-  // ];
+  const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
 
-  return <UserList users={props.users} />;
+  function getTeachers() {
+    fetch("http://192.168.34.129:8000/get-teachers", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setTeachers(data.teachers);
+        }
+      });
+  }
+
+  function getStudents() {
+    fetch("http://192.168.34.129:8000/get-students", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setStudents(data.students);
+        }
+      });
+  }
+
+  useEffect(() => {
+    getTeachers();
+    getStudents();
+  }, []);
+
+  return props.clicked === "Teachers" ? (
+    <UserList users={teachers} />
+  ) : (
+    <UserList users={students} />
+  );
 }
 
 export default User;

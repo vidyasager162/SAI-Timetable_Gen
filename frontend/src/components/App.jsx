@@ -14,7 +14,6 @@ function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
-  const [quotation, setQuotation] = useState("");
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
 
   if (checkforCookies === true && cookie.userSaved === "true") {
@@ -82,23 +81,6 @@ function App() {
     setIsTeacher(false);
   }
 
-  function generateQuote() {
-    fetch("http://192.168.34.129:8000/gen-quote", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setQuotation(data.quote.quote);
-          console.log(data);
-        }
-      });
-  }
-
   //Passed to Home component and Header component to accomodate logout by the user.
   function invertIsLoggedIn() {
     setIsLoggedIn((prev) => {
@@ -147,12 +129,7 @@ function App() {
       {isLoggedIn ? (
         <Main isAdmin={isAdmin} isTeacher={isTeacher} isStudent={isStudent} />
       ) : (
-        <Home
-          handleLogin={handleLogin}
-          handleUser={handleUser}
-          generateQuote={generateQuote}
-          quotation={quotation}
-        />
+        <Home handleLogin={handleLogin} handleUser={handleUser} />
       )}
       {isLoggedIn ? null : <Footer />}
     </div>

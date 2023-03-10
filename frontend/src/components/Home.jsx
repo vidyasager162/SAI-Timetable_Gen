@@ -1,9 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./Login";
 
 function Home(props) {
+  const [quotation, setQuotation] = useState("");
+
+  function generateQuote() {
+    fetch("http://192.168.34.129:8000/gen-quote", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setQuotation(data.quote.quote);
+          console.log(data);
+        }
+      });
+  }
+
   useEffect(() => {
-    props.generateQuote();
+    generateQuote();
   });
   return (
     <div className="container col-xxl-8 px-4 py-3">
@@ -21,7 +40,7 @@ function Home(props) {
               className="btn btn-primary btn-lg px-4 me-md-2 quote-container"
               onClick={props.generateQuote}
             >
-              <p className="quote">{'"' + props.quotation + '"'}</p>
+              <p className="quote">{'"' + quotation + '"'}</p>
             </button>
           </div>
           {/*</div>*/}
