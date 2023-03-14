@@ -11,6 +11,8 @@ import AddTeacher from "../Form/AddTeacher";
 import AddStudent from "../Form/AddStudent";
 import AddSubject from "../Form/AddSubject";
 import CreateSchedule from "../Form/CreateSchedule";
+import Teacher from "../Teacher";
+import Student from "../Student";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
@@ -180,172 +182,9 @@ function Main(props) {
       </div>
     )
   ) : props.isTeacher ? (
-    <div className="container-fluid p-0">
-      <div className="row main-container">
-        <div className="col">
-          <div className="container timetable-container table-responsive">
-            <div className="timetable-inner rounded">
-              <table className="table-bordered m-auto">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">1</th>
-                    <th scope="col">2</th>
-                    <th scope="col">3</th>
-                    <th scope="col">4</th>
-                    <th scope="col">5</th>
-                    <th scope="col">6</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Monday</th>
-                    <td>UCSH-601</td>
-                    <td>Project</td>
-                    <td>UCSH-603</td>
-                    <td>UCSH-602</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-604</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Tuesday</th>
-                    <td>UCSH-601</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-604</td>
-                    <td>UAWR-600</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Wednesday</th>
-                    <td>Project</td>
-                    <td>UCSH-603</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Thursday</th>
-                    <td>Moral Class</td>
-                    <td>UAWR-600</td>
-                    <td>UCSH-602</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-601</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Friday</th>
-                    <td>UCSH-603</td>
-                    <td>UCSH-601</td>
-                    <td>Project</td>
-                    <td>UCSH-602</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Saturday</th>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Teacher User={props.User} />
   ) : props.isStudent ? (
-    <div className="container-fluid p-0">
-      <div className="row main-container">
-        <div className="col">
-          <div className="container timetable-container table-responsive">
-            <div className="timetable-inner rounded">
-              <table className="table-bordered m-auto">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">1</th>
-                    <th scope="col">2</th>
-                    <th scope="col">3</th>
-                    <th scope="col">4</th>
-                    <th scope="col">5</th>
-                    <th scope="col">6</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Monday</th>
-                    <td>UCSH-601</td>
-                    <td>Project</td>
-                    <td>UCSH-603</td>
-                    <td>UCSH-602</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-604</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Tuesday</th>
-                    <td>UCSH-601</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-604</td>
-                    <td>UAWR-600</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Wednesday</th>
-                    <td>Project</td>
-                    <td>UCSH-603</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Thursday</th>
-                    <td>Moral Class</td>
-                    <td>UAWR-600</td>
-                    <td>UCSH-602</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-604</td>
-                    <td>UCSH-601</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Friday</th>
-                    <td>UCSH-603</td>
-                    <td>UCSH-601</td>
-                    <td>Project</td>
-                    <td>UCSH-602</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Saturday</th>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                    <td>Project</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row actions-container text-center">
-        <div className="col">
-          <button type="button" className="btn btn-primary">
-            Download
-          </button>
-        </div>
-      </div>
-    </div>
+    <Student User={props.User} />
   ) : null;
 }
 

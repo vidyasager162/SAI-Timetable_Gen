@@ -100,6 +100,11 @@ const studentSchema = new mongoose.Schema({
   cookieID: String,
 });
 
+const scheduleSchema = new mongoose.Schema({
+  schedule_id: String,
+  schedule: [[String]],
+});
+
 const quoteSchema = new mongoose.Schema({
   quote_id: Number,
   quote: String,
@@ -110,7 +115,21 @@ const Courses = mongoose.model("course", courseSchema);
 const Subjects = mongoose.model("subject", subjectSchema);
 const Teachers = mongoose.model("teacher", teacherSchema);
 const Students = mongoose.model("student", studentSchema);
+const teacherSchedules = mongoose.model("teacherSchedule", scheduleSchema);
+const studentSchedules = mongoose.model("studentSchedule", scheduleSchema);
 const Quotes = mongoose.model("quote", quoteSchema);
+
+// studentSchedules.create({
+//   schedule_id: "III BSc",
+//   schedule: [
+//     ["UCSH-602", "Project", "UCSH-603", "UCSH-602", "UCSH-604", "UCSH-604"],
+//     ["UCSH-602", "Project", "Project", "UCSH-604", "UCSH-604", "UAWR-600"],
+//     ["Project", "UCSH-603", "Project", "Project", "Project", "Project"],
+//     ["Moral Class", "UAWR-600", "UCSH-601", "UCSH-604", "UCSH-604", "UCSH-602"],
+//     ["UCSH-603", "UCSH-602", "Project", "UCSH-601", "Project", "Project"],
+//     ["UCSH-605", "UCSH-605", "UCSH-605", "Project", "Project", "Project"],
+//   ],
+// });
 
 Quotes.find({}, (err, quotesFound) => {
   if (!err) {
@@ -211,6 +230,30 @@ app.get("/get-subjects", (req, res) => {
       res.send({
         message: "902",
         subjects: subjectsFound,
+      });
+    }
+  });
+});
+
+app.get("/get-teacherschedules", (req, res) => {
+  teacherSchedules.find((err, schedulesFound) => {
+    if (err) throw err;
+    else if (schedulesFound) {
+      res.send({
+        message: "902",
+        teacherschedules: schedulesFound,
+      });
+    }
+  });
+});
+
+app.get("/get-studentschedules", (req, res) => {
+  studentSchedules.find((err, schedulesFound) => {
+    if (err) throw err;
+    else if (schedulesFound) {
+      res.send({
+        message: "902",
+        studentschedules: schedulesFound,
       });
     }
   });
@@ -406,6 +449,36 @@ app.post("/add-student", (req, res) => {
         console.log(req.body);
         res.send({
           message: "702",
+        });
+      }
+    }
+  );
+});
+
+app.post("/request-studentschedule", (req, res) => {
+  studentSchedules.find(
+    { schedule_id: req.body.schedule_id },
+    (err, scheduleFound) => {
+      if (err) throw err;
+      else if (scheduleFound) {
+        res.send({
+          message: "902",
+          schedule: scheduleFound,
+        });
+      }
+    }
+  );
+});
+
+app.post("/request-teacherschedule", (req, res) => {
+  teacherSchedules.find(
+    { schedule_id: req.body.schedule_id },
+    (err, scheduleFound) => {
+      if (err) throw err;
+      else if (scheduleFound) {
+        res.send({
+          message: "902",
+          schedule: scheduleFound,
         });
       }
     }

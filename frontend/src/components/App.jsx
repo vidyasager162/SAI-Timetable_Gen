@@ -127,7 +127,12 @@ function App() {
     <div>
       <Header isLoggedIn={isLoggedIn} User={User} logOut={logOut} />
       {isLoggedIn ? (
-        <Main isAdmin={isAdmin} isTeacher={isTeacher} isStudent={isStudent} />
+        <Main
+          isAdmin={isAdmin}
+          isTeacher={isTeacher}
+          isStudent={isStudent}
+          User={User}
+        />
       ) : (
         <Home handleLogin={handleLogin} handleUser={handleUser} />
       )}

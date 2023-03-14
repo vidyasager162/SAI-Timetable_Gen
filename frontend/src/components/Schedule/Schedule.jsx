@@ -1,12 +1,83 @@
-import React from "react";
-import Schedules from "./Schedules";
+import React, { useEffect, useState } from "react";
 
 function Schedule(props) {
+  const [teacherSchedules, setTeacherSchedules] = useState([]);
+  const [studentSchedules, setStudentSchedules] = useState([]);
+  function getTeacherSchedules() {
+    fetch("http://192.168.34.129:8000/get-teacherschedules", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setTeacherSchedules(data.teacherschedules);
+          console.log(data.teacherschedules);
+        }
+      });
+  }
+
+  function getStudentSchedules() {
+    fetch("http://192.168.34.129:8000/get-studentschedules", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setStudentSchedules(data.studentschedules);
+          console.log(data.studentschedules);
+        }
+      });
+  }
+
+  useEffect(() => {
+    getTeacherSchedules();
+    getStudentSchedules();
+    // eslint-disable-next-line
+  }, []);
+
   return props.buttonClicked === "tschedules" ? (
-    <Schedules buttonClicked={props.buttonClicked} />
+    teacherSchedules.map((teacherSchedule) => {
+      return (
+        <div className="col mybtn">
+          <button
+            key={teacherSchedule.id}
+            id={teacherSchedule.id}
+            type="button"
+            className="btn btn-primary btn-lg"
+            name={teacherSchedule.schedule_id}
+          >
+            {" "}
+            {teacherSchedule.schedule_id}
+          </button>
+        </div>
+      );
+    })
   ) : props.buttonClicked === "sschedules" ? (
-    <Schedules buttonClicked={props.buttonClicked} />
-  ) : (
+    studentSchedules.map((studentSchedule) => {
+      return (
+        <div className="col mybtn">
+          <button
+            key={studentSchedule.id}
+            id={studentSchedule.id}
+            type="button"
+            className="btn btn-primary btn-lg"
+            name={studentSchedule.schedule_id}
+          >
+            {" "}
+            {studentSchedule.schedule_id}
+          </button>
+        </div>
+      );
+    })
+  ) : props.buttonClicked === "" ? (
     <>
       <div className="col mybtn">
         <button
@@ -29,7 +100,7 @@ function Schedule(props) {
         </button>
       </div>
     </>
-  );
+  ) : null;
 }
 
 export default Schedule;
