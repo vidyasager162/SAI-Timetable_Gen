@@ -24,6 +24,24 @@ function Main(props) {
   const [isAddStudent, setIsAddStudent] = useState(false);
   const [isCreateSchedule, setIsCreateSchedule] = useState(false);
 
+  const [subjects, setSubjects] = useState([]);
+  function getSubjects() {
+    fetch("http://192.168.34.129:8000/get-subjects", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setSubjects(data.subjects);
+          console.log(data.subjects);
+        }
+      });
+  }
+
   function handleAddDepartment() {
     setIsAddDepartment(true);
   }
@@ -133,7 +151,11 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <CreateSchedule invertIsCreateSchedule={invertIsCreateSchedule} />
+            <CreateSchedule
+              invertIsCreateSchedule={invertIsCreateSchedule}
+              subjects={subjects}
+              getSubjects={getSubjects}
+            />
           </div>
         </div>
       </div>
@@ -172,7 +194,7 @@ function Main(props) {
                   buttonClicked={buttonClicked}
                 />
               ) : clicked === "Subjects" ? (
-                <Subject />
+                <Subject subjects={subjects} getSubjects={getSubjects} />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>
               )}

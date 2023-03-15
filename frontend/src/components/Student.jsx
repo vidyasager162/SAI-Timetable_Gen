@@ -4,6 +4,7 @@ function Student(props) {
   //eslint-disable-next-line
   const [studentSchedule, setStudentSchedule] = useState([]);
   const [scheduleReady, setReady] = useState(false);
+  const headings = ["#", "1", "2", "3", "4", "5", "6"];
   const days = [
     "Monday",
     "Tuesday",
@@ -50,16 +51,12 @@ function Student(props) {
         <div className="col">
           <div className="container timetable-container table-responsive">
             <div className="timetable-inner rounded">
-              <table className="table-bordered m-auto">
+              <table className="table table-light table-bordered m-auto">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">1</th>
-                    <th scope="col">2</th>
-                    <th scope="col">3</th>
-                    <th scope="col">4</th>
-                    <th scope="col">5</th>
-                    <th scope="col">6</th>
+                    {headings.map((heading) => {
+                      return <th scope="col">{heading}</th>;
+                    })}
                   </tr>
                 </thead>
                 <tbody>

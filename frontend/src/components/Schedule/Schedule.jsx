@@ -54,7 +54,6 @@ function Schedule(props) {
             className="btn btn-primary btn-lg"
             name={teacherSchedule.schedule_id}
           >
-            {" "}
             {teacherSchedule.schedule_id}
           </button>
         </div>
@@ -71,7 +70,6 @@ function Schedule(props) {
             className="btn btn-primary btn-lg"
             name={studentSchedule.schedule_id}
           >
-            {" "}
             {studentSchedule.schedule_id}
           </button>
         </div>

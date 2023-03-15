@@ -131,6 +131,18 @@ const Quotes = mongoose.model("quote", quoteSchema);
 //   ],
 // });
 
+// teacherSchedules.create({
+//   schedule_id: "psk",
+//   schedule: [
+//     ["UCSH-402", "Project", "UCSH-403", "UCSH-402", "UCSH-404", "UCSH-404"],
+//     ["UCSH-402", "Project", "Project", "UCSH-404", "UCSH-404", "UAWR-400"],
+//     ["Project", "UCSH-403", "Project", "Project", "Project", "Project"],
+//     ["Moral Class", "UAWR-400", "UCSH-401", "UCSH-404", "UCSH-404", "UCSH-402"],
+//     ["UCSH-403", "UCSH-402", "Project", "UCSH-401", "Project", "Project"],
+//     ["UCSH-405", "UCSH-405", "UCSH-405", "Project", "Project", "Project"],
+//   ],
+// });
+
 Quotes.find({}, (err, quotesFound) => {
   if (!err) {
     if (quotesFound.length === 0) {
@@ -487,6 +499,7 @@ app.post("/request-teacherschedule", (req, res) => {
 
 app.post("/create-schedule", (req, res) => {
   console.log(req.body);
+  teacherSchedules.find({ schedule_id: req.body.schedule_id });
   res.send({
     message: "702",
   });

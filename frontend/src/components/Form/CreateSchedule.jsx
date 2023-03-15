@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function CreateSchedule(props) {
+  useEffect(() => {
+    props.getSubjects();
+    // eslint-disable-next-line
+  }, []);
+
+  const headings = ["#", "1", "2", "3", "4", "5", "6"];
+
+  const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
   function handleScheduleSubmit(event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
+    const schedule = [
+      payload.getAll("Monday"),
+      payload.getAll("Tuesday"),
+      payload.getAll("Wednesday"),
+      payload.getAll("Thursday"),
+      payload.getAll("Friday"),
+      payload.getAll("Saturday"),
+    ];
     const reqPayload = {
       schedule_id: payload.get("teacherid"),
-      monday: payload.get("monday").split(","),
-      tuesday: payload.get("tuesday").split(","),
-      wednesday: payload.get("wednesday").split(","),
-      thursday: payload.get("thursday").split(","),
-      friday: payload.get("friday").split(","),
-      saturday: payload.get("saturday").split(","),
+      schedule: schedule,
     };
     fetch("http://192.168.34.129:8000/create-schedule", {
       method: "POST",
@@ -34,6 +53,7 @@ function CreateSchedule(props) {
       });
     props.invertIsCreateSchedule();
   }
+
   return (
     <div className="form-signin w-100 m-auto container">
       <form onSubmit={handleScheduleSubmit} method="POST">
@@ -53,95 +73,42 @@ function CreateSchedule(props) {
             />
             <label htmlFor="floatingInput">Teacher ID</label>
           </div>
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Monday</h1>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Enter the subjects to be taken [separate by commas]"
-              name="monday"
-            />
-            <label htmlFor="floatingInput">
-              Enter the subjects to be taken [separate by commas]
-            </label>
-          </div>
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Tuesday</h1>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Enter the subjects to be taken [separate by commas]"
-              name="tuesday"
-            />
-            <label htmlFor="floatingInput">
-              Enter the subjects to be taken [separate by commas]
-            </label>
-          </div>
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Wednesday</h1>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Enter the subjects to be taken [separate by commas]"
-              name="wednesday"
-            />
-            <label htmlFor="floatingInput">
-              Enter the subjects to be taken [separate by commas]
-            </label>
-          </div>
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Thursday</h1>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Enter the subjects to be taken [separate by commas]"
-              name="thursday"
-            />
-            <label htmlFor="floatingInput">
-              Enter the subjects to be taken [separate by commas]
-            </label>
-          </div>
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Friday</h1>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Enter the subjects to be taken [separate by commas]"
-              name="friday"
-            />
-            <label htmlFor="floatingInput">
-              Enter the subjects to be taken [separate by commas]
-            </label>
-          </div>
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Saturday</h1>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Enter the subjects to be taken [separate by commas]"
-              name="saturday"
-            />
-            <label htmlFor="floatingInput">
-              Enter the subjects to be taken [separate by commas]
-            </label>
+          <div className="container timetable-container table-responsive">
+            <div className="timetable-inner rounded">
+              <table className="table table-sm table-secondary table-bordered m-auto">
+                <thead>
+                  <tr>
+                    {headings.map((heading) => {
+                      return <th scope="col">{heading}</th>;
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {days.map((outerDay) => {
+                    return (
+                      <tr>
+                        <th scope="row">{outerDay}</th>
+                        {days.map((innerDay) => {
+                          return (
+                            <td>
+                              <select name={outerDay}>
+                                {props.subjects.map((subject) => {
+                                  return (
+                                    <option value={subject.sub_id}>
+                                      {subject.sub_id}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
           <div className="text-align-center">
             <button className="btn btn-lg btn-primary login-button">Add</button>
