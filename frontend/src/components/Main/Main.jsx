@@ -23,8 +23,12 @@ function Main(props) {
   const [isAddTeacher, setIsAddTeacher] = useState(false);
   const [isAddStudent, setIsAddStudent] = useState(false);
   const [isCreateSchedule, setIsCreateSchedule] = useState(false);
+  const [teacherClicked, setTeacherClicked] = useState("");
 
+  const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
   const [subjects, setSubjects] = useState([]);
+
   function getSubjects() {
     fetch("http://192.168.34.129:8000/get-subjects", {
       method: "GET",
@@ -38,6 +42,38 @@ function Main(props) {
         if (data.message === "902") {
           setSubjects(data.subjects);
           console.log(data.subjects);
+        }
+      });
+  }
+
+  function getTeachers() {
+    fetch("http://192.168.34.129:8000/get-teachers", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setTeachers(data.teachers);
+        }
+      });
+  }
+
+  function getStudents() {
+    fetch("http://192.168.34.129:8000/get-students", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setStudents(data.students);
         }
       });
   }
@@ -152,9 +188,13 @@ function Main(props) {
         <div className="row main-container">
           <div className="col my-col">
             <CreateSchedule
+              teacherClicked={teacherClicked}
+              setTeacherClicked={setTeacherClicked}
               invertIsCreateSchedule={invertIsCreateSchedule}
               subjects={subjects}
               getSubjects={getSubjects}
+              teachers={teachers}
+              getTeachers={getTeachers}
             />
           </div>
         </div>
@@ -185,9 +225,17 @@ function Main(props) {
                   buttonClicked={buttonClicked}
                 />
               ) : clicked === "Teachers" ? (
-                <User clicked={clicked} />
+                <User
+                  clicked={clicked}
+                  getTeachers={getTeachers}
+                  teachers={teachers}
+                />
               ) : clicked === "Students" ? (
-                <User clicked={clicked} />
+                <User
+                  clicked={clicked}
+                  getStudents={getStudents}
+                  students={students}
+                />
               ) : clicked === "Courses" ? (
                 <Course
                   handleButtonClick={handleButtonClick}

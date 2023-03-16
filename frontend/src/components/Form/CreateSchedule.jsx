@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 function CreateSchedule(props) {
   useEffect(() => {
     props.getSubjects();
+    props.getTeachers();
     // eslint-disable-next-line
   }, []);
 
@@ -52,9 +53,10 @@ function CreateSchedule(props) {
         console.log("Error: ", error);
       });
     props.invertIsCreateSchedule();
+    props.setTeacherClicked("");
   }
 
-  return (
+  return props.teacherClicked !== "" ? (
     <div className="form-signin w-100 m-auto container">
       <form onSubmit={handleScheduleSubmit} method="POST">
         <div className="form-container">
@@ -74,7 +76,7 @@ function CreateSchedule(props) {
             <label htmlFor="floatingInput">Teacher ID</label>
           </div>
           <div className="container timetable-container table-responsive">
-            <div className="timetable-inner rounded">
+            <div className="timetable-inner">
               <table className="table table-sm table-secondary table-bordered m-auto">
                 <thead>
                   <tr>
@@ -91,7 +93,11 @@ function CreateSchedule(props) {
                         {days.map((innerDay) => {
                           return (
                             <td>
-                              <select name={outerDay}>
+                              <select
+                                className="form-select"
+                                style={{ width: "auto" }}
+                                name={outerDay}
+                              >
                                 {props.subjects.map((subject) => {
                                   return (
                                     <option value={subject.sub_id}>
@@ -122,6 +128,26 @@ function CreateSchedule(props) {
           </div>
         </div>
       </form>
+    </div>
+  ) : (
+    <div className="container-fluid m-auto">
+      <div className="row main-container">
+        {props.teachers.map((teacher) => {
+          return (
+            <div className="col mybtn">
+              <button
+                key={teacher.id}
+                id={teacher.id}
+                type="button"
+                className="btn btn-primary btn-lg"
+                name={teacher.username}
+              >
+                {teacher.name}
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
