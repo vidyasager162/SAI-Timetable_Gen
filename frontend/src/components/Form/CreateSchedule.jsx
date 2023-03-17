@@ -18,6 +18,11 @@ function CreateSchedule(props) {
     "Saturday",
   ];
 
+  function handleTeacher(event) {
+    event.preventDefault();
+    props.setTeacherClicked(event.target.name);
+  }
+
   function handleScheduleSubmit(event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
@@ -59,21 +64,14 @@ function CreateSchedule(props) {
   return props.teacherClicked !== "" ? (
     <div className="form-signin w-100 m-auto container">
       <form onSubmit={handleScheduleSubmit} method="POST">
-        <div className="form-container">
+        <div className="schedule-form-container">
           <div>
             <h1 className="h3 p-4 fw-normal m-auto text-center">
               Create Schedule
             </h1>
           </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Teacher ID"
-              name="teacherid"
-            />
-            <label htmlFor="floatingInput">Teacher ID</label>
+          <div>
+            <h3 className="fw-normal m-auto text-center">{props.teacher}</h3>
           </div>
           <div className="container timetable-container table-responsive">
             <div className="timetable-inner">
@@ -117,11 +115,14 @@ function CreateSchedule(props) {
             </div>
           </div>
           <div className="text-align-center">
-            <button className="btn btn-lg btn-primary login-button">Add</button>
+            <button className="btn btn-lg btn-primary add-button">Add</button>
             <button
               type="button"
               className="btn btn-lg btn-primary login-button"
-              onClick={props.invertIsCreateSchedule}
+              onClick={() => {
+                props.invertIsCreateSchedule();
+                props.setTeacherClicked("");
+              }}
             >
               Back
             </button>
@@ -138,9 +139,9 @@ function CreateSchedule(props) {
               <button
                 key={teacher.id}
                 id={teacher.id}
-                type="button"
                 className="btn btn-primary btn-lg"
                 name={teacher.username}
+                onClick={handleTeacher}
               >
                 {teacher.name}
               </button>

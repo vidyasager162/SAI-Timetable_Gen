@@ -8,6 +8,10 @@ body {
   float: right;
 }
 
+.add-button {
+  margin: 1%;
+}
+
 .btn-primary {
   background-color: #004a7c;
   border-color: #004a7c;
@@ -40,6 +44,10 @@ body {
 }
 
 .form-container {
+  padding: 4%;
+}
+
+.schedule-form-container {
   padding: 2%;
 }
 
@@ -65,7 +73,7 @@ body {
 }
 
 .login-button {
-  margin: 1%;
+  margin: 4%;
 }
 
 .login-input {
