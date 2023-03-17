@@ -95,6 +95,10 @@ body {
   padding: 5% 5% 3% 5%;
 }
 
+.profile-card-container {
+  background-color: white !important;
+}
+
 .quote {
   margin: auto;
   padding: 10px;

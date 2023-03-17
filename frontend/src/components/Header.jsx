@@ -7,10 +7,6 @@ function Header(props) {
   const [time, setTime] = useState(now);
   const [refTime, setRefTime] = useState(nowRef);
 
-  function handleProfile() {
-    props.setIsProfile(true);
-  }
-
   function updateTime() {
     const newRefTime = new Date().getHours();
     const newTime = new Date().toLocaleTimeString();
@@ -35,59 +31,109 @@ function Header(props) {
     : (greeting = "Welcome");
 
   return props.isLoggedIn ? (
-    <div className="nav-container">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col datetime">
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <h5>{time}</h5>
-                  </td>
-                  <td>
-                    <h5>{day}</h5>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="col greeting-part dropdown">
-            <button
-              className="btn btn-lg btn-transparent drowpdown-toggle mb-8 p-0 greeting"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {greeting}
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <button
-                  type="button"
-                  className="dropdown-item"
-                  onClick={handleProfile}
-                >
-                  Profile
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="dropdown-item"
-                  onClick={props.logOut}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
+    props.isProfile ? (
+      <div className="nav-container">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col datetime">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <h5>{time}</h5>
+                    </td>
+                    <td>
+                      <h5>{day}</h5>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="col greeting-part dropdown">
+              <button
+                className="btn btn-lg btn-transparent drowpdown-toggle mb-8 p-0 greeting"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {greeting}
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <button
+                    type="button"
+                    className="dropdown-item"
+                    onClick={props.invertIsProfile}
+                  >
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="dropdown-item"
+                    onClick={props.logOut}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-        {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-              </button> */}
       </div>
-    </div>
+    ) : !props.isProfile ? (
+      <div className="nav-container">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col datetime">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <h5>{time}</h5>
+                    </td>
+                    <td>
+                      <h5>{day}</h5>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="col greeting-part dropdown">
+              <button
+                className="btn btn-lg btn-transparent drowpdown-toggle mb-8 p-0 greeting"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {greeting}
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <button
+                    type="button"
+                    className="dropdown-item"
+                    onClick={props.invertIsProfile}
+                  >
+                    Profile
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="dropdown-item"
+                    onClick={props.logOut}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    ) : null
   ) : (
     <div className="nav-container">
       <div className="container-fluid">
@@ -110,9 +156,6 @@ function Header(props) {
             <h5>{greeting}</h5>
           </div>
         </div>
-        {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-              </button> */}
       </div>
     </div>
   );

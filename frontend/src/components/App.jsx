@@ -5,7 +5,7 @@ import Home from "./Home";
 import Footer from "./Footer";
 import uniqid from "uniqid";
 import { useCookies } from "react-cookie";
-import Profile from "./Profile";
+import Profile from "./Profile/Profile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -90,6 +90,12 @@ function App() {
     });
   }
 
+  function invertIsProfile() {
+    setIsProfile((prev) => {
+      return !prev;
+    });
+  }
+
   function handleLogin(event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
@@ -129,7 +135,8 @@ function App() {
     <div>
       <Header
         isLoggedIn={isLoggedIn}
-        setIsProfile={setIsProfile}
+        isProfile={isProfile}
+        invertIsProfile={invertIsProfile}
         User={User}
         logOut={logOut}
       />
