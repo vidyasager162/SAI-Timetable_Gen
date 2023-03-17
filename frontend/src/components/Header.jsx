@@ -7,6 +7,10 @@ function Header(props) {
   const [time, setTime] = useState(now);
   const [refTime, setRefTime] = useState(nowRef);
 
+  function handleProfile() {
+    props.setIsProfile(true);
+  }
+
   function updateTime() {
     const newRefTime = new Date().getHours();
     const newTime = new Date().toLocaleTimeString();
@@ -59,7 +63,11 @@ function Header(props) {
             </button>
             <ul className="dropdown-menu">
               <li>
-                <button type="button" className="dropdown-item">
+                <button
+                  type="button"
+                  className="dropdown-item"
+                  onClick={handleProfile}
+                >
                   Profile
                 </button>
               </li>

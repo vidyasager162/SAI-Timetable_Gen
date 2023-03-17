@@ -1,24 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function Schedule(props) {
-  const [teacherSchedules, setTeacherSchedules] = useState([]);
   const [studentSchedules, setStudentSchedules] = useState([]);
-  function getTeacherSchedules() {
-    fetch("http://192.168.34.129:8000/get-teacherschedules", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setTeacherSchedules(data.teacherschedules);
-          console.log(data.teacherschedules);
-        }
-      });
-  }
 
   function getStudentSchedules() {
     fetch("http://192.168.34.129:8000/get-studentschedules", {
@@ -32,19 +15,18 @@ function Schedule(props) {
       .then((data) => {
         if (data.message === "902") {
           setStudentSchedules(data.studentschedules);
-          console.log(data.studentschedules);
         }
       });
   }
 
   useEffect(() => {
-    getTeacherSchedules();
+    props.getTeacherSchedules();
     getStudentSchedules();
     // eslint-disable-next-line
   }, []);
 
   return props.buttonClicked === "tschedules" ? (
-    teacherSchedules.map((teacherSchedule) => {
+    props.teacherSchedules.map((teacherSchedule) => {
       return (
         <div className="col mybtn">
           <button

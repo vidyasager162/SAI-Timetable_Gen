@@ -28,6 +28,7 @@ function Main(props) {
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
   const [subjects, setSubjects] = useState([]);
+  const [teacherSchedules, setTeacherSchedules] = useState([]);
 
   function getSubjects() {
     fetch("http://192.168.34.129:8000/get-subjects", {
@@ -41,7 +42,6 @@ function Main(props) {
       .then((data) => {
         if (data.message === "902") {
           setSubjects(data.subjects);
-          console.log(data.subjects);
         }
       });
   }
@@ -74,6 +74,22 @@ function Main(props) {
       .then((data) => {
         if (data.message === "902") {
           setStudents(data.students);
+        }
+      });
+  }
+
+  function getTeacherSchedules() {
+    fetch("http://192.168.34.129:8000/get-teacherschedules", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setTeacherSchedules(data.teacherschedules);
         }
       });
   }
@@ -195,6 +211,8 @@ function Main(props) {
               getSubjects={getSubjects}
               teachers={teachers}
               getTeachers={getTeachers}
+              teacherSchedules={teacherSchedules}
+              getTeacherSchedules={getTeacherSchedules}
             />
           </div>
         </div>
@@ -223,6 +241,8 @@ function Main(props) {
                 <Schedule
                   handleButtonClick={handleButtonClick}
                   buttonClicked={buttonClicked}
+                  teacherSchedules={teacherSchedules}
+                  getTeacherSchedules={getTeacherSchedules}
                 />
               ) : clicked === "Teachers" ? (
                 <User

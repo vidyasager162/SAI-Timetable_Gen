@@ -4,6 +4,7 @@ function CreateSchedule(props) {
   useEffect(() => {
     props.getSubjects();
     props.getTeachers();
+    props.getTeacherSchedules();
     // eslint-disable-next-line
   }, []);
 
@@ -17,6 +18,18 @@ function CreateSchedule(props) {
     "Friday",
     "Saturday",
   ];
+  //eslint-disable-next-line
+  const tname = props.teachers.map((teacher) => {
+    if (teacher.username === props.teacherClicked) {
+      return teacher.name;
+    }
+  });
+
+  // const filteredTeachers = props.teachers.filter((teacher) => {
+  //   return teacher.username !== props.teacherSchedules.schedule_id;
+  // });
+
+  // console.log(filteredTeachers);
 
   function handleTeacher(event) {
     event.preventDefault();
@@ -71,7 +84,7 @@ function CreateSchedule(props) {
             </h1>
           </div>
           <div>
-            <h3 className="fw-normal m-auto text-center">{props.teacher}</h3>
+            <h5 className="m-auto text-center">{tname}</h5>
           </div>
           <div className="container timetable-container table-responsive">
             <div className="timetable-inner">

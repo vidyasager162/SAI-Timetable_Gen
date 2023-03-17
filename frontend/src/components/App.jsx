@@ -5,6 +5,7 @@ import Home from "./Home";
 import Footer from "./Footer";
 import uniqid from "uniqid";
 import { useCookies } from "react-cookie";
+import Profile from "./Profile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,6 +13,7 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
+  const [isProfile, setIsProfile] = useState(false);
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
@@ -125,14 +127,23 @@ function App() {
 
   return (
     <div>
-      <Header isLoggedIn={isLoggedIn} User={User} logOut={logOut} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        setIsProfile={setIsProfile}
+        User={User}
+        logOut={logOut}
+      />
       {isLoggedIn ? (
-        <Main
-          isAdmin={isAdmin}
-          isTeacher={isTeacher}
-          isStudent={isStudent}
-          User={User}
-        />
+        isProfile ? (
+          <Profile />
+        ) : !isProfile ? (
+          <Main
+            isAdmin={isAdmin}
+            isTeacher={isTeacher}
+            isStudent={isStudent}
+            User={User}
+          />
+        ) : null
       ) : (
         <Home handleLogin={handleLogin} handleUser={handleUser} />
       )}
