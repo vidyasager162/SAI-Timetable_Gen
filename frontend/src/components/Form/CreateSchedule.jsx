@@ -144,23 +144,25 @@ function CreateSchedule(props) {
       </form>
     </div>
   ) : (
-    <div className="container-fluid m-auto">
-      <div className="row main-container">
-        {props.teachers.map((teacher) => {
-          return (
-            <div className="col mybtn">
-              <button
-                key={teacher.id}
-                id={teacher.id}
-                className="btn btn-primary btn-lg"
-                name={teacher.username}
-                onClick={handleTeacher}
-              >
-                {teacher.name}
-              </button>
-            </div>
-          );
-        })}
+    <div className="form-signin w-100 m-auto container">
+      <div className="schedule-form-container">
+        <div className="row">
+          {props.teachers.map((teacher) => {
+            return (
+              <div className="col mybtn text-center">
+                <button
+                  key={teacher.id}
+                  id={teacher.id}
+                  className="btn btn-primary btn-lg"
+                  name={teacher.username}
+                  onClick={handleTeacher}
+                >
+                  {teacher.name}
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

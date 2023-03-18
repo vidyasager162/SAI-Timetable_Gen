@@ -142,7 +142,7 @@ function App() {
       />
       {isLoggedIn ? (
         isProfile ? (
-          <Profile />
+          <Profile User={User} />
         ) : !isProfile ? (
           <Main
             isAdmin={isAdmin}

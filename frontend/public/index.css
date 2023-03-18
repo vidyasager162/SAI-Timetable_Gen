@@ -4,6 +4,10 @@ body {
   overflow: hidden;
 }
 
+ul {
+  list-style-type: none;
+}
+
 .account-buttons {
   float: right;
 }
@@ -33,6 +37,10 @@ body {
   border-color: #004a7c;
 }
 
+.card {
+  border: none;
+}
+
 .datetime td {
   width: 50%;
 }
@@ -45,10 +53,6 @@ body {
 
 .form-container {
   padding: 4%;
-}
-
-.schedule-form-container {
-  padding: 2%;
 }
 
 .form-signin {
@@ -95,8 +99,21 @@ body {
   padding: 5% 5% 3% 5%;
 }
 
-.profile-card-container {
-  background-color: white !important;
+.profile-button {
+  margin-left: 12%;
+  width: 40%;
+}
+
+.profile-info-container {
+  padding-right: 6%;
+}
+
+.profile-info-inner {
+  height: 440px;
+}
+
+.profile-sidebar {
+  margin-left: 12%;
 }
 
 .quote {
@@ -110,6 +127,10 @@ body {
 
 .mybtn button {
   border-radius: 25px;
+}
+
+.schedule-form-container {
+  padding: 2%;
 }
 
 .sidebar {
