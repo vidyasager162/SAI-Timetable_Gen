@@ -85,11 +85,6 @@ function StudentSchedule(props) {
           </button>
         </div>
         <div className="col">
-          <button type="button" className="btn btn-primary">
-            Delete Schedule
-          </button>
-        </div>
-        <div className="col">
           <button
             type="button"
             className="btn btn-primary"

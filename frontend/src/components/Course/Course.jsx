@@ -40,15 +40,33 @@ function Course(props) {
   useEffect(() => {
     getDepartments();
     getCourses();
+    props.getSubjects();
     // eslint-disable-next-line
   }, []);
   return departments.map((department) => {
-    console.log("inside the first map");
     return props.buttonClicked === department.dept_id ? (
       courses
         .filter((course) => course.dept_id === department.dept_id)
         .map((filteredCourse) => {
-          return (
+          return props.courseClicked === filteredCourse.course_id ? (
+            props.subjects
+              .filter(
+                (subject) => subject.course_id === filteredCourse.course_id
+              )
+              .map((filteredSubject) => {
+                return (
+                  <div className="col mybtn">
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-lg"
+                      name={filteredSubject.sub_id}
+                    >
+                      {filteredSubject.sub_id}
+                    </button>
+                  </div>
+                );
+              })
+          ) : (
             <div className="col mybtn">
               <button
                 key={filteredCourse.id}
@@ -56,6 +74,10 @@ function Course(props) {
                 type="button"
                 className="btn btn-primary btn-lg"
                 name={filteredCourse.course_id}
+                onClick={(e) => {
+                  props.setCourseClicked(e.target.name);
+                  props.setButtonClicked("");
+                }}
               >
                 {filteredCourse.course_id}
               </button>
@@ -77,54 +99,5 @@ function Course(props) {
       </div>
     ) : null;
   });
-  // return props.buttonClicked ===
-  //   ? props.courses
-  //       .filter((course) => course.dept_id === "DMACS")
-  //       .map((filteredCourse) => {
-  //         return (
-  //           <div className="col mybtn">
-  //             <button
-  //               type="button"
-  //               className="btn btn-primary btn-lg"
-  //               onClick={props.handleButtonClick}
-  //               name={filteredCourse.course_id}
-  //             >
-  //               {filteredCourse.course_id}
-  //             </button>
-  //           </div>
-  //         );
-  //       })
-  //   : props.buttonClicked === "DMC"
-  //   ? props.courses
-  //       .filter((course) => course.dept_id === "DMC")
-  //       .map((filteredCourse) => {
-  //         return (
-  //           <div className="col mybtn">
-  //             <button
-  //               type="button"
-  //               className="btn btn-primary btn-lg"
-  //               onClick={props.handleButtonClick}
-  //               name={filteredCourse.course_id}
-  //             >
-  //               {filteredCourse.course_id}
-  //             </button>
-  //           </div>
-  //         );
-  //       })
-  //   : props.departments.map((department) => {
-  //       return (
-  //         <div className="col mybtn">
-  //           <button
-  //             type="button"
-  //             className="btn btn-primary btn-lg"
-  //             onClick={props.handleButtonClick}
-  //             name={department.dept_id}
-  //           >
-  //             {department.dept_id}
-  //           </button>
-  //         </div>
-  //       );
-  //     });
 }
-//plis add a useffect to main to clear buttonclicked
 export default Course;

@@ -121,7 +121,7 @@ function CreateSchedule(props) {
               </table>
             </div>
           </div>
-          <div className="text-align-center">
+          <div className="text-center">
             <button className="btn btn-lg btn-primary add-button">Add</button>
             <button
               type="button"

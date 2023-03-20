@@ -4,7 +4,6 @@ import SideBar from "./SideBar";
 import User from "../User/User";
 import Schedule from "../Schedule/Schedule";
 import Course from "../Course/Course";
-import Subject from "../Subject/Subject";
 import AddCourse from "../Form/AddCourse";
 import AddDepartment from "../Form/AddDepartment";
 import AddTeacher from "../Form/AddTeacher";
@@ -36,6 +35,7 @@ function Main(props) {
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
   const [subjects, setSubjects] = useState([]);
+  const [courseClicked, setCourseClicked] = useState("");
   const [teacherSchedules, setTeacherSchedules] = useState([]);
 
   function getSubjects() {
@@ -227,6 +227,8 @@ function Main(props) {
               setIsAddStudent={setIsAddStudent}
               setIsAddSubject={setIsAddSubject}
               setIsCreateSchedule={setIsCreateSchedule}
+              courseClicked={courseClicked}
+              setCourseClicked={setCourseClicked}
             />
           </div>
           <div className="col my-col">
@@ -260,9 +262,11 @@ function Main(props) {
                 <Course
                   handleButtonClick={handleButtonClick}
                   buttonClicked={buttonClicked}
+                  getSubjects={getSubjects}
+                  subjects={subjects}
+                  courseClicked={courseClicked}
+                  setCourseClicked={setCourseClicked}
                 />
-              ) : clicked === "Subjects" ? (
-                <Subject subjects={subjects} getSubjects={getSubjects} />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>
               )}

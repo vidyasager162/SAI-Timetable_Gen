@@ -58,16 +58,18 @@ function AddDepartment(props) {
             />
             <label htmlFor="floatingInput">Department ID</label>
           </div>
-          <button className="btn btn-lg btn-primary login-button">Add</button>
-          <button
-            type="button"
-            className="btn btn-lg btn-primary login-button"
-            onClick={() => {
-              props.setIsAddDepartment(false);
-            }}
-          >
-            Back
-          </button>
+          <div className="text-center">
+            <button className="btn btn-lg btn-primary login-button">Add</button>
+            <button
+              type="button"
+              className="btn btn-lg btn-primary login-button"
+              onClick={() => {
+                props.setIsAddDepartment(false);
+              }}
+            >
+              Back
+            </button>
+          </div>
         </div>
       </form>
     </div>

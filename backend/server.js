@@ -405,8 +405,7 @@ app.post("/add-subject", (req, res) => {
     {
       sub_id: req.body.sub_id,
       sub_name: req.body.sub_name,
-      semester: req.body.semester,
-      course: req.body.course,
+      course_id: req.body.course_id,
     },
     (err) => {
       if (err) throw err;

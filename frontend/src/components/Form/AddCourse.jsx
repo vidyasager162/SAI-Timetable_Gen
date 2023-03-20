@@ -67,7 +67,7 @@ function AddCourse(props) {
             />
             <label htmlFor="floatingInput">Department ID</label>
           </div>
-          <div className="text-align-center">
+          <div className="text-center">
             <button className="btn btn-lg btn-primary login-button">Add</button>
             <button
               type="button"

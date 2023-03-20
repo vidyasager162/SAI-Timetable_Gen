@@ -89,14 +89,6 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
-            name="Subjects"
-            onClick={props.handleClick}
-          >
-            Subjects
-          </button>
-          <button
-            type="button"
-            className="btn btn-light"
             name="Back"
             onClick={() => {
               props.setButtonClicked("");
@@ -164,7 +156,35 @@ function SideBar(props) {
       </div>
     </div>
   ) : props.clicked === "Courses" ? (
-    props.buttonClicked !== "" ? (
+    props.courseClicked !== "" ? (
+      <div
+        className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
+        style={{ width: "60%", height: "482px" }}
+      >
+        <div className="sidebar-buttons">
+          <button
+            type="button"
+            className="btn btn-light"
+            name="Add Subject"
+            onClick={() => {
+              props.setIsAddSubject(true);
+            }}
+          >
+            Add Subject
+          </button>
+          <button
+            type="button"
+            className="btn btn-light"
+            name="Back"
+            onClick={() => {
+              props.setCourseClicked("");
+            }}
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    ) : props.buttonClicked !== "" ? (
       <div
         className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
         style={{ width: "60%", height: "482px" }}
@@ -221,34 +241,6 @@ function SideBar(props) {
         </div>
       </div>
     )
-  ) : props.clicked === "Subjects" ? (
-    <div
-      className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
-      style={{ width: "60%", height: "482px" }}
-    >
-      <div className="sidebar-buttons">
-        <button
-          type="button"
-          className="btn btn-light"
-          name="Add Subject"
-          onClick={() => {
-            props.setIsAddSubject(true);
-          }}
-        >
-          Add Subject
-        </button>
-        <button
-          type="button"
-          className="btn btn-light"
-          name="Back"
-          onClick={() => {
-            props.setClicked("");
-          }}
-        >
-          Back
-        </button>
-      </div>
-    </div>
   ) : (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded sidebar"
@@ -286,14 +278,6 @@ function SideBar(props) {
           onClick={props.handleClick}
         >
           Courses
-        </button>
-        <button
-          type="button"
-          className="btn btn-light"
-          name="Subjects"
-          onClick={props.handleClick}
-        >
-          Subjects
         </button>
         <button
           type="button"
