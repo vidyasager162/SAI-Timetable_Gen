@@ -33,7 +33,7 @@ function AddTeacher(props) {
       .catch((error) => {
         console.log("Error: ", error);
       });
-    props.invertIsAddTeacher();
+    props.setIsAddTeacher(false);
   }
   return (
     <div className="form-signin w-100 m-auto container">
@@ -111,7 +111,9 @@ function AddTeacher(props) {
             <button
               type="button"
               className="btn btn-lg btn-primary login-button"
-              onClick={props.invertIsAddTeacher}
+              onClick={() => {
+                props.setIsAddTeacher(false);
+              }}
             >
               Back
             </button>

@@ -28,7 +28,7 @@ function AddCourse(props) {
       .catch((error) => {
         console.log("Error: ", error);
       });
-    props.invertIsAddCourse();
+    props.setIsAddCourse(false);
   }
   return (
     <div className="form-signin w-100 m-auto container">
@@ -72,7 +72,9 @@ function AddCourse(props) {
             <button
               type="button"
               className="btn btn-lg btn-primary login-button"
-              onClick={props.invertIsAddCourse}
+              onClick={() => {
+                props.setIsAddCourse(false);
+              }}
             >
               Back
             </button>

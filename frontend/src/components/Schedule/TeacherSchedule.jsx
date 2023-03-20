@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Student(props) {
+function TeacherSchedule(props) {
   //eslint-disable-next-line
-  const [studentSchedule, setStudentSchedule] = useState([]);
+  const [teacherSchedule, setTeacherSchedule] = useState([]);
   const [scheduleReady, setReady] = useState(false);
   const headings = ["#", "1", "2", "3", "4", "5", "6"];
   const days = [
@@ -14,14 +14,14 @@ function Student(props) {
     "Saturday",
   ];
   useEffect(() => {
-    getStudentSchedule();
+    getTeacherSchedule();
     // eslint-disable-next-line
   }, []);
-  function getStudentSchedule() {
+  function getTeacherSchedule() {
     const reqPayload = {
-      schedule_id: props.User.course,
+      schedule_id: props.teacherid,
     };
-    fetch("http://192.168.34.129:8000/request-studentschedule", {
+    fetch("http://192.168.34.129:8000/request-teacherschedule", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ function Student(props) {
       .then((res) => res.json())
       .then((payload) => {
         if (payload.message === "902") {
-          setStudentSchedule(payload.schedule);
+          setTeacherSchedule(payload.schedule);
           setReady(true);
         } else {
           console.log("There was a problem in getting the schedule.");
@@ -43,7 +43,7 @@ function Student(props) {
       });
   }
 
-  console.log(studentSchedule);
+  console.log(teacherSchedule);
 
   return (
     <div className="container-fluid p-0">
@@ -61,7 +61,7 @@ function Student(props) {
                 </thead>
                 <tbody>
                   {scheduleReady
-                    ? studentSchedule[0].schedule.map((sched, outerIndex) => {
+                    ? teacherSchedule[0].schedule.map((sched, outerIndex) => {
                         return (
                           <tr>
                             <th scope="row">{days[outerIndex]}</th>
@@ -84,9 +84,30 @@ function Student(props) {
             Download
           </button>
         </div>
+        <div className="col">
+          <button type="button" className="btn btn-primary">
+            Edit Schedule
+          </button>
+        </div>
+        <div className="col">
+          <button type="button" className="btn btn-primary">
+            Delete Schedule
+          </button>
+        </div>
+        <div className="col">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              props.setViewTeacherSchedule(false);
+            }}
+          >
+            Back
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Student;
+export default TeacherSchedule;

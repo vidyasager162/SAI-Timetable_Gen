@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function Student(props) {
+function StudentSchedule(props) {
   //eslint-disable-next-line
   const [studentSchedule, setStudentSchedule] = useState([]);
   const [scheduleReady, setReady] = useState(false);
@@ -19,7 +19,7 @@ function Student(props) {
   }, []);
   function getStudentSchedule() {
     const reqPayload = {
-      schedule_id: props.User.course,
+      schedule_id: props.courseid,
     };
     fetch("http://192.168.34.129:8000/request-studentschedule", {
       method: "POST",
@@ -84,9 +84,25 @@ function Student(props) {
             Download
           </button>
         </div>
+        <div className="col">
+          <button type="button" className="btn btn-primary">
+            Delete Schedule
+          </button>
+        </div>
+        <div className="col">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              props.setViewStudentSchedule(false);
+            }}
+          >
+            Back
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Student;
+export default StudentSchedule;

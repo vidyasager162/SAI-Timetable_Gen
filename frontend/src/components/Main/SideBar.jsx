@@ -12,7 +12,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Create Schedule"
-            onClick={props.handleCreateSchedule}
+            onClick={() => {
+              props.setIsCreateSchedule(true);
+            }}
           >
             Create Schedule
           </button>
@@ -20,7 +22,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={props.handleBack}
+            onClick={() => {
+              props.setButtonClicked("");
+            }}
           >
             Back
           </button>
@@ -36,7 +40,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={props.handleBack}
+            onClick={() => {
+              props.setButtonClicked("");
+            }}
           >
             Back
           </button>
@@ -92,7 +98,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={props.handleBack}
+            onClick={() => {
+              props.setButtonClicked("");
+            }}
           >
             Back
           </button>
@@ -109,7 +117,9 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Add Student"
-          onClick={props.handleAddStudent}
+          onClick={() => {
+            props.setIsAddStudent(true);
+          }}
         >
           Add Student
         </button>
@@ -117,7 +127,9 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Back"
-          onClick={props.handleUserBack}
+          onClick={() => {
+            props.setClicked("");
+          }}
         >
           Back
         </button>
@@ -133,7 +145,9 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Add Teacher"
-          onClick={props.handleAddTeacher}
+          onClick={() => {
+            props.setIsAddTeacher(true);
+          }}
         >
           Add Teacher
         </button>
@@ -141,7 +155,9 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Back"
-          onClick={props.handleUserBack}
+          onClick={() => {
+            props.setClicked("");
+          }}
         >
           Back
         </button>
@@ -158,7 +174,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Add Course"
-            onClick={props.handleAddCourse}
+            onClick={() => {
+              props.setIsAddCourse(true);
+            }}
           >
             Add Course
           </button>
@@ -166,7 +184,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={props.handleBack}
+            onClick={() => {
+              props.setButtonClicked("");
+            }}
           >
             Back
           </button>
@@ -182,7 +202,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Add Department"
-            onClick={props.handleAddDepartment}
+            onClick={() => {
+              props.setIsAddDepartment(true);
+            }}
           >
             Add Department
           </button>
@@ -190,7 +212,9 @@ function SideBar(props) {
             type="button"
             className="btn btn-light"
             name="Back"
-            onClick={props.handleUserBack}
+            onClick={() => {
+              props.setClicked("");
+            }}
           >
             Back
           </button>
@@ -207,7 +231,9 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Add Subject"
-          onClick={props.handleAddSubject}
+          onClick={() => {
+            props.setIsAddSubject(true);
+          }}
         >
           Add Subject
         </button>
@@ -215,7 +241,9 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Back"
-          onClick={props.handleUserBack}
+          onClick={() => {
+            props.setClicked("");
+          }}
         >
           Back
         </button>
@@ -271,7 +299,9 @@ function SideBar(props) {
           type="button"
           className="btn btn-light"
           name="Back"
-          onClick={props.handleBack}
+          onClick={() => {
+            props.setButtonClicked("");
+          }}
         >
           Back
         </button>

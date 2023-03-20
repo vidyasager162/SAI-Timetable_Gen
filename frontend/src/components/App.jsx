@@ -14,6 +14,7 @@ function App() {
   const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
+  const [isViewProfile, setViewProfile] = useState(false);
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
@@ -81,6 +82,7 @@ function App() {
     setIsAdmin(false);
     setIsStudent(false);
     setIsTeacher(false);
+    setIsProfile(false);
   }
 
   //Passed to Home component and Header component to accomodate logout by the user.
@@ -94,6 +96,10 @@ function App() {
     setIsProfile((prev) => {
       return !prev;
     });
+  }
+
+  function invertIsViewProfile() {
+    setViewProfile(false);
   }
 
   function handleLogin(event) {
@@ -135,8 +141,8 @@ function App() {
     <div>
       <Header
         isLoggedIn={isLoggedIn}
-        isProfile={isProfile}
         invertIsProfile={invertIsProfile}
+        invertIsViewProfile={invertIsViewProfile}
         User={User}
         logOut={logOut}
       />
@@ -149,6 +155,8 @@ function App() {
             isTeacher={isTeacher}
             isStudent={isStudent}
             User={User}
+            setViewProfile={setViewProfile}
+            isViewProfile={isViewProfile}
           />
         ) : null
       ) : (

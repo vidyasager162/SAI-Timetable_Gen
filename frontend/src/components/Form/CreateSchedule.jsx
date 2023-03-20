@@ -25,12 +25,6 @@ function CreateSchedule(props) {
     }
   });
 
-  // const filteredTeachers = props.teachers.filter((teacher) => {
-  //   return teacher.username !== props.teacherSchedules.schedule_id;
-  // });
-
-  // console.log(filteredTeachers);
-
   function handleTeacher(event) {
     event.preventDefault();
     props.setTeacherClicked(event.target.name);
@@ -70,7 +64,7 @@ function CreateSchedule(props) {
       .catch((error) => {
         console.log("Error: ", error);
       });
-    props.invertIsCreateSchedule();
+    props.setIsCreateSchedule(false);
     props.setTeacherClicked("");
   }
 
@@ -133,7 +127,6 @@ function CreateSchedule(props) {
               type="button"
               className="btn btn-lg btn-primary login-button"
               onClick={() => {
-                props.invertIsCreateSchedule();
                 props.setTeacherClicked("");
               }}
             >
@@ -146,7 +139,7 @@ function CreateSchedule(props) {
   ) : (
     <div className="form-signin w-100 m-auto container">
       <div className="schedule-form-container">
-        <div className="row">
+        <div className="row mb-5">
           {props.teachers.map((teacher) => {
             return (
               <div className="col mybtn text-center">
@@ -162,6 +155,18 @@ function CreateSchedule(props) {
               </div>
             );
           })}
+        </div>
+        <div className="row">
+          <div className="col text-center">
+            <button
+              className="btn btn-primary btn-lg"
+              onClick={() => {
+                props.setIsCreateSchedule(false);
+              }}
+            >
+              Back
+            </button>
+          </div>
         </div>
       </div>
     </div>

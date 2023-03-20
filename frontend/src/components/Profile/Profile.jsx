@@ -66,7 +66,7 @@ function Profile(props) {
               {props.User.usertype === 2 ? (
                 <>
                   <h5>
-                    Course: <span>{props.User.course}</span>
+                    Course: <span>{props.User.course + ""}</span>
                   </h5>
                 </>
               ) : (
@@ -80,13 +80,13 @@ function Profile(props) {
               {props.User.usertype === 2 ? (
                 <>
                   <h5>
-                    Subjects: <span>{props.User.subjects}</span>
+                    Subjects: <span>{props.User.subjects + ""}</span>
                   </h5>
                 </>
               ) : (
                 <>
                   <h5>
-                    Courses Taught:{" "}
+                    Subjects Taught:{" "}
                     <span>{props.User.subjectsTaught + ""}</span>
                   </h5>
                 </>

@@ -32,9 +32,12 @@ function Schedule(props) {
           <button
             key={teacherSchedule.id}
             id={teacherSchedule.id}
-            type="button"
             className="btn btn-primary btn-lg"
             name={teacherSchedule.schedule_id}
+            onClick={(e) => {
+              props.handleTeacherID(e);
+              props.setViewTeacherSchedule(true);
+            }}
           >
             {teacherSchedule.schedule_id}
           </button>
@@ -48,9 +51,12 @@ function Schedule(props) {
           <button
             key={studentSchedule.id}
             id={studentSchedule.id}
-            type="button"
             className="btn btn-primary btn-lg"
             name={studentSchedule.schedule_id}
+            onClick={(e) => {
+              props.handleCourseID(e);
+              props.setViewStudentSchedule(true);
+            }}
           >
             {studentSchedule.schedule_id}
           </button>

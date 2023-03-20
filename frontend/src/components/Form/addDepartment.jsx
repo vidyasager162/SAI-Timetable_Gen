@@ -27,7 +27,7 @@ function AddDepartment(props) {
       .catch((error) => {
         console.log("Error: ", error);
       });
-    props.invertIsAddDepartment();
+    props.setIsAddDepartment(false);
   }
   return (
     <div className="form-signin w-100 m-auto container">
@@ -62,7 +62,9 @@ function AddDepartment(props) {
           <button
             type="button"
             className="btn btn-lg btn-primary login-button"
-            onClick={props.invertIsAddDepartment}
+            onClick={() => {
+              props.setIsAddDepartment(false);
+            }}
           >
             Back
           </button>

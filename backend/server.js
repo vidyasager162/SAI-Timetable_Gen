@@ -505,6 +505,45 @@ app.post("/create-schedule", (req, res) => {
   });
 });
 
+app.post("/get-user", (req, res) => {
+  Teachers.findOne(
+    {
+      name: req.body.name,
+    },
+    (err, teacherFound) => {
+      if (!teacherFound) {
+        Students.findOne(
+          {
+            name: req.body.name,
+          },
+          (error, studentFound) => {
+            if (error) throw error;
+            else if (studentFound) {
+              res.send({
+                message: "802",
+                user: studentFound,
+              });
+            } else {
+              res.send({
+                message: "800",
+              });
+            }
+          }
+        );
+      } else if (teacherFound) {
+        res.send({
+          message: "802",
+          user: teacherFound,
+        });
+      } else {
+        res.send({
+          message: "800",
+        });
+      }
+    }
+  );
+});
+
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
 });

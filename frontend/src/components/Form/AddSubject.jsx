@@ -28,7 +28,7 @@ function AddSubject(props) {
       .catch((error) => {
         console.log("Error: ", error);
       });
-    props.invertIsAddSubject();
+    props.setIsAddSubject(false);
   }
   return (
     <div className="form-signin w-100 m-auto container">
@@ -72,7 +72,9 @@ function AddSubject(props) {
             <button
               type="button"
               className="btn btn-lg btn-primary login-button"
-              onClick={props.invertIsAddSubject}
+              onClick={() => {
+                props.setIsAddSubject(false);
+              }}
             >
               Back
             </button>

@@ -13,6 +13,9 @@ import AddSubject from "../Form/AddSubject";
 import CreateSchedule from "../Form/CreateSchedule";
 import Teacher from "../Teacher";
 import Student from "../Student";
+import Profile from "../Profile/Profile";
+import StudentSchedule from "../Schedule/StudentSchedule";
+import TeacherSchedule from "../Schedule/TeacherSchedule";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
@@ -24,6 +27,11 @@ function Main(props) {
   const [isAddStudent, setIsAddStudent] = useState(false);
   const [isCreateSchedule, setIsCreateSchedule] = useState(false);
   const [teacherClicked, setTeacherClicked] = useState("");
+  const [userProfile, setUserProfile] = useState();
+  const [viewStudentSchedule, setViewStudentSchedule] = useState(false);
+  const [viewTeacherSchedule, setViewTeacherSchedule] = useState(false);
+  const [courseid, setCourseID] = useState("");
+  const [teacherid, setTeacherID] = useState("");
 
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
@@ -94,76 +102,62 @@ function Main(props) {
       });
   }
 
-  function handleAddDepartment() {
-    setIsAddDepartment(true);
-  }
-
-  function invertIsAddDepartment() {
-    setIsAddDepartment(false);
-  }
-
-  function handleAddCourse() {
-    setIsAddCourse(true);
-  }
-
-  function invertIsAddCourse() {
-    setIsAddCourse(false);
-  }
-
-  function handleAddSubject() {
-    setIsAddSubject(true);
-  }
-
-  function invertIsAddSubject() {
-    setIsAddSubject(false);
-  }
-
-  function handleAddTeacher() {
-    setIsAddTeacher(true);
-  }
-
-  function invertIsAddTeacher() {
-    setIsAddTeacher(false);
-  }
-
-  function handleAddStudent() {
-    setIsAddStudent(true);
-  }
-
-  function invertIsAddStudent() {
-    setIsAddStudent(false);
-  }
-
-  function handleCreateSchedule() {
-    setIsCreateSchedule(true);
-  }
-
-  function invertIsCreateSchedule() {
-    setIsCreateSchedule(false);
+  function handleViewProfile(event) {
+    const name = event.target.value;
+    const reqPayload = {
+      name: name,
+    };
+    fetch("http://192.168.34.129:8000/get-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        if (payload.message === "802") {
+          setUserProfile(payload.user);
+          props.setViewProfile(true);
+        }
+      });
   }
 
   function handleClick(event) {
     setClicked(event.target.name);
   }
 
-  function handleUserBack() {
-    setClicked("");
-  }
-
   function handleButtonClick(event) {
     setButtonClicked(event.target.name);
   }
 
-  function handleBack() {
-    setButtonClicked("");
+  function handleTeacherID(event) {
+    setTeacherID(event.target.name);
+  }
+
+  function handleCourseID(event) {
+    setCourseID(event.target.name);
   }
 
   return props.isAdmin ? (
-    isAddCourse ? (
+    props.isViewProfile ? (
+      <Profile User={userProfile} />
+    ) : viewStudentSchedule ? (
+      <StudentSchedule
+        courseid={courseid}
+        setViewStudentSchedule={setViewStudentSchedule}
+      />
+    ) : viewTeacherSchedule ? (
+      <TeacherSchedule
+        teacherid={teacherid}
+        setViewTeacherSchedule={setViewTeacherSchedule}
+      />
+    ) : isAddCourse ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddCourse invertIsAddCourse={invertIsAddCourse} />
+            <AddCourse setIsAddCourse={setIsAddCourse} />
           </div>
         </div>
       </div>
@@ -171,7 +165,7 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddDepartment invertIsAddDepartment={invertIsAddDepartment} />
+            <AddDepartment setIsAddDepartment={setIsAddDepartment} />
           </div>
         </div>
       </div>
@@ -179,7 +173,7 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddTeacher invertIsAddTeacher={invertIsAddTeacher} />
+            <AddTeacher setIsAddTeacher={setIsAddTeacher} />
           </div>
         </div>
       </div>
@@ -187,7 +181,7 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddStudent invertIsAddStudent={invertIsAddStudent} />
+            <AddStudent setIsAddStudent={setIsAddStudent} />
           </div>
         </div>
       </div>
@@ -195,7 +189,7 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddSubject invertIsAddSubject={invertIsAddSubject} />
+            <AddSubject setIsAddSubject={setIsAddSubject} />
           </div>
         </div>
       </div>
@@ -206,13 +200,13 @@ function Main(props) {
             <CreateSchedule
               teacherClicked={teacherClicked}
               setTeacherClicked={setTeacherClicked}
-              invertIsCreateSchedule={invertIsCreateSchedule}
               subjects={subjects}
               getSubjects={getSubjects}
               teachers={teachers}
               getTeachers={getTeachers}
               teacherSchedules={teacherSchedules}
               getTeacherSchedules={getTeacherSchedules}
+              setIsCreateSchedule={setIsCreateSchedule}
             />
           </div>
         </div>
@@ -223,16 +217,16 @@ function Main(props) {
           <div className="col">
             <SideBar
               handleClick={handleClick}
-              handleBack={handleBack}
               clicked={clicked}
+              setButtonClicked={setButtonClicked}
+              setClicked={setClicked}
               buttonClicked={buttonClicked}
-              handleUserBack={handleUserBack}
-              handleAddCourse={handleAddCourse}
-              handleAddDepartment={handleAddDepartment}
-              handleAddTeacher={handleAddTeacher}
-              handleAddStudent={handleAddStudent}
-              handleAddSubject={handleAddSubject}
-              handleCreateSchedule={handleCreateSchedule}
+              setIsAddCourse={setIsAddCourse}
+              setIsAddDepartment={setIsAddDepartment}
+              setIsAddTeacher={setIsAddTeacher}
+              setIsAddStudent={setIsAddStudent}
+              setIsAddSubject={setIsAddSubject}
+              setIsCreateSchedule={setIsCreateSchedule}
             />
           </div>
           <div className="col my-col">
@@ -243,18 +237,24 @@ function Main(props) {
                   buttonClicked={buttonClicked}
                   teacherSchedules={teacherSchedules}
                   getTeacherSchedules={getTeacherSchedules}
+                  handleCourseID={handleCourseID}
+                  handleTeacherID={handleTeacherID}
+                  setViewStudentSchedule={setViewStudentSchedule}
+                  setViewTeacherSchedule={setViewTeacherSchedule}
                 />
               ) : clicked === "Teachers" ? (
                 <User
                   clicked={clicked}
                   getTeachers={getTeachers}
                   teachers={teachers}
+                  handleViewProfile={handleViewProfile}
                 />
               ) : clicked === "Students" ? (
                 <User
                   clicked={clicked}
                   getStudents={getStudents}
                   students={students}
+                  handleViewProfile={handleViewProfile}
                 />
               ) : clicked === "Courses" ? (
                 <Course
