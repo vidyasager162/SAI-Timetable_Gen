@@ -72,21 +72,6 @@ function Teacher(props) {
                         );
                       })
                     : null}
-                  {/* {studentSchedule.map((schedule, outerIndex) => {
-                     return schedule.schedule.map((dayschedule) => {
-                       return (
-                         <tr>
-                           <th scope="row">Monday</th>
-                           <td>{dayschedule[0]}</td>
-                           <td>{dayschedule[1]}</td>
-                           <td>{dayschedule[2]}</td>
-                           <td>{dayschedule[3]}</td>
-                           <td>{dayschedule[4]}</td>
-                           <td>{dayschedule[5]}</td>
-                         </tr>
-                       );
-                     });
-                   })} */}
                 </tbody>
               </table>
             </div>
