@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Card from "../Templates/Card";
 
 function Course(props) {
   const [departments, setDepartments] = useState([]);
@@ -55,47 +56,35 @@ function Course(props) {
               )
               .map((filteredSubject) => {
                 return (
-                  <div className="col mybtn">
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-lg"
+                  <div className="col">
+                    <Card
                       name={filteredSubject.sub_id}
-                    >
-                      {filteredSubject.sub_id}
-                    </button>
+                      description={filteredSubject.sub_name}
+                      flag="subject"
+                    />
                   </div>
                 );
               })
-          ) : (
-            <div className="col mybtn">
-              <button
-                key={filteredCourse.id}
-                id={filteredCourse.id}
-                type="button"
-                className="btn btn-primary btn-lg"
+          ) : props.courseClicked === "" ? (
+            <div className="col">
+              <Card
                 name={filteredCourse.course_id}
-                onClick={(e) => {
-                  props.setCourseClicked(e.target.name);
-                  props.setButtonClicked("");
-                }}
-              >
-                {filteredCourse.course_id}
-              </button>
+                description={filteredCourse.course_name}
+                action={props.setCourseClicked}
+                anotheraction={props.setButtonClicked}
+                flag="course"
+              />
             </div>
-          );
+          ) : null;
         })
     ) : props.buttonClicked === "" ? (
-      <div className="col mybtn">
-        <button
-          key={department.id}
-          id={department.id}
-          type="button"
-          className="btn btn-primary btn-lg"
-          onClick={props.handleButtonClick}
+      <div className="col">
+        <Card
           name={department.dept_id}
-        >
-          {department.dept_id}
-        </button>
+          description={department.dept_name}
+          action={props.handleButtonClick}
+          flag="department"
+        />
       </div>
     ) : null;
   });

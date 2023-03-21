@@ -143,6 +143,19 @@ const Quotes = mongoose.model("quote", quoteSchema);
 //   ],
 // });
 
+Subjects.find({}, (err, subjectsFound) => {
+  if (!err) {
+    if (subjectsFound.length === 0) {
+      Subjects.create({
+        sub_id: "Free",
+        sub_name: "Free",
+      });
+    }
+  } else {
+    console.log(err);
+  }
+});
+
 Quotes.find({}, (err, quotesFound) => {
   if (!err) {
     if (quotesFound.length === 0) {

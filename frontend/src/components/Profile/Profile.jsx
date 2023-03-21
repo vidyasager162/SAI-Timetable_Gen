@@ -1,4 +1,5 @@
 import React from "react";
+import UserCard from "../Templates/UserCard";
 
 function Profile(props) {
   const ColoredLine = ({ color }) => (
@@ -20,19 +21,12 @@ function Profile(props) {
             className="d-flex flex-column flex-shrink-0 p-3 bg-light align-items-center rounded profile-sidebar"
             style={{ width: "40%" }}
           >
-            <div className="card text-center">
-              <img
-                src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg"
-                className="card-img-top"
-                alt="..."
-              />
-              <div className="card-body">
-                <h5 className="card-title">{props.User.name}</h5>
-              </div>
-              <ul className="list-group list-group-flush">
-                <li>{props.User.department}</li>
-              </ul>
-            </div>
+            <UserCard
+              src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg"
+              name={props.User.name}
+              department={props.User.department}
+              isProfile="true"
+            />
           </div>
           <div className="row py-2 mybtn text-center profile-button">
             <button className="btn btn-outline-primary">Edit User</button>

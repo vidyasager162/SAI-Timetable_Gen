@@ -143,12 +143,13 @@ function App() {
         isLoggedIn={isLoggedIn}
         invertIsProfile={invertIsProfile}
         invertIsViewProfile={invertIsViewProfile}
+        setIsProfile={setIsProfile}
         User={User}
         logOut={logOut}
       />
       {isLoggedIn ? (
         isProfile ? (
-          <Profile User={User} />
+          <Profile User={User} isProfile={isProfile} />
         ) : !isProfile ? (
           <Main
             isAdmin={isAdmin}

@@ -62,7 +62,10 @@ function Header(props) {
                 <button
                   type="button"
                   className="dropdown-item"
-                  onClick={props.invertIsViewProfile}
+                  onClick={() => {
+                    props.invertIsViewProfile();
+                    props.setIsProfile(false);
+                  }}
                 >
                   Home
                 </button>
@@ -71,7 +74,9 @@ function Header(props) {
                 <button
                   type="button"
                   className="dropdown-item"
-                  onClick={props.invertIsProfile}
+                  onClick={() => {
+                    props.invertIsProfile();
+                  }}
                 >
                   Profile
                 </button>

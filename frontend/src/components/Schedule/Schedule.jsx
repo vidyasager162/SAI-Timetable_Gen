@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Card from "../Templates/Card";
 
 function Schedule(props) {
   const [studentSchedules, setStudentSchedules] = useState([]);
@@ -28,38 +29,26 @@ function Schedule(props) {
   return props.buttonClicked === "tschedules" ? (
     props.teacherSchedules.map((teacherSchedule) => {
       return (
-        <div className="col mybtn">
-          <button
-            key={teacherSchedule.id}
-            id={teacherSchedule.id}
-            className="btn btn-primary btn-lg"
+        <div className="col">
+          <Card
             name={teacherSchedule.schedule_id}
-            onClick={(e) => {
-              props.handleTeacherID(e);
-              props.setViewTeacherSchedule(true);
-            }}
-          >
-            {teacherSchedule.schedule_id}
-          </button>
+            action={props.handleTeacherID}
+            anotheraction={props.setViewTeacherSchedule}
+            flag="tschedules"
+          />
         </div>
       );
     })
   ) : props.buttonClicked === "sschedules" ? (
     studentSchedules.map((studentSchedule) => {
       return (
-        <div className="col mybtn">
-          <button
-            key={studentSchedule.id}
-            id={studentSchedule.id}
-            className="btn btn-primary btn-lg"
+        <div className="col">
+          <Card
             name={studentSchedule.schedule_id}
-            onClick={(e) => {
-              props.handleCourseID(e);
-              props.setViewStudentSchedule(true);
-            }}
-          >
-            {studentSchedule.schedule_id}
-          </button>
+            action={props.handleCourseID}
+            anotheraction={props.setViewStudentSchedule}
+            flag="sschedules"
+          />
         </div>
       );
     })

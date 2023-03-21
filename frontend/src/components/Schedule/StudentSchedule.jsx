@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Table from "../Templates/Table";
 
 function StudentSchedule(props) {
   //eslint-disable-next-line
@@ -49,33 +50,12 @@ function StudentSchedule(props) {
     <div className="container-fluid p-0">
       <div className="row main-container">
         <div className="col">
-          <div className="container timetable-container table-responsive">
-            <div className="timetable-inner rounded">
-              <table className="table table-light table-bordered m-auto">
-                <thead>
-                  <tr>
-                    {headings.map((heading) => {
-                      return <th scope="col">{heading}</th>;
-                    })}
-                  </tr>
-                </thead>
-                <tbody>
-                  {scheduleReady
-                    ? studentSchedule[0].schedule.map((sched, outerIndex) => {
-                        return (
-                          <tr>
-                            <th scope="row">{days[outerIndex]}</th>
-                            {sched.map((lesson) => {
-                              return <td>{lesson}</td>;
-                            })}
-                          </tr>
-                        );
-                      })
-                    : null}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <Table
+            headings={headings}
+            scheduleReady={scheduleReady}
+            Schedule={studentSchedule}
+            days={days}
+          />
         </div>
       </div>
       <div className="row actions-container text-center">
