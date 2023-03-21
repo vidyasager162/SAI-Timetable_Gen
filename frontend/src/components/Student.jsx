@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Actions from "./Templates/Actions";
 import Table from "./Templates/Table";
 
 function Student(props) {
@@ -58,13 +59,7 @@ function Student(props) {
           />
         </div>
       </div>
-      <div className="row actions-container text-center">
-        <div className="col">
-          <button type="button" className="btn btn-primary">
-            Download
-          </button>
-        </div>
-      </div>
+      <Actions flag="Student" />
     </div>
   );
 }

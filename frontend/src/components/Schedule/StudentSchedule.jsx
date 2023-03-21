@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from "../Templates/Table";
+import Actions from "../Templates/Actions";
 
 function StudentSchedule(props) {
   //eslint-disable-next-line
@@ -58,24 +59,7 @@ function StudentSchedule(props) {
           />
         </div>
       </div>
-      <div className="row actions-container text-center">
-        <div className="col">
-          <button type="button" className="btn btn-primary">
-            Download
-          </button>
-        </div>
-        <div className="col">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              props.setViewStudentSchedule(false);
-            }}
-          >
-            Back
-          </button>
-        </div>
-      </div>
+      <Actions view={props.setViewStudentSchedule} />
     </div>
   );
 }

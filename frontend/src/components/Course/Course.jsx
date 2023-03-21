@@ -1,52 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Card from "../Templates/Card";
 
 function Course(props) {
-  const [departments, setDepartments] = useState([]);
-  const [courses, setCourses] = useState([]);
-  function getDepartments() {
-    fetch("http://192.168.34.129:8000/get-departments", {
-      method: "GET",
+  function deleteSubject(sub_id) {
+    fetch("http://192.168.34.129:8000/delete-subject", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       mode: "cors",
+      body: JSON.stringify({
+        sub_id: sub_id,
+      }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setDepartments(data.departments);
-          console.log(data.departments);
-        }
+      .then((payload) => {
+        console.log(payload);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
       });
   }
 
-  function getCourses() {
-    fetch("http://192.168.34.129:8000/get-courses", {
-      method: "GET",
+  function deleteCourse(course_id) {
+    fetch("http://192.168.34.129:8000/delete-course", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       mode: "cors",
+      body: JSON.stringify({
+        course_id: course_id,
+      }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setCourses(data.courses);
-          console.log(data.courses);
-        }
+      .then((payload) => {
+        console.log(payload);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
       });
   }
 
   useEffect(() => {
-    getDepartments();
-    getCourses();
+    props.getDepartments();
+    props.getCourses();
     props.getSubjects();
     // eslint-disable-next-line
   }, []);
-  return departments.map((department) => {
+  return props.departments.map((department) => {
     return props.buttonClicked === department.dept_id ? (
-      courses
+      props.courses
         .filter((course) => course.dept_id === department.dept_id)
         .map((filteredCourse) => {
           return props.courseClicked === filteredCourse.course_id ? (
@@ -61,6 +65,7 @@ function Course(props) {
                       name={filteredSubject.sub_id}
                       description={filteredSubject.sub_name}
                       flag="subject"
+                      delete={deleteSubject}
                     />
                   </div>
                 );
@@ -71,8 +76,8 @@ function Course(props) {
                 name={filteredCourse.course_id}
                 description={filteredCourse.course_name}
                 action={props.setCourseClicked}
-                anotheraction={props.setButtonClicked}
                 flag="course"
+                delete={deleteCourse}
               />
             </div>
           ) : null;

@@ -119,30 +119,6 @@ const teacherSchedules = mongoose.model("teacherSchedule", scheduleSchema);
 const studentSchedules = mongoose.model("studentSchedule", scheduleSchema);
 const Quotes = mongoose.model("quote", quoteSchema);
 
-// studentSchedules.create({
-//   schedule_id: "III BSc",
-//   schedule: [
-//     ["UCSH-602", "Project", "UCSH-603", "UCSH-602", "UCSH-604", "UCSH-604"],
-//     ["UCSH-602", "Project", "Project", "UCSH-604", "UCSH-604", "UAWR-600"],
-//     ["Project", "UCSH-603", "Project", "Project", "Project", "Project"],
-//     ["Moral Class", "UAWR-600", "UCSH-601", "UCSH-604", "UCSH-604", "UCSH-602"],
-//     ["UCSH-603", "UCSH-602", "Project", "UCSH-601", "Project", "Project"],
-//     ["UCSH-605", "UCSH-605", "UCSH-605", "Project", "Project", "Project"],
-//   ],
-// });
-
-// teacherSchedules.create({
-//   schedule_id: "psk",
-//   schedule: [
-//     ["UCSH-402", "Project", "UCSH-403", "UCSH-402", "UCSH-404", "UCSH-404"],
-//     ["UCSH-402", "Project", "Project", "UCSH-404", "UCSH-404", "UAWR-400"],
-//     ["Project", "UCSH-403", "Project", "Project", "Project", "Project"],
-//     ["Moral Class", "UAWR-400", "UCSH-401", "UCSH-404", "UCSH-404", "UCSH-402"],
-//     ["UCSH-403", "UCSH-402", "Project", "UCSH-401", "Project", "Project"],
-//     ["UCSH-405", "UCSH-405", "UCSH-405", "Project", "Project", "Project"],
-//   ],
-// });
-
 Subjects.find({}, (err, subjectsFound) => {
   if (!err) {
     if (subjectsFound.length === 0) {
@@ -181,11 +157,6 @@ Teachers.find({}, (err, userFound) => {
     console.log(err);
   }
 });
-
-// Users.findOne({ username: "vs" }, (err, user) => {
-//   if (err) throw err;
-//   else console.log("user: ", user);
-// });
 
 app.get("/get-teachers", (req, res) => {
   Teachers.find({}, (err, teachers) => {
@@ -514,6 +485,33 @@ app.post("/create-schedule", (req, res) => {
   teacherSchedules.find({ schedule_id: req.body.schedule_id });
   res.send({
     message: "702",
+  });
+});
+
+app.post("/delete-subject", (req, res) => {
+  Subjects.deleteOne(
+    {
+      sub_id: req.body.sub_id,
+    },
+    (err) => {
+      if (err) throw err;
+      else console.log("Deleted " + req.body.sub_id + " successfully");
+    }
+  );
+});
+
+app.post("/delete-course", (req, res) => {
+  Courses.deleteOne(
+    {
+      course_id: req.body.course_id,
+    },
+    (err) => {
+      if (err) throw err;
+      else console.log("Deleted " + req.body.course_id + " successfully");
+    }
+  );
+  Subjects.deleteMany({ course_id: req.body.course_id }, (err) => {
+    if (err) throw err;
   });
 });
 

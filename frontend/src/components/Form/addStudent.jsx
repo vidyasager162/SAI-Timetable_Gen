@@ -6,7 +6,7 @@ function AddStudent(props) {
     const payload = new FormData(event.currentTarget);
     const reqPayload = {
       name: payload.get("studentname"),
-      username: payload.get("studentid"),
+      username: payload.get("regdno"),
       password: "sairam",
       email: payload.get("emailid"),
       department: payload.get("deptid"),
@@ -57,10 +57,10 @@ function AddStudent(props) {
               type="text"
               className="form-control login-input"
               id="floatingInput"
-              placeholder="Student ID"
-              name="studentid"
+              placeholder="Regd No"
+              name="regdno"
             />
-            <label htmlFor="floatingInput">Student ID</label>
+            <label htmlFor="floatingInput">Regd No</label>
           </div>
           <div className="form-floating w-50 m-auto">
             <input
@@ -72,25 +72,25 @@ function AddStudent(props) {
             />
             <label htmlFor="floatingInput">Email ID</label>
           </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Department ID"
-              name="deptid"
-            />
-            <label htmlFor="floatingInput">Department ID</label>
+          <div className="form-floating m-auto w-50">
+            <select className="form-select" name="deptid">
+              {props.departments.map((department) => {
+                return (
+                  <option value={department.dept_id}>
+                    {department.dept_id}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Course ID"
-              name="courseid"
-            />
-            <label htmlFor="floatingInput">Course ID</label>
+            <select className="form-select" name="courseid">
+              {props.courses.map((course) => {
+                return (
+                  <option value={course.course_id}>{course.course_id}</option>
+                );
+              })}
+            </select>
           </div>
           <div className="form-floating w-50 m-auto">
             <input

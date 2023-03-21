@@ -16,7 +16,7 @@ function Card(props) {
         >
           View
         </button>
-        <button className="btn btn-outline-danger" value={props.name}>
+        <button className="btn btn-outline-danger mx-1" value={props.name}>
           Delete
         </button>
       </div>
@@ -32,12 +32,17 @@ function Card(props) {
           name={props.name}
           onClick={(e) => {
             props.action(e.target.name);
-            props.anotheraction("");
           }}
         >
           View
         </button>
-        <button className="btn btn-outline-danger" value={props.name}>
+        <button
+          className="btn btn-outline-danger mx-1"
+          value={props.name}
+          onClick={() => {
+            props.delete(props.name);
+          }}
+        >
           Delete
         </button>
       </div>
@@ -47,7 +52,13 @@ function Card(props) {
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <p className="card-text">{props.description}</p>
-        <button className="btn btn-outline-danger" value={props.name}>
+        <button
+          className="btn btn-outline-danger"
+          value={props.name}
+          onClick={() => {
+            props.delete(props.name);
+          }}
+        >
           Delete
         </button>
       </div>
@@ -67,7 +78,7 @@ function Card(props) {
         >
           View
         </button>
-        <button className="btn btn-outline-danger" value={props.name}>
+        <button className="btn btn-outline-danger mx-1" value={props.name}>
           Delete
         </button>
       </div>
@@ -86,9 +97,6 @@ function Card(props) {
           }}
         >
           View
-        </button>
-        <button className="btn btn-outline-danger" value={props.name}>
-          Delete
         </button>
       </div>
     </div>

@@ -37,6 +37,42 @@ function Main(props) {
   const [subjects, setSubjects] = useState([]);
   const [courseClicked, setCourseClicked] = useState("");
   const [teacherSchedules, setTeacherSchedules] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [courses, setCourses] = useState([]);
+
+  function getDepartments() {
+    fetch("http://192.168.34.129:8000/get-departments", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setDepartments(data.departments);
+          console.log(data.departments);
+        }
+      });
+  }
+
+  function getCourses() {
+    fetch("http://192.168.34.129:8000/get-courses", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setCourses(data.courses);
+          console.log(data.courses);
+        }
+      });
+  }
 
   function getSubjects() {
     fetch("http://192.168.34.129:8000/get-subjects", {
@@ -157,7 +193,10 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddCourse setIsAddCourse={setIsAddCourse} />
+            <AddCourse
+              setIsAddCourse={setIsAddCourse}
+              buttonClicked={buttonClicked}
+            />
           </div>
         </div>
       </div>
@@ -181,7 +220,13 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddStudent setIsAddStudent={setIsAddStudent} />
+            <AddStudent
+              setIsAddStudent={setIsAddStudent}
+              departments={departments}
+              courses={courses}
+              getDepartments={getDepartments}
+              getCourses={getCourses}
+            />
           </div>
         </div>
       </div>
@@ -266,6 +311,10 @@ function Main(props) {
                   subjects={subjects}
                   courseClicked={courseClicked}
                   setCourseClicked={setCourseClicked}
+                  departments={departments}
+                  courses={courses}
+                  getDepartments={getDepartments}
+                  getCourses={getCourses}
                 />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>
