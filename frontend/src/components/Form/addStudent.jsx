@@ -1,4 +1,6 @@
 import React from "react";
+import FormActions from "../Templates/FormActions";
+import FormHeader from "../Templates/FormHeader";
 
 function AddStudent(props) {
   function handleStudentSubmit(event) {
@@ -11,7 +13,6 @@ function AddStudent(props) {
       email: payload.get("emailid"),
       department: payload.get("deptid"),
       course: payload.get("courseid"),
-      subjects: payload.get("subjects").split(","),
       usertype: 2,
     };
     fetch("http://192.168.34.129:8000/add-student", {
@@ -39,9 +40,7 @@ function AddStudent(props) {
     <div className="form-signin w-100 m-auto container">
       <form onSubmit={handleStudentSubmit} method="POST">
         <div className="form-container">
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Add Student</h1>
-          </div>
+          <FormHeader title="Add Student" />
           <div className="form-floating w-50 m-auto">
             <input
               type="text"
@@ -73,7 +72,7 @@ function AddStudent(props) {
             <label htmlFor="floatingInput">Email ID</label>
           </div>
           <div className="form-floating m-auto w-50">
-            <select className="form-select" name="deptid">
+            <select className="form-select bg-light" name="deptid">
               {props.departments.map((department) => {
                 return (
                   <option value={department.dept_id}>
@@ -84,7 +83,7 @@ function AddStudent(props) {
             </select>
           </div>
           <div className="form-floating w-50 m-auto">
-            <select className="form-select" name="courseid">
+            <select className="form-select bg-light" name="courseid">
               {props.courses.map((course) => {
                 return (
                   <option value={course.course_id}>{course.course_id}</option>
@@ -92,30 +91,7 @@ function AddStudent(props) {
               })}
             </select>
           </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Subject IDs [separate by commas]"
-              name="subjects"
-            />
-            <label htmlFor="floatingInput">
-              Subject IDs [separate by commas]
-            </label>
-          </div>
-          <div className="text-center">
-            <button className="btn btn-lg btn-primary login-button">Add</button>
-            <button
-              type="button"
-              className="btn btn-lg btn-primary login-button"
-              onClick={() => {
-                props.setIsAddStudent(false);
-              }}
-            >
-              Back
-            </button>
-          </div>
+          <FormActions action={props.setIsAddStudent} />
         </div>
       </form>
     </div>
