@@ -13,6 +13,44 @@ function Profile(props) {
     />
   );
 
+  function editUser(event, user_id) {
+    event.preventDefault();
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      old_username: user_id,
+      new_user_id: payload.get("username"),
+      new_password: payload.get("password"),
+      new_email: payload.get("emailid"),
+    };
+    fetch("http://192.168.34.129:8000/edit-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    });
+  }
+
+  function deleteUser(user_id) {
+    fetch("http://192.168.34.129:8000/delete-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        user_id: user_id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        console.log(payload);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  }
+
   return (
     <div className="container-fluid p-0">
       <div className="row main-container">
@@ -28,11 +66,30 @@ function Profile(props) {
               isProfile="true"
             />
           </div>
-          <div className="row py-2 mybtn text-center profile-button">
+          <div className="row py-1 mybtn text-center profile-button">
             <button className="btn btn-outline-primary">Edit User</button>
           </div>
-          <div className="row py-2 mybtn text-center profile-button">
-            <button className="btn btn-outline-danger">Delete User</button>
+          <div className="row pb-1 mybtn text-center profile-button">
+            <button
+              className="btn btn-outline-danger"
+              name={props.User.username}
+              onClick={(e) => {
+                deleteUser(e.target.name);
+              }}
+            >
+              Delete User
+            </button>
+          </div>
+          <div className="row pb-1 mybtn text-center profile-button">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => {
+                props.setIsProfile(false);
+                props.setViewProfile(false);
+              }}
+            >
+              Back
+            </button>
           </div>
         </div>
         <div className="col my-col profile-info-container">

@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import FormActions from "../Templates/FormActions";
+import FormHeader from "../Templates/FormHeader";
 
 function AddTeacher(props) {
+  useEffect(() => {
+    props.getDepartments();
+    props.getCourses();
+    // eslint-disable-next-line
+  }, []);
   function handleTeacherSubmit(event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
@@ -39,9 +46,7 @@ function AddTeacher(props) {
     <div className="form-signin w-100 m-auto container">
       <form onSubmit={handleTeacherSubmit} method="POST">
         <div className="form-container">
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">Add Teacher</h1>
-          </div>
+          <FormHeader title="Add Teacher" />
           <div className="form-floating w-50 m-auto">
             <input
               type="text"
@@ -72,15 +77,16 @@ function AddTeacher(props) {
             />
             <label htmlFor="floatingInput">Email ID</label>
           </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Department ID"
-              name="deptid"
-            />
-            <label htmlFor="floatingInput">Department ID</label>
+          <div className="form-floating m-auto w-50">
+            <select className="form-select bg-light" name="deptid">
+              {props.departments.map((department) => {
+                return (
+                  <option value={department.dept_id}>
+                    {department.dept_id}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <div className="form-floating w-50 m-auto">
             <input
@@ -106,18 +112,7 @@ function AddTeacher(props) {
               Subjects Taught [separate by commas]
             </label>
           </div>
-          <div className="text-center">
-            <button className="btn btn-lg btn-primary login-button">Add</button>
-            <button
-              type="button"
-              className="btn btn-lg btn-primary login-button"
-              onClick={() => {
-                props.setIsAddTeacher(false);
-              }}
-            >
-              Back
-            </button>
-          </div>
+          <FormActions action={props.setIsAddTeacher} />
         </div>
       </form>
     </div>

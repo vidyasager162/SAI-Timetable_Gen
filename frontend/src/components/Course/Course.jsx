@@ -22,6 +22,25 @@ function Course(props) {
       });
   }
 
+  function editSubject(sub_id, event) {
+    event.preventDefault();
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      old_sub_id: sub_id,
+      new_sub_id: payload.get("subid"),
+      new_sub_name: payload.get("subname"),
+      new_course_id: payload.get("course_id"),
+    };
+    fetch("http://192.168.34.129:8000/edit-subject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    });
+  }
+
   function deleteCourse(course_id) {
     fetch("http://192.168.34.129:8000/delete-course", {
       method: "POST",
@@ -31,6 +50,26 @@ function Course(props) {
       mode: "cors",
       body: JSON.stringify({
         course_id: course_id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        console.log(payload);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  }
+
+  function deleteDepartment(dept_id) {
+    fetch("http://192.168.34.129:8000/delete-department", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        dept_id: dept_id,
       }),
     })
       .then((res) => res.json())
@@ -89,6 +128,7 @@ function Course(props) {
           description={department.dept_name}
           action={props.handleButtonClick}
           flag="department"
+          delete={deleteDepartment}
         />
       </div>
     ) : null;

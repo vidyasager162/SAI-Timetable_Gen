@@ -178,7 +178,11 @@ function Main(props) {
 
   return props.isAdmin ? (
     props.isViewProfile ? (
-      <Profile User={userProfile} />
+      <Profile
+        User={userProfile}
+        setIsProfile={props.setIsProfile}
+        setViewProfile={props.setViewProfile}
+      />
     ) : viewStudentSchedule ? (
       <StudentSchedule
         courseid={courseid}
@@ -212,7 +216,13 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddTeacher setIsAddTeacher={setIsAddTeacher} />
+            <AddTeacher
+              setIsAddTeacher={setIsAddTeacher}
+              departments={departments}
+              courses={courses}
+              getDepartments={getDepartments}
+              getCourses={getCourses}
+            />
           </div>
         </div>
       </div>
@@ -234,7 +244,10 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddSubject setIsAddSubject={setIsAddSubject} />
+            <AddSubject
+              setIsAddSubject={setIsAddSubject}
+              courseClicked={courseClicked}
+            />
           </div>
         </div>
       </div>

@@ -515,6 +515,46 @@ app.post("/delete-course", (req, res) => {
   });
 });
 
+app.post("/delete-department", (req, res) => {
+  Departments.deleteOne(
+    {
+      dept_id: req.body.dept_id,
+    },
+    (err) => {
+      if (err) throw err;
+      else console.log("Deleted " + req.body.dept_id + " successfully");
+    }
+  );
+  Courses.find(
+    {
+      dept_id: req.body.dept_id,
+    },
+    (err, coursesFound) => {
+      if (err) throw err;
+      else {
+        coursesFound.map((course) => {
+          Subjects.deleteMany({ course_id: course }, (err) => {
+            if (err) throw err;
+          });
+        });
+        Courses.deleteMany({ dept_id: req.body.dept_id }, (err) => {
+          if (err) throw err;
+        });
+      }
+    }
+  );
+});
+
+app.post("/delete-user", (req, res) => {
+  Teachers.findOneAndDelete({ username: req.body.user_id }, (err, found) => {
+    if (!found) {
+      Students.findOneAndDelete({ username: req.body.user_id }, (error) => {
+        if (error) throw error;
+      });
+    }
+  });
+});
+
 app.post("/get-user", (req, res) => {
   Teachers.findOne(
     {

@@ -8,7 +8,9 @@ function FormActions(props) {
         type="button"
         className="btn btn-lg btn-primary login-button mb-0"
         onClick={() => {
-          props.action(false);
+          props.flag === "createschedule"
+            ? props.action("")
+            : props.action(false);
         }}
       >
         Back

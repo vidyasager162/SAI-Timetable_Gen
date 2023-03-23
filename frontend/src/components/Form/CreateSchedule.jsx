@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import FormActions from "../Templates/FormActions";
+import FormHeader from "../Templates/FormHeader";
 
 function CreateSchedule(props) {
   useEffect(() => {
@@ -19,9 +21,13 @@ function CreateSchedule(props) {
     "Saturday",
   ];
   //eslint-disable-next-line
-  const tname = props.teachers.map((teacher) => {
+  let tname = "";
+  let tuname = "";
+  //eslint-disable-next-line
+  props.teachers.map((teacher) => {
     if (teacher.username === props.teacherClicked) {
-      return teacher.name;
+      tname = teacher.name;
+      tuname = teacher.username;
     }
   });
 
@@ -42,7 +48,7 @@ function CreateSchedule(props) {
       payload.getAll("Saturday"),
     ];
     const reqPayload = {
-      schedule_id: payload.get("teacherid"),
+      schedule_id: tuname,
       schedule: schedule,
     };
     fetch("http://192.168.34.129:8000/create-schedule", {
@@ -72,14 +78,7 @@ function CreateSchedule(props) {
     <div className="form-signin w-100 m-auto container">
       <form onSubmit={handleScheduleSubmit} method="POST">
         <div className="schedule-form-container">
-          <div>
-            <h1 className="h3 p-4 fw-normal m-auto text-center">
-              Create Schedule
-            </h1>
-          </div>
-          <div>
-            <h5 className="m-auto text-center">{tname}</h5>
-          </div>
+          <FormHeader title="Create Schedule" subtitle={tname} />
           <div className="container timetable-container table-responsive">
             <div className="timetable-inner">
               <table className="table table-sm table-secondary table-bordered m-auto">
@@ -121,18 +120,7 @@ function CreateSchedule(props) {
               </table>
             </div>
           </div>
-          <div className="text-center">
-            <button className="btn btn-lg btn-primary add-button">Add</button>
-            <button
-              type="button"
-              className="btn btn-lg btn-primary login-button"
-              onClick={() => {
-                props.setTeacherClicked("");
-              }}
-            >
-              Back
-            </button>
-          </div>
+          <FormActions action={props.setTeacherClicked} flag="createschedule" />
         </div>
       </form>
     </div>

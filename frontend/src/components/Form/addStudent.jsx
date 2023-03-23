@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormActions from "../Templates/FormActions";
 import FormHeader from "../Templates/FormHeader";
 
 function AddStudent(props) {
+  useEffect(() => {
+    props.getDepartments();
+    props.getCourses();
+    // eslint-disable-next-line
+  }, []);
   function handleStudentSubmit(event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);

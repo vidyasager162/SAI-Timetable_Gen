@@ -149,7 +149,11 @@ function App() {
       />
       {isLoggedIn ? (
         isProfile ? (
-          <Profile User={User} isProfile={isProfile} />
+          <Profile
+            User={User}
+            isProfile={isProfile}
+            setIsProfile={setIsProfile}
+          />
         ) : !isProfile ? (
           <Main
             isAdmin={isAdmin}
@@ -158,6 +162,7 @@ function App() {
             User={User}
             setViewProfile={setViewProfile}
             isViewProfile={isViewProfile}
+            setIsProfile={setIsProfile}
           />
         ) : null
       ) : (
