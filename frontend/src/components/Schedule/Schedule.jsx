@@ -20,6 +20,26 @@ function Schedule(props) {
       });
   }
 
+  function deleteSchedule(schedule_id) {
+    fetch("http://192.168.34.129:8000/delete-schedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        schedule_id: schedule_id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        console.log(payload);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  }
+
   useEffect(() => {
     props.getTeacherSchedules();
     getStudentSchedules();
@@ -35,6 +55,7 @@ function Schedule(props) {
             action={props.handleTeacherID}
             anotheraction={props.setViewTeacherSchedule}
             flag="tschedules"
+            delete={deleteSchedule}
           />
         </div>
       );

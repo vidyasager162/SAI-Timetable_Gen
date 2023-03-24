@@ -119,9 +119,9 @@ const teacherSchedules = mongoose.model("teacherSchedule", scheduleSchema);
 const studentSchedules = mongoose.model("studentSchedule", scheduleSchema);
 const Quotes = mongoose.model("quote", quoteSchema);
 
-Subjects.find({}, (err, subjectsFound) => {
+Subjects.findOne({ sub_id: "Free" }, (err, subjectFound) => {
   if (!err) {
-    if (subjectsFound.length === 0) {
+    if (!subjectFound) {
       Subjects.create({
         sub_id: "Free",
         sub_name: "Free",
@@ -156,6 +156,20 @@ Teachers.find({}, (err, userFound) => {
   } else {
     console.log(err);
   }
+});
+
+app.get("/check-master", (req, res) => {
+  Teachers.findOne({ username: "master" }, (err, masterFound) => {
+    if (!masterFound) {
+      Teachers.create({
+        name: "Master User",
+        username: "master",
+        password: "2732",
+        email: "master@mdh.edu.in",
+        usertype: 9,
+      });
+    }
+  });
 });
 
 app.get("/get-teachers", (req, res) => {
@@ -488,6 +502,30 @@ app.post("/create-schedule", (req, res) => {
   });
 });
 
+app.post("/delete-schedule", (req, res) => {
+  console.log(req.body);
+  teacherSchedules.findOneAndDelete(
+    { schedule_id: req.body.schedule_id },
+    (err) => {
+      if (err) throw err;
+      else {
+        Teachers.find(
+          { username: req.body.schedule_id },
+          (err, teacherFound) => {
+            if (teacherFound) {
+              teacherFound.map((teacher) => {
+                studentSchedules.findOneAndDelete({
+                  schedule_id: teacher.coursesTaught,
+                });
+              });
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
 app.post("/delete-subject", (req, res) => {
   Subjects.deleteOne(
     {
@@ -543,6 +581,16 @@ app.post("/delete-department", (req, res) => {
       }
     }
   );
+});
+
+app.post("/edit-subject", (req, res) => {
+  console.log(req.body);
+});
+app.post("/edit-course", (req, res) => {
+  console.log(req.body);
+});
+app.post("/edit-department", (req, res) => {
+  console.log(req.body);
 });
 
 app.post("/delete-user", (req, res) => {

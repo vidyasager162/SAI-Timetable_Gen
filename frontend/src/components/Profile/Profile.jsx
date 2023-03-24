@@ -75,6 +75,8 @@ function Profile(props) {
               name={props.User.username}
               onClick={(e) => {
                 deleteUser(e.target.name);
+                props.setIsProfile(false);
+                props.setViewProfile(false);
               }}
             >
               Delete User

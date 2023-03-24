@@ -23,7 +23,6 @@ function Course(props) {
   }
 
   function editSubject(sub_id, event) {
-    event.preventDefault();
     const payload = new FormData(event.currentTarget);
     const reqPayload = {
       old_sub_id: sub_id,
@@ -61,6 +60,24 @@ function Course(props) {
       });
   }
 
+  function editCourse(course_id, event) {
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      old_course_id: course_id,
+      new_course_id: payload.get("courseid"),
+      new_course_name: payload.get("coursename"),
+      new_dept_id: payload.get("dept_id"),
+    };
+    fetch("http://192.168.34.129:8000/edit-course", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    });
+  }
+
   function deleteDepartment(dept_id) {
     fetch("http://192.168.34.129:8000/delete-department", {
       method: "POST",
@@ -81,12 +98,30 @@ function Course(props) {
       });
   }
 
+  function editDepartment(dept_id, event) {
+    const payload = new FormData(event.currentTarget);
+    const reqPayload = {
+      old_dept_id: dept_id,
+      new_dept_id: payload.get("dept_id"),
+      new_dept_name: payload.get("deptname"),
+    };
+    fetch("http://192.168.34.129:8000/edit-department", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    });
+  }
+
   useEffect(() => {
     props.getDepartments();
     props.getCourses();
     props.getSubjects();
     // eslint-disable-next-line
   }, []);
+
   return props.departments.map((department) => {
     return props.buttonClicked === department.dept_id ? (
       props.courses
@@ -105,6 +140,7 @@ function Course(props) {
                       description={filteredSubject.sub_name}
                       flag="subject"
                       delete={deleteSubject}
+                      edit={editSubject}
                     />
                   </div>
                 );
@@ -117,6 +153,7 @@ function Course(props) {
                 action={props.setCourseClicked}
                 flag="course"
                 delete={deleteCourse}
+                edit={editCourse}
               />
             </div>
           ) : null;
@@ -129,6 +166,7 @@ function Course(props) {
           action={props.handleButtonClick}
           flag="department"
           delete={deleteDepartment}
+          edit={editDepartment}
         />
       </div>
     ) : null;

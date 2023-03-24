@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Main from "./Main/Main";
 import Home from "./Home";
@@ -8,6 +8,10 @@ import { useCookies } from "react-cookie";
 import Profile from "./Profile/Profile";
 
 function App() {
+  useEffect(() => {
+    // eslint-disable-next-line
+    checkMaster();
+  }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // All three constants passed to Main component to render inner-components based on their state.
   const [isAdmin, setIsAdmin] = useState(false);
@@ -83,6 +87,16 @@ function App() {
     setIsStudent(false);
     setIsTeacher(false);
     setIsProfile(false);
+  }
+
+  function checkMaster() {
+    fetch("http://192.168.34.129:8000/check-master", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    });
   }
 
   //Passed to Home component and Header component to accomodate logout by the user.

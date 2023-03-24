@@ -1,4 +1,5 @@
 import React from "react";
+import Modal from "./Modal";
 
 function Card(props) {
   return props.flag === "department" ? (
@@ -16,11 +17,26 @@ function Card(props) {
         >
           View
         </button>
-        <button className="btn btn-outline-danger mx-1" value={props.name}>
+        <button
+          className="btn btn-outline-secondary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="#departmentModal"
+          value={props.name}
+        >
           Edit
         </button>
+        <Modal
+          modalID="departmentModal"
+          action={props.edit}
+          title="Department"
+          fplaceholder="New Department Name"
+          fname="deptname"
+          lplaceholder="New Department ID"
+          lname="dept_id"
+          id={props.name}
+        />
         <button
-          className="btn btn-outline-danger mx-1"
+          className="btn btn-outline-danger my-1"
           value={props.name}
           onClick={() => {
             props.delete(props.name);
@@ -45,11 +61,28 @@ function Card(props) {
         >
           View
         </button>
-        <button className="btn btn-outline-danger mx-1" value={props.name}>
+        <button
+          className="btn btn-outline-secondary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="#courseModal"
+          value={props.name}
+        >
           Edit
         </button>
+        <Modal
+          modalID="courseModal"
+          action={props.edit}
+          title="Course"
+          fplaceholder="New Course Name"
+          fname="coursename"
+          mplaceholder="New Course ID"
+          mname="courseid"
+          lplaceholder="New Department ID"
+          lname="dept_id"
+          id={props.name}
+        />
         <button
-          className="btn btn-outline-danger mx-1"
+          className="btn btn-outline-danger my-1"
           value={props.name}
           onClick={() => {
             props.delete(props.name);
@@ -65,16 +98,31 @@ function Card(props) {
         <h5 className="card-title">{props.name}</h5>
         <p className="card-text">{props.description}</p>
         <button
-          className="btn btn-outline-danger mx-1"
+          className="btn btn-outline-secondary"
           value={props.name}
-          onClick={() => {
-            props.edit(props.name);
+          data-bs-toggle="modal"
+          data-bs-target="#subjectModal"
+          onClick={(e) => {
+            props.edit(true);
+            props.action(e.target.name);
           }}
         >
           Edit
         </button>
+        <Modal
+          modalID="subjectModal"
+          action={props.edit}
+          title="Subject"
+          fplaceholder="New Subject Name"
+          fname="subname"
+          mplaceholder="New Subject ID"
+          mname="subid"
+          lplaceholder="New Course ID"
+          lname="course_id"
+          id={props.name}
+        />
         <button
-          className="btn btn-outline-danger"
+          className="btn btn-outline-danger mx-1"
           value={props.name}
           onClick={() => {
             props.delete(props.name);
@@ -99,7 +147,13 @@ function Card(props) {
         >
           View
         </button>
-        <button className="btn btn-outline-danger mx-1" value={props.name}>
+        <button
+          className="btn btn-outline-danger mx-1"
+          value={props.name}
+          onClick={(e) => {
+            props.delete(e.target.value);
+          }}
+        >
           Delete
         </button>
       </div>
