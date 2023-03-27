@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from "../Templates/Button";
 import Card from "../Templates/Card";
 
 function Schedule(props) {
@@ -76,24 +77,22 @@ function Schedule(props) {
   ) : props.buttonClicked === "" ? (
     <>
       <div className="col mybtn">
-        <button
+        <Button
           type="button"
           className="btn btn-primary btn-lg"
-          onClick={props.handleButtonClick}
           name="tschedules"
-        >
-          Teacher Schedules
-        </button>
+          dname="Teacher Schedules"
+          action={props.handleButtonClick}
+        />
       </div>
       <div className="col mybtn">
-        <button
+        <Button
           type="button"
           className="btn btn-outline-primary btn-lg"
-          onClick={props.handleButtonClick}
           name="sschedules"
-        >
-          Student Schedules
-        </button>
+          dname="Student Schedules"
+          action={props.handleButtonClick}
+        />
       </div>
     </>
   ) : null;

@@ -33,7 +33,7 @@ function Modal(props) {
                       id="floatingInput"
                       placeholder={props.fplaceholder}
                       name={props.fname}
-                      value={props.description}
+                      defaultValue={props.description}
                     />
                     <label htmlFor="floatingInput">{props.fplaceholder}</label>
                   </div>
@@ -47,7 +47,7 @@ function Modal(props) {
                         id="floatingInput"
                         placeholder={props.mplaceholder}
                         name={props.mname}
-                        value={props.name}
+                        defaultValue={props.name}
                       />
                       <label htmlFor="floatingInput">
                         {props.mplaceholder}
@@ -61,7 +61,7 @@ function Modal(props) {
                       id="floatingInput"
                       placeholder={props.lplaceholder}
                       name={props.lname}
-                      value={props.identifier}
+                      defaultValue={props.identifier}
                     />
                     <label htmlFor="floatingInput">{props.lplaceholder}</label>
                   </div>

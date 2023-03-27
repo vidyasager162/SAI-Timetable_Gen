@@ -1,6 +1,7 @@
 import React from "react";
 import FormActions from "../Templates/FormActions";
 import FormHeader from "../Templates/FormHeader";
+import FormInput from "../Templates/FormInput";
 
 function AddDepartment(props) {
   function handleDepartmentSubmit(event) {
@@ -36,26 +37,12 @@ function AddDepartment(props) {
       <form onSubmit={handleDepartmentSubmit} method="POST">
         <div className="form-container">
           <FormHeader title="Add Department" />
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Department Name"
-              name="deptname"
-            />
-            <label htmlFor="floatingInput">Department Name</label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Department ID"
-              name="deptid"
-            />
-            <label htmlFor="floatingInput">Department ID</label>
-          </div>
+          <FormInput
+            type="text"
+            placeholder="Department Name"
+            name="deptname"
+          />
+          <FormInput type="text" placeholder="Department ID" name="deptid" />
           <FormActions action={props.setIsAddDepartment} />
         </div>
       </form>

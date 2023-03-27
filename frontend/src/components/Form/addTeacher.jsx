@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import FormActions from "../Templates/FormActions";
 import FormHeader from "../Templates/FormHeader";
+import FormInput from "../Templates/FormInput";
 
 function AddTeacher(props) {
   useEffect(() => {
@@ -47,36 +48,13 @@ function AddTeacher(props) {
       <form onSubmit={handleTeacherSubmit} method="POST">
         <div className="form-container">
           <FormHeader title="Add Teacher" />
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Teacher Name"
-              name="teachername"
-            />
-            <label htmlFor="floatingInput">Teacher Name</label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Teacher ID"
-              name="teacherid"
-            />
-            <label htmlFor="floatingInput">Teacher ID</label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Email ID"
-              name="emailid"
-            />
-            <label htmlFor="floatingInput">Email ID</label>
-          </div>
+          <FormInput
+            type="text"
+            placeholder="Teacher Name"
+            name="teachername"
+          />
+          <FormInput type="text" placeholder="Teacher ID" name="teacherid" />
+          <FormInput type="text" placeholder="Email ID" name="emailid" />
           <div className="form-floating m-auto w-50">
             <select className="form-select bg-light" name="deptid">
               {props.departments.map((department) => {
@@ -88,30 +66,16 @@ function AddTeacher(props) {
               })}
             </select>
           </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Courses Taught [separate by commas]"
-              name="coursestaught"
-            />
-            <label htmlFor="floatingInput">
-              Courses Taught [separate by commas]
-            </label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Subjects Taught [separate by commas]"
-              name="subjectstaught"
-            />
-            <label htmlFor="floatingInput">
-              Subjects Taught [separate by commas]
-            </label>
-          </div>
+          <FormInput
+            type="text"
+            placeholder="Courses Taught [separate by commas]"
+            name="coursestaught"
+          />
+          <FormInput
+            type="text"
+            placeholder="Subjects Taught [separate by commas]"
+            name="subjectstaught"
+          />
           <FormActions action={props.setIsAddTeacher} />
         </div>
       </form>

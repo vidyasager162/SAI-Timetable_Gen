@@ -138,6 +138,7 @@ function Course(props) {
                 return (
                   <div className="col">
                     <Card
+                      key={filteredSubject.sub_id}
                       sub={filteredSubject}
                       name={filteredSubject.sub_id}
                       identifier={filteredCourse.course_id}
@@ -152,6 +153,7 @@ function Course(props) {
           ) : props.courseClicked === "" ? (
             <div className="col">
               <Card
+                key={filteredCourse.course_id}
                 course={filteredCourse}
                 name={filteredCourse.course_id}
                 description={filteredCourse.course_name}
@@ -167,6 +169,7 @@ function Course(props) {
     ) : props.buttonClicked === "" ? (
       <div className="col">
         <Card
+          key={department.dept_id}
           dept={department}
           name={department.dept_id}
           identifier={department.dept_id}

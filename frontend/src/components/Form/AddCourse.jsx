@@ -1,6 +1,7 @@
 import React from "react";
 import FormActions from "../Templates/FormActions";
 import FormHeader from "../Templates/FormHeader";
+import FormInput from "../Templates/FormInput";
 
 function AddCourse(props) {
   function handleCourseSubmit(event) {
@@ -37,26 +38,8 @@ function AddCourse(props) {
       <form onSubmit={handleCourseSubmit} method="POST">
         <div className="form-container">
           <FormHeader title="Add Course" subtitle={props.buttonClicked} />
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Course Name"
-              name="coursename"
-            />
-            <label htmlFor="floatingInput">Course Name</label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Course ID"
-              name="courseid"
-            />
-            <label htmlFor="floatingInput">Course ID</label>
-          </div>
+          <FormInput type="text" placeholder="Course Name" name="coursename" />
+          <FormInput type="text" placeholder="Course ID" name="courseid" />
           <FormActions action={props.setIsAddCourse} />
         </div>
       </form>

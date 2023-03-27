@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Templates/Button";
 
 function SideBar(props) {
   return props.clicked === "Schedules" ? (
@@ -54,38 +55,34 @@ function SideBar(props) {
         style={{ width: "60%", height: "482px" }}
       >
         <div className="sidebar-buttons">
-          <button
+          <Button
             type="button"
             className="btn btn-light"
             name="Schedules"
-            onClick={props.handleClick}
-          >
-            Schedules
-          </button>
-          <button
+            dname="Schedules"
+            action={props.handleClick}
+          />
+          <Button
             type="button"
             className="btn btn-light"
             name="Teachers"
-            onClick={props.handleClick}
-          >
-            Teachers
-          </button>
-          <button
+            dname="Teachers"
+            action={props.handleClick}
+          />
+          <Button
             type="button"
             className="btn btn-light"
             name="Students"
-            onClick={props.handleClick}
-          >
-            Students
-          </button>
-          <button
+            dname="Students"
+            action={props.handleClick}
+          />
+          <Button
             type="button"
             className="btn btn-light"
             name="Courses"
-            onClick={props.handleClick}
-          >
-            Courses
-          </button>
+            dname="Courses"
+            action={props.handleClick}
+          />
           <button
             type="button"
             className="btn btn-light"
@@ -247,38 +244,34 @@ function SideBar(props) {
       style={{ width: "60%", height: "482px" }}
     >
       <div className="sidebar-buttons">
-        <button
+        <Button
           type="button"
           className="btn btn-light"
           name="Schedules"
-          onClick={props.handleClick}
-        >
-          Schedules
-        </button>
-        <button
+          dname="Schedules"
+          action={props.handleClick}
+        />
+        <Button
           type="button"
           className="btn btn-light"
           name="Teachers"
-          onClick={props.handleClick}
-        >
-          Teachers
-        </button>
-        <button
+          dname="Teachers"
+          action={props.handleClick}
+        />
+        <Button
           type="button"
           className="btn btn-light"
           name="Students"
-          onClick={props.handleClick}
-        >
-          Students
-        </button>
-        <button
+          dname="Students"
+          action={props.handleClick}
+        />
+        <Button
           type="button"
           className="btn btn-light"
           name="Courses"
-          onClick={props.handleClick}
-        >
-          Courses
-        </button>
+          dname="Courses"
+          action={props.handleClick}
+        />
         <button
           type="button"
           className="btn btn-light"

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import FormActions from "../Templates/FormActions";
 import FormHeader from "../Templates/FormHeader";
+import FormInput from "../Templates/FormInput";
 
 function AddStudent(props) {
   useEffect(() => {
@@ -46,36 +47,13 @@ function AddStudent(props) {
       <form onSubmit={handleStudentSubmit} method="POST">
         <div className="form-container">
           <FormHeader title="Add Student" />
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Student Name"
-              name="studentname"
-            />
-            <label htmlFor="floatingInput">Student Name</label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Regd No"
-              name="regdno"
-            />
-            <label htmlFor="floatingInput">Regd No</label>
-          </div>
-          <div className="form-floating w-50 m-auto">
-            <input
-              type="text"
-              className="form-control login-input"
-              id="floatingInput"
-              placeholder="Email ID"
-              name="emailid"
-            />
-            <label htmlFor="floatingInput">Email ID</label>
-          </div>
+          <FormInput
+            type="text"
+            placeholder="Student Name"
+            name="studentname"
+          />
+          <FormInput type="text" placeholder="Regd No" name="regdno" />
+          <FormInput type="text" placeholder="Email ID" name="emailid" />
           <div className="form-floating m-auto w-50">
             <select className="form-select bg-light" name="deptid">
               {props.departments.map((department) => {
