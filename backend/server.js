@@ -5,6 +5,17 @@ const mongoose = require("mongoose");
 const csvtojson = require("csvtojson");
 const multer = require("multer");
 
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+var uploads = multer({ storage: storage });
+
 const app = express();
 
 app.use(
@@ -269,6 +280,27 @@ app.get("/get-studentschedules", (req, res) => {
       });
     }
   });
+});
+
+var subResponse;
+app.post("/subject-cohort", uploads.single("csvFile"), (req, res) => {
+  csvtojson()
+    .fromFile(req.file.path)
+    .then((response) => {
+      for (var x = 0; x < response; x++) {
+        subResponse = parseFloat(response[x].SubjectName);
+        response[x].SubjectName = subResponse;
+        subResponse = parseFloat(response[x].SubjectID);
+        response[x].SubjectID = subResponse;
+        subResponse = parseFloat(response[x].CourseID);
+        response[x].CourseID = subResponse;
+      }
+      Subjects.insertMany(response, (err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
 });
 
 app.post("/login", (req, res) => {
