@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const csvtojson = require("csvtojson");
+const multer = require("multer");
 
 const app = express();
 
@@ -495,11 +497,20 @@ app.post("/request-teacherschedule", (req, res) => {
 });
 
 app.post("/create-schedule", (req, res) => {
-  console.log(req.body);
-  teacherSchedules.find({ schedule_id: req.body.schedule_id });
-  res.send({
-    message: "702",
-  });
+  teacherSchedules.findOne(
+    { schedule_id: req.body.schedule_id },
+    (err, scheduleFound) => {
+      if (scheduleFound) {
+        console.log("schedule already exists");
+      } else {
+        console.log("Reached here");
+        teacherSchedules.create({
+          schedule_id: req.body.schedule_id,
+          schedule: req.body.schedule,
+        });
+      }
+    }
+  );
 });
 
 app.post("/delete-schedule", (req, res) => {
@@ -584,13 +595,43 @@ app.post("/delete-department", (req, res) => {
 });
 
 app.post("/edit-subject", (req, res) => {
-  console.log(req.body);
+  Subjects.findOneAndUpdate(
+    { sub_id: req.body.old_sub_id },
+    {
+      sub_id: req.body.new_sub_id,
+      sub_name: req.body.new_sub_name,
+      course_id: req.body.new_course_id,
+    },
+    (err) => {
+      if (err) throw err;
+    }
+  );
 });
+
 app.post("/edit-course", (req, res) => {
-  console.log(req.body);
+  Courses.findOneAndUpdate(
+    { course_id: req.body.old_course_id },
+    {
+      course_id: req.body.new_course_id,
+      course_name: req.body.new_course_name,
+      dept_id: req.body.new_dept_id,
+    },
+    (err) => {
+      if (err) throw err;
+    }
+  );
 });
 app.post("/edit-department", (req, res) => {
-  console.log(req.body);
+  Departments.findOneAndUpdate(
+    { dept_id: req.body.old_dept_id },
+    {
+      dept_id: req.body.new_dept_id,
+      dept_name: req.body.new_dept_name,
+    },
+    (err) => {
+      if (err) throw err;
+    }
+  );
 });
 
 app.post("/delete-user", (req, res) => {

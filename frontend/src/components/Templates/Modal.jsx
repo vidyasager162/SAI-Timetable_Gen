@@ -15,8 +15,9 @@ function Modal(props) {
           <div className="modal-body">
             <div className="form-signin w-100 m-auto container">
               <form
-                onSubmit={() => {
-                  props.action(props.id);
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  props.action(props.id, e);
                 }}
                 method="POST"
               >
@@ -32,6 +33,7 @@ function Modal(props) {
                       id="floatingInput"
                       placeholder={props.fplaceholder}
                       name={props.fname}
+                      value={props.description}
                     />
                     <label htmlFor="floatingInput">{props.fplaceholder}</label>
                   </div>
@@ -45,6 +47,7 @@ function Modal(props) {
                         id="floatingInput"
                         placeholder={props.mplaceholder}
                         name={props.mname}
+                        value={props.name}
                       />
                       <label htmlFor="floatingInput">
                         {props.mplaceholder}
@@ -58,12 +61,13 @@ function Modal(props) {
                       id="floatingInput"
                       placeholder={props.lplaceholder}
                       name={props.lname}
+                      value={props.identifier}
                     />
                     <label htmlFor="floatingInput">{props.lplaceholder}</label>
                   </div>
                   <div className="text-center">
                     <button
-                      className="btn btn-lg btn-primary login-button mb-0 "
+                      className="btn btn-lg btn-primary login-button mb-0"
                       data-bs-dismiss="modal"
                     >
                       Save

@@ -167,6 +167,7 @@ function App() {
             User={User}
             isProfile={isProfile}
             setIsProfile={setIsProfile}
+            logOut={logOut}
           />
         ) : !isProfile ? (
           <Main

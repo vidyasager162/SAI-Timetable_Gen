@@ -27,6 +27,9 @@ function Card(props) {
         </button>
         <Modal
           modalID="departmentModal"
+          name={props.name}
+          description={props.description}
+          identifier={props.identifier}
           action={props.edit}
           title="Department"
           fplaceholder="New Department Name"
@@ -71,6 +74,9 @@ function Card(props) {
         </button>
         <Modal
           modalID="courseModal"
+          name={props.name}
+          description={props.description}
+          identifier={props.identifier}
           action={props.edit}
           title="Course"
           fplaceholder="New Course Name"
@@ -111,6 +117,9 @@ function Card(props) {
         </button>
         <Modal
           modalID="subjectModal"
+          name={props.name}
+          description={props.description}
+          identifier={props.identifier}
           action={props.edit}
           title="Subject"
           fplaceholder="New Subject Name"

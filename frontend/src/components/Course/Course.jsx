@@ -24,6 +24,8 @@ function Course(props) {
 
   function editSubject(sub_id, event) {
     const payload = new FormData(event.currentTarget);
+    console.log("edit called");
+    console.log(event);
     const reqPayload = {
       old_sub_id: sub_id,
       new_sub_id: payload.get("subid"),
@@ -136,7 +138,9 @@ function Course(props) {
                 return (
                   <div className="col">
                     <Card
+                      sub={filteredSubject}
                       name={filteredSubject.sub_id}
+                      identifier={filteredCourse.course_id}
                       description={filteredSubject.sub_name}
                       flag="subject"
                       delete={deleteSubject}
@@ -148,8 +152,10 @@ function Course(props) {
           ) : props.courseClicked === "" ? (
             <div className="col">
               <Card
+                course={filteredCourse}
                 name={filteredCourse.course_id}
                 description={filteredCourse.course_name}
+                identifier={department.dept_id}
                 action={props.setCourseClicked}
                 flag="course"
                 delete={deleteCourse}
@@ -161,7 +167,9 @@ function Course(props) {
     ) : props.buttonClicked === "" ? (
       <div className="col">
         <Card
+          dept={department}
           name={department.dept_id}
+          identifier={department.dept_id}
           description={department.dept_name}
           action={props.handleButtonClick}
           flag="department"
