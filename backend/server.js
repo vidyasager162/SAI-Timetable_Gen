@@ -295,7 +295,7 @@ app.post("/subject-cohort", uploads.single("csvFile"), (req, res) => {
         subResponse = parseFloat(response[x].CourseID);
         response[x].CourseID = subResponse;
       }
-      Subjects.insertMany(response, (err, data) => {
+      Subjects.insertMany(response, (err) => {
         if (err) {
           console.log(err);
         }

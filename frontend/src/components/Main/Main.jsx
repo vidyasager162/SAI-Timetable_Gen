@@ -15,6 +15,7 @@ import Student from "../Student";
 import Profile from "../Profile/Profile";
 import StudentSchedule from "../Schedule/StudentSchedule";
 import TeacherSchedule from "../Schedule/TeacherSchedule";
+import AddCohort from "../Form/AddCohort";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
@@ -24,6 +25,7 @@ function Main(props) {
   const [isAddCourse, setIsAddCourse] = useState(false);
   const [isAddTeacher, setIsAddTeacher] = useState(false);
   const [isAddStudent, setIsAddStudent] = useState(false);
+  const [isAddCohort, setIsAddCohort] = useState(false);
   const [isCreateSchedule, setIsCreateSchedule] = useState(false);
   const [teacherClicked, setTeacherClicked] = useState("");
   const [userProfile, setUserProfile] = useState();
@@ -269,6 +271,14 @@ function Main(props) {
           </div>
         </div>
       </div>
+    ) : isAddCohort ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <AddCohort setIsAddCohort={setIsAddCohort} />
+          </div>
+        </div>
+      </div>
     ) : (
       <div className="container-fluid p-0">
         <div className="row main-container">
@@ -285,6 +295,7 @@ function Main(props) {
               setIsAddStudent={setIsAddStudent}
               setIsAddSubject={setIsAddSubject}
               setIsCreateSchedule={setIsCreateSchedule}
+              setIsAddCohort={setIsAddCohort}
               courseClicked={courseClicked}
               setCourseClicked={setCourseClicked}
             />

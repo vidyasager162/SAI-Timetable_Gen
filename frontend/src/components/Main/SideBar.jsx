@@ -115,6 +115,16 @@ function SideBar(props) {
         <button
           type="button"
           className="btn btn-light"
+          name="Add Cohort"
+          onClick={() => {
+            props.setIsAddCohort(true);
+          }}
+        >
+          Add Cohort
+        </button>
+        <button
+          type="button"
+          className="btn btn-light"
           name="Back"
           onClick={() => {
             props.setClicked("");
@@ -139,6 +149,16 @@ function SideBar(props) {
           }}
         >
           Add Teacher
+        </button>
+        <button
+          type="button"
+          className="btn btn-light"
+          name="Add Cohort"
+          onClick={() => {
+            props.setIsAddCohort(true);
+          }}
+        >
+          Add Cohort
         </button>
         <button
           type="button"
@@ -172,6 +192,16 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
+            name="Add Cohort"
+            onClick={() => {
+              props.setIsAddCohort(true);
+            }}
+          >
+            Add Cohort
+          </button>
+          <button
+            type="button"
+            className="btn btn-light"
             name="Back"
             onClick={() => {
               props.setCourseClicked("");
@@ -200,6 +230,16 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
+            name="Add Cohort"
+            onClick={() => {
+              props.setIsAddCohort(true);
+            }}
+          >
+            Add Cohort
+          </button>
+          <button
+            type="button"
+            className="btn btn-light"
             name="Back"
             onClick={() => {
               props.setButtonClicked("");
@@ -224,6 +264,16 @@ function SideBar(props) {
             }}
           >
             Add Department
+          </button>
+          <button
+            type="button"
+            className="btn btn-light"
+            name="Add Cohort"
+            onClick={() => {
+              props.setIsAddCohort(true);
+            }}
+          >
+            Add Cohort
           </button>
           <button
             type="button"
