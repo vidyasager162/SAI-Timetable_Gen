@@ -49,7 +49,7 @@ function Student(props) {
 
   return (
     <div className="container-fluid p-0">
-      <div className="row main-container">
+      <div className="row main-container" id="printableComponent">
         <div className="col">
           <Table
             headings={headings}
@@ -59,7 +59,11 @@ function Student(props) {
           />
         </div>
       </div>
-      <Actions flag="Student" />
+      <Actions
+        flag="Student"
+        printComponent={props.printComponent}
+        var="printableComponent"
+      />
     </div>
   );
 }

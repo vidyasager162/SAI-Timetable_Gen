@@ -3,7 +3,13 @@ import React from "react";
 function Actions(props) {
   return props.flag === "Teacher" ? (
     <div className="actions-container text-center">
-      <button type="button" className="btn btn-primary">
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => {
+          props.printComponent(props.var);
+        }}
+      >
         Download
       </button>
       <button type="button" className="btn btn-outline-secondary mx-2">
@@ -12,13 +18,25 @@ function Actions(props) {
     </div>
   ) : props.flag === "Student" ? (
     <div className="actions-container text-center">
-      <button type="button" className="btn btn-primary">
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => {
+          props.printComponent(props.var);
+        }}
+      >
         Download
       </button>
     </div>
   ) : (
     <div className="actions-container text-center">
-      <button type="button" className="btn btn-primary">
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => {
+          props.printComponent(props.var);
+        }}
+      >
         Download
       </button>
       {props.flag === "teacherschedule" ? (

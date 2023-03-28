@@ -49,7 +49,7 @@ function TeacherSchedule(props) {
 
   return (
     <div className="container-fluid p-0">
-      <div className="row main-container">
+      <div className="row main-container" id="printableComponent">
         <div className="col">
           <Table
             headings={headings}
@@ -59,7 +59,12 @@ function TeacherSchedule(props) {
           />
         </div>
       </div>
-      <Actions view={props.setViewTeacherSchedule} flag="teacherschedule" />
+      <Actions
+        view={props.setViewTeacherSchedule}
+        flag="teacherschedule"
+        printComponent={props.printComponent}
+        var="printableComponent"
+      />
     </div>
   );
 }

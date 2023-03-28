@@ -163,6 +163,14 @@ function Main(props) {
       });
   }
 
+  function printComponent(elementID) {
+    var printContents = document.getElementById(elementID).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+  }
+
   function handleClick(event) {
     setClicked(event.target.name);
   }
@@ -190,11 +198,13 @@ function Main(props) {
       <StudentSchedule
         courseid={courseid}
         setViewStudentSchedule={setViewStudentSchedule}
+        printComponent={printComponent}
       />
     ) : viewTeacherSchedule ? (
       <TeacherSchedule
         teacherid={teacherid}
         setViewTeacherSchedule={setViewTeacherSchedule}
+        printComponent={printComponent}
       />
     ) : isAddCourse ? (
       <div className="container-fluid p-0">
@@ -351,9 +361,9 @@ function Main(props) {
       </div>
     )
   ) : props.isTeacher ? (
-    <Teacher User={props.User} />
+    <Teacher User={props.User} printComponent={printComponent} />
   ) : props.isStudent ? (
-    <Student User={props.User} />
+    <Student User={props.User} printComponent={printComponent} />
   ) : null;
 }
 

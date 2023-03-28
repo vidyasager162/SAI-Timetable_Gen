@@ -271,7 +271,27 @@ app.get("/get-studentschedules", (req, res) => {
 
 app.post("/add-cohort", (req, res) => {
   let query = req.body.flag;
-  query += "s";
+  if (query === "Department") {
+    Departments.insertMany(req.body.payload, (err) => {
+      if (err) throw err;
+    });
+  } else if (query === "Course") {
+    Courses.insertMany(req.body.payload, (err) => {
+      if (err) throw err;
+    });
+  } else if (query === "Subject") {
+    Subjects.insertMany(req.body.payload, (err) => {
+      if (err) throw err;
+    });
+  } else if (query === "Teacher") {
+    Teachers.insertMany(req.body.payload, (err) => {
+      if (err) throw err;
+    });
+  } else if (query === "Student") {
+    Students.insertMany(req.body.payload, (err) => {
+      if (err) throw err;
+    });
+  }
 });
 
 app.post("/login", (req, res) => {
