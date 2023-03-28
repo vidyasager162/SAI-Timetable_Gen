@@ -41,6 +41,7 @@ function Main(props) {
   const [teacherSchedules, setTeacherSchedules] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [cohortID, setCohortID] = useState("");
 
   function getDepartments() {
     fetch("http://192.168.34.129:8000/get-departments", {
@@ -275,7 +276,7 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddCohort setIsAddCohort={setIsAddCohort} />
+            <AddCohort setIsAddCohort={setIsAddCohort} cohortID={cohortID} />
           </div>
         </div>
       </div>
@@ -298,6 +299,7 @@ function Main(props) {
               setIsAddCohort={setIsAddCohort}
               courseClicked={courseClicked}
               setCourseClicked={setCourseClicked}
+              setCohortID={setCohortID}
             />
           </div>
           <div className="col my-col">

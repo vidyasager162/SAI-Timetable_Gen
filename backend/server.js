@@ -2,19 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const csvtojson = require("csvtojson");
-const multer = require("multer");
-
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-var uploads = multer({ storage: storage });
 
 const app = express();
 
@@ -282,25 +269,9 @@ app.get("/get-studentschedules", (req, res) => {
   });
 });
 
-var subResponse;
-app.post("/subject-cohort", uploads.single("csvFile"), (req, res) => {
-  csvtojson()
-    .fromFile(req.file.path)
-    .then((response) => {
-      for (var x = 0; x < response; x++) {
-        subResponse = parseFloat(response[x].SubjectName);
-        response[x].SubjectName = subResponse;
-        subResponse = parseFloat(response[x].SubjectID);
-        response[x].SubjectID = subResponse;
-        subResponse = parseFloat(response[x].CourseID);
-        response[x].CourseID = subResponse;
-      }
-      Subjects.insertMany(response, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-    });
+app.post("/add-cohort", (req, res) => {
+  let query = req.body.flag;
+  query += "s";
 });
 
 app.post("/login", (req, res) => {

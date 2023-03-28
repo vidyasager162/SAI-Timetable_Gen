@@ -115,9 +115,10 @@ function SideBar(props) {
         <button
           type="button"
           className="btn btn-light"
-          name="Add Cohort"
-          onClick={() => {
+          name="Student"
+          onClick={(e) => {
             props.setIsAddCohort(true);
+            props.setCohortID(e.target.name);
           }}
         >
           Add Cohort
@@ -153,9 +154,10 @@ function SideBar(props) {
         <button
           type="button"
           className="btn btn-light"
-          name="Add Cohort"
-          onClick={() => {
+          name="Teacher"
+          onClick={(e) => {
             props.setIsAddCohort(true);
+            props.setCohortID(e.target.name);
           }}
         >
           Add Cohort
@@ -192,9 +194,10 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
-            name="Add Cohort"
-            onClick={() => {
+            name="Subject"
+            onClick={(e) => {
               props.setIsAddCohort(true);
+              props.setCohortID(e.target.name);
             }}
           >
             Add Cohort
@@ -230,9 +233,10 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
-            name="Add Cohort"
-            onClick={() => {
+            name="Course"
+            onClick={(e) => {
               props.setIsAddCohort(true);
+              props.setCohortID(e.target.name);
             }}
           >
             Add Cohort
@@ -268,9 +272,10 @@ function SideBar(props) {
           <button
             type="button"
             className="btn btn-light"
-            name="Add Cohort"
-            onClick={() => {
+            name="Department"
+            onClick={(e) => {
               props.setIsAddCohort(true);
+              props.setCohortID(e.target.name);
             }}
           >
             Add Cohort
