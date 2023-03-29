@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 
-function Table(props) {
+export const Table = React.forwardRef((props, ref) => {
   return (
-    <div className="container timetable-container table-responsive">
+    <div ref={ref} className="container timetable-container table-responsive">
       <div className="timetable-inner rounded">
         <table className="table table-light table-bordered m-auto">
           <thead>
@@ -30,6 +30,4 @@ function Table(props) {
       </div>
     </div>
   );
-}
-
-export default Table;
+});

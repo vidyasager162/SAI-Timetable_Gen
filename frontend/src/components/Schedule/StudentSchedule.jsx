@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Table from "../Templates/Table";
+import React, { useState, useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { Table } from "../Templates/Table";
 import Actions from "../Templates/Actions";
 
 function StudentSchedule(props) {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   //eslint-disable-next-line
   const [studentSchedule, setStudentSchedule] = useState([]);
   const [scheduleReady, setReady] = useState(false);
@@ -52,6 +57,7 @@ function StudentSchedule(props) {
       <div className="row main-container" id="printableComponent">
         <div className="col">
           <Table
+            ref={componentRef}
             headings={headings}
             scheduleReady={scheduleReady}
             Schedule={studentSchedule}
@@ -59,11 +65,7 @@ function StudentSchedule(props) {
           />
         </div>
       </div>
-      <Actions
-        view={props.setViewStudentSchedule}
-        printComponent={props.printComponent}
-        var="printableComponent"
-      />
+      <Actions view={props.setViewStudentSchedule} print={handlePrint} />
     </div>
   );
 }
