@@ -52,7 +52,7 @@ function Student(props) {
 
   console.log(studentSchedule);
 
-  return (
+  return studentSchedule.length !== 0 ? (
     <div className="container-fluid p-0">
       <div className="row main-container" id="printableComponent">
         <div className="col">
@@ -66,6 +66,14 @@ function Student(props) {
         </div>
       </div>
       <Actions flag="Student" print={handlePrint} />
+    </div>
+  ) : (
+    <div className="container-fluid p-0 text-center">
+      <div className="row main-container">
+        <div className="col" style={{ margin: "160px" }}>
+          <h3 className="text-muted">Oops, No schedules available currently</h3>
+        </div>
+      </div>
     </div>
   );
 }

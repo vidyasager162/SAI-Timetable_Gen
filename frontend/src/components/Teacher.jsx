@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import RequestChange from "./Form/RequestChange";
 import Actions from "./Templates/Actions";
 import { Table } from "./Templates/Table";
 
@@ -52,7 +53,7 @@ function Teacher(props) {
 
   console.log(teacherSchedule);
 
-  return (
+  return teacherSchedule.length !== 0 ? (
     <div className="container-fluid p-0">
       <div className="row main-container" id="printableComponent">
         <div className="col">
@@ -66,6 +67,15 @@ function Teacher(props) {
         </div>
       </div>
       <Actions flag="Teacher" print={handlePrint} />
+      <RequestChange />
+    </div>
+  ) : (
+    <div className="container-fluid p-0 text-center">
+      <div className="row main-container">
+        <div className="col" style={{ margin: "160px" }}>
+          <h3 className="text-muted">Oops, No schedules available currently</h3>
+        </div>
+      </div>
     </div>
   );
 }

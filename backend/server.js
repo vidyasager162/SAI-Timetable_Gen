@@ -284,13 +284,79 @@ app.post("/add-cohort", (req, res) => {
       if (err) throw err;
     });
   } else if (query === "Teacher") {
-    Teachers.insertMany(req.body.payload, (err) => {
-      if (err) throw err;
-    });
+    let emailids = [];
+    for (let i = 0; i < req.body.payload.length; i++) {
+      emailids.push(req.body.payload[i].email);
+      Teachers.findOne(
+        { username: req.body.payload[i].username },
+        (err, teacherFound) => {
+          if (teacherFound) {
+            console.log("teacher already exists");
+          } else {
+            Teachers.create(
+              {
+                name: req.body.payload[i].name,
+                username: req.body.payload[i].username,
+                password: req.body.payload[i].password,
+                email: req.body.payload[i].email,
+                coursesTaught: req.body.payload[i].coursesTaught,
+                subjectsTaught: req.body.payload[i].subjectsTaught,
+                department: req.body.payload[i].department,
+                usertype: req.body.payload[i].usertype,
+              },
+              (err) => {
+                if (err) throw err;
+              }
+            );
+            res.send({
+              message: "702",
+              emails: emailids,
+              payload: req.body.payload,
+            });
+          }
+        }
+      );
+    }
   } else if (query === "Student") {
-    Students.insertMany(req.body.payload, (err) => {
-      if (err) throw err;
-    });
+    let subs = null;
+    let sub_ids = [];
+
+    Subjects.find(
+      { course_id: req.body.payload[0].course },
+      (err, subsFound) => {
+        subs = subsFound;
+        subs.map((sub) => {
+          sub_ids.push(sub.sub_id);
+        });
+      }
+    );
+
+    for (let i = 0; i < req.body.payload.length; i++) {
+      Students.findOne(
+        { username: req.body.payload[i].username },
+        (err, studentFound) => {
+          if (studentFound) {
+            console.log("student already exists");
+          } else {
+            Students.create(
+              {
+                name: req.body.payload[i].name,
+                username: req.body.payload[i].username,
+                password: req.body.payload[i].password,
+                email: req.body.payload[i].email,
+                course: req.body.payload[i].course,
+                subjects: sub_ids,
+                department: req.body.payload[i].department,
+                usertype: req.body.payload[i].usertype,
+              },
+              (err) => {
+                if (err) throw err;
+              }
+            );
+          }
+        }
+      );
+    }
   }
 });
 
@@ -466,27 +532,41 @@ app.post("/add-teacher", (req, res) => {
 });
 
 app.post("/add-student", (req, res) => {
-  Students.create(
-    {
-      name: req.body.name,
-      username: req.body.username,
-      password: req.body.password,
-      email: req.body.email,
-      course: req.body.course,
-      subjects: req.body.subjects,
-      department: req.body.department,
-      usertype: req.body.usertype,
-    },
-    (err) => {
-      if (err) throw err;
-      else {
-        console.log(req.body);
-        res.send({
-          message: "702",
-        });
-      }
+  let subs = null;
+  let sub_ids = [];
+  Subjects.find({ course_id: req.body.course }, (err, subsFound) => {
+    subs = subsFound;
+    subs.map((sub) => {
+      sub_ids.push(sub.sub_id);
+    });
+  });
+
+  Students.findOne({ username: req.body.username }, (err, studentFound) => {
+    if (studentFound) {
+      console.log("student already exists");
+    } else {
+      Students.create(
+        {
+          name: req.body.name,
+          username: req.body.username,
+          password: req.body.password,
+          email: req.body.email,
+          course: req.body.course,
+          subjects: sub_ids,
+          department: req.body.department,
+          usertype: req.body.usertype,
+        },
+        (err) => {
+          if (err) throw err;
+          else {
+            res.send({
+              message: "702",
+            });
+          }
+        }
+      );
     }
-  );
+  });
 });
 
 app.post("/request-studentschedule", (req, res) => {
@@ -548,9 +628,20 @@ app.post("/delete-schedule", (req, res) => {
           (err, teacherFound) => {
             if (teacherFound) {
               teacherFound.map((teacher) => {
-                studentSchedules.findOneAndDelete({
-                  schedule_id: teacher.coursesTaught,
-                });
+                for (let i = 0; i < teacher.coursesTaught.length; i++) {
+                  console.log(teacher.coursesTaught[i]);
+                  studentSchedules.findOneAndDelete(
+                    {
+                      schedule_id: teacher.coursesTaught[i],
+                    },
+                    (err) => {
+                      if (err) throw err;
+                      else {
+                        console.log("Deleted student schedules");
+                      }
+                    }
+                  );
+                }
               });
             }
           }

@@ -1,6 +1,7 @@
 import React from "react";
 import FormHeader from "../Templates/FormHeader";
 import Papa from "papaparse";
+import emailjs from "emailjs-com";
 
 function AddCohort(props) {
   let cohort = null;
@@ -30,6 +31,33 @@ function AddCohort(props) {
       body: JSON.stringify(reqPayload),
     });
     props.setIsAddCohort(false);
+    if (flag === "Teacher" || flag === "Student") {
+      payload.map((deets) => {
+        var templateParams = {
+          to_name: deets.name,
+          to_mail: deets.email,
+          from_name: "Admin",
+          message:
+            "Your have been successfully registered in SAITimetable_Gen. Go get hold of your college schedule as soon as possible. Your credentials: username: " +
+            deets.username +
+            " " +
+            "password: " +
+            deets.password +
+            ". " +
+            "You can access the Web Application on: 192.168.34.129:3000",
+        };
+        emailjs
+          .send("gmail", "acc_create", templateParams, "lfuN55z3EW1BC5gy0")
+          .then(
+            (response) => {
+              console.log("SUCCESS!", response.status, response.text);
+            },
+            (error) => {
+              console.log("FAILED...", error);
+            }
+          );
+      });
+    }
   }
 
   return (
