@@ -5,6 +5,7 @@ function RequestChange(props) {
   return (
     <div
       className="modal fade"
+      id="rcModal"
       tabIndex="-1"
       aria-labelledby="rcModallabel"
       aria-hidden="true"
@@ -15,7 +16,7 @@ function RequestChange(props) {
             <div className="form-signin w-100 m-auto container">
               <form
                 onSubmit={(e) => {
-                  props.action(e);
+                  props.action(e, props.user.name);
                 }}
                 method="POST"
               >
@@ -30,13 +31,14 @@ function RequestChange(props) {
                       id="textarea"
                       rows="3"
                       name="issue"
-                      value={props.user}
                     ></textarea>
                     <div className="text-center">
                       <button
                         className="btn btn-lg btn-primary login-button mb-0"
                         data-bs-dismiss="modal"
-                      ></button>
+                      >
+                        Submit
+                      </button>
                     </div>
                   </div>
                 </div>

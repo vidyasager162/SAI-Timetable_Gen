@@ -6,7 +6,12 @@ function Actions(props) {
       <button type="button" className="btn btn-primary" onClick={props.print}>
         Download
       </button>
-      <button type="button" className="btn btn-outline-secondary mx-2">
+      <button
+        type="button"
+        className="btn btn-outline-secondary mx-2"
+        data-bs-toggle="modal"
+        data-bs-target="#rcModal"
+      >
         Request Change
       </button>
     </div>

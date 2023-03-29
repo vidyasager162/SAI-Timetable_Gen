@@ -600,6 +600,11 @@ app.post("/request-teacherschedule", (req, res) => {
 });
 
 app.post("/create-schedule", (req, res) => {
+  let schedule = null;
+  let schedule_id = null;
+  let courses = null;
+  let subjectmap = null;
+  let deets = [];
   teacherSchedules.findOne(
     { schedule_id: req.body.schedule_id },
     (err, scheduleFound) => {
@@ -607,10 +612,50 @@ app.post("/create-schedule", (req, res) => {
         console.log("schedule already exists");
       } else {
         console.log("Reached here");
-        teacherSchedules.create({
-          schedule_id: req.body.schedule_id,
-          schedule: req.body.schedule,
-        });
+        teacherSchedules.create(
+          {
+            schedule_id: req.body.schedule_id,
+            schedule: req.body.schedule,
+          },
+          (err, createdSchedule) => {
+            schedule = createdSchedule.schedule;
+            schedule_id = createdSchedule.schedule_id;
+            for (let i = 0; i < schedule.length; i++) {
+              for (let j = 0; j < schedule.length; j++) {
+                Subjects.find({ sub_id: schedule[i][j] }, (err, subFound) => {
+                  if (subFound) {
+                    // console.log(subFound);
+                    //continue here
+                    subname.push(subFound.sub_id);
+                    // let courseid = subFound.course_id;
+                    console.log(subname);
+                    // console.log(courseid);
+                    // subjectmap = {
+                    //   sub_name: subname,
+                    //   course_id: courseid,
+                    //   iindex: i,
+                    //   jindex: j,
+                    // };
+                    // deets.push(subjectmap);
+                    // console.log(deets);
+                  }
+                });
+              }
+            }
+            Teachers.findOne({ username: schedule_id }, (err, teacherFound) => {
+              if (teacherFound) {
+                courses = teacherFound.coursesTaught;
+
+                for (let i = 0; i < courses.length; i++) {
+                  studentSchedules.create({
+                    schedule_id: courses[i],
+                    schedule: schedule,
+                  });
+                }
+              }
+            });
+          }
+        );
       }
     }
   );
