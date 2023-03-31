@@ -181,7 +181,7 @@ app.get("/get-teachers", (req, res) => {
         teachers: teachers,
       });
     }
-  });
+  }).sort({ name: 1 });
 });
 
 app.get("/get-students", (req, res) => {
@@ -193,7 +193,7 @@ app.get("/get-students", (req, res) => {
         students: students,
       });
     }
-  });
+  }).sort({ username: 1 });
 });
 
 app.get("/gen-quote", (req, res) => {
@@ -218,7 +218,7 @@ app.get("/get-departments", (req, res) => {
         departments: departmentsFound,
       });
     }
-  });
+  }).sort({ dept_id: 1 });
 });
 
 app.get("/get-courses", (req, res) => {
@@ -230,7 +230,7 @@ app.get("/get-courses", (req, res) => {
         courses: coursesFound,
       });
     }
-  });
+  }).sort({ course_id: 1 });
 });
 
 app.get("/get-subjects", (req, res) => {
@@ -242,31 +242,35 @@ app.get("/get-subjects", (req, res) => {
         subjects: subjectsFound,
       });
     }
-  });
+  }).sort({ sub_id: 1 });
 });
 
 app.get("/get-teacherschedules", (req, res) => {
-  teacherSchedules.find((err, schedulesFound) => {
-    if (err) throw err;
-    else if (schedulesFound) {
-      res.send({
-        message: "902",
-        teacherschedules: schedulesFound,
-      });
-    }
-  });
+  teacherSchedules
+    .find((err, schedulesFound) => {
+      if (err) throw err;
+      else if (schedulesFound) {
+        res.send({
+          message: "902",
+          teacherschedules: schedulesFound,
+        });
+      }
+    })
+    .sort({ schedule_id: 1 });
 });
 
 app.get("/get-studentschedules", (req, res) => {
-  studentSchedules.find((err, schedulesFound) => {
-    if (err) throw err;
-    else if (schedulesFound) {
-      res.send({
-        message: "902",
-        studentschedules: schedulesFound,
-      });
-    }
-  });
+  studentSchedules
+    .find((err, schedulesFound) => {
+      if (err) throw err;
+      else if (schedulesFound) {
+        res.send({
+          message: "902",
+          studentschedules: schedulesFound,
+        });
+      }
+    })
+    .sort({ schedule_id: 1 });
 });
 
 app.post("/add-cohort", (req, res) => {
@@ -284,9 +288,7 @@ app.post("/add-cohort", (req, res) => {
       if (err) throw err;
     });
   } else if (query === "Teacher") {
-    let emailids = [];
     for (let i = 0; i < req.body.payload.length; i++) {
-      emailids.push(req.body.payload[i].email);
       Teachers.findOne(
         { username: req.body.payload[i].username },
         (err, teacherFound) => {
@@ -299,8 +301,8 @@ app.post("/add-cohort", (req, res) => {
                 username: req.body.payload[i].username,
                 password: req.body.payload[i].password,
                 email: req.body.payload[i].email,
-                coursesTaught: req.body.payload[i].coursesTaught,
-                subjectsTaught: req.body.payload[i].subjectsTaught,
+                coursesTaught: req.body.payload[i].coursesTaught.split(","),
+                subjectsTaught: req.body.payload[i].subjectsTaught.split(","),
                 department: req.body.payload[i].department,
                 usertype: req.body.payload[i].usertype,
               },
@@ -308,11 +310,6 @@ app.post("/add-cohort", (req, res) => {
                 if (err) throw err;
               }
             );
-            res.send({
-              message: "702",
-              emails: emailids,
-              payload: req.body.payload,
-            });
           }
         }
       );
@@ -600,6 +597,8 @@ app.post("/request-teacherschedule", (req, res) => {
 });
 
 app.post("/create-schedule", (req, res) => {
+  let schedule;
+  let schedule_id;
   teacherSchedules.findOne(
     { schedule_id: req.body.schedule_id },
     (err, scheduleFound) => {
@@ -615,37 +614,50 @@ app.post("/create-schedule", (req, res) => {
           (err, createdSchedule) => {
             schedule = createdSchedule.schedule;
             schedule_id = createdSchedule.schedule_id;
-            // for (let i = 0; i < schedule.length; i++) {
-            //   for (let j = 0; j < schedule.length; j++) {
-            //     Subjects.find({ sub_id: schedule[i][j] }, (err, subFound) => {
-            //       if (subFound) {
-            //         // console.log(subFound);
-            //         //continue here
-            //         subname.push(subFound.sub_id);
-            //         // let courseid = subFound.course_id;
-            //         console.log(subname);
-            //         // console.log(courseid);
-            //         // subjectmap = {
-            //         //   sub_name: subname,
-            //         //   course_id: courseid,
-            //         //   iindex: i,
-            //         //   jindex: j,
-            //         // };
-            //         // deets.push(subjectmap);
-            //         // console.log(deets);
-            //       }
-            //     });
-            //   }
-            // }
-            Teachers.findOne({ username: schedule_id }, (err, teacherFound) => {
+            Teachers.find({ username: schedule_id }, (err, teacherFound) => {
               if (teacherFound) {
-                courses = teacherFound.coursesTaught;
-
-                for (let i = 0; i < courses.length; i++) {
-                  studentSchedules.create({
-                    schedule_id: courses[i],
-                    schedule: schedule,
-                  });
+                console.log("REACHED HERE");
+                for (let i = 0; i < teacherFound[0].coursesTaught.length; i++) {
+                  let newschedule;
+                  studentSchedules.findOne(
+                    { schedule_id: teacherFound[0].coursesTaught[i] },
+                    (err, scheduleFound) => {
+                      // if (scheduleFound) {
+                      //   for (let j = 0; j < schedule.length; j++) {
+                      //     for (let k = 0; k < schedule.length; k++) {
+                      //       for (
+                      //         let h = 0;
+                      //         h < teacherFound[0].subjectsTaught.length;
+                      //         h++
+                      //       ) {}
+                      //     }
+                      //   }
+                      //}
+                      if (!scheduleFound) {
+                        console.log("Reached here again");
+                        for (let j = 0; j < schedule.length; j++) {
+                          for (let k = 0; k < schedule.length; k++) {
+                            for (
+                              let h = 0;
+                              h < teacherFound[0].subjectsTaught.length;
+                              h++
+                            ) {
+                              if (
+                                schedule[j][k] ===
+                                teacherFound[0].subjectsTaught[h]
+                              ) {
+                                newschedule = schedule[j][k];
+                              }
+                            }
+                          }
+                        }
+                        studentSchedules.create({
+                          schedule_id: teacherFound[0].coursesTaught[i],
+                          schedule: schedule,
+                        });
+                      }
+                    }
+                  );
                 }
               }
             });
@@ -657,7 +669,6 @@ app.post("/create-schedule", (req, res) => {
 });
 
 app.post("/delete-schedule", (req, res) => {
-  console.log(req.body);
   teacherSchedules.findOneAndDelete(
     { schedule_id: req.body.schedule_id },
     (err) => {
@@ -669,7 +680,6 @@ app.post("/delete-schedule", (req, res) => {
             if (teacherFound) {
               for (let i = 0; i < teacherFound[0].coursesTaught.length; i++) {
                 let arr;
-                console.log(teacherFound[0].coursesTaught[i]);
                 studentSchedules.findOne(
                   {
                     schedule_id: teacherFound[0].coursesTaught[i],
@@ -688,13 +698,10 @@ app.post("/delete-schedule", (req, res) => {
                               arr[j][k] === teacherFound[0].subjectsTaught[h]
                             ) {
                               arr[j][k] = "Free";
-                            } else {
-                              console.log(i, j, k, "no match");
                             }
                           }
                         }
                       }
-                      console.log(arr);
                       studentSchedules.findOneAndUpdate(
                         { schedule_id: teacherFound[0].coursesTaught[i] },
                         { schedule: arr },

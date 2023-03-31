@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import emailjs from "emailjs-com";
+// import emailjs from "emailjs-com";
 import FormActions from "../Templates/FormActions";
 import FormHeader from "../Templates/FormHeader";
 import FormInput from "../Templates/FormInput";
@@ -43,29 +43,29 @@ function AddStudent(props) {
         console.log("Error: ", error);
       });
     props.setIsAddStudent(false);
-    var templateParams = {
-      to_name: reqPayload.name,
-      to_mail: reqPayload.email,
-      from_name: "Admin",
-      message:
-        "Your have been successfully registered in SAITimetable_Gen. Go get hold of your college schedule as soon as possible. Your credentials: username: " +
-        reqPayload.username +
-        " " +
-        "password: " +
-        reqPayload.password +
-        ". " +
-        "You can access the Web Application on: 192.168.34.129:3000",
-    };
-    emailjs
-      .send("gmail", "acc_create", templateParams, "lfuN55z3EW1BC5gy0")
-      .then(
-        (response) => {
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        (error) => {
-          console.log("FAILED...", error);
-        }
-      );
+    // var templateParams = {
+    //   to_name: reqPayload.name,
+    //   to_mail: reqPayload.email,
+    //   from_name: "Admin",
+    //   message:
+    //     "Your have been successfully registered in SAITimetable_Gen. Go get hold of your college schedule as soon as possible. Your credentials: username: " +
+    //     reqPayload.username +
+    //     " " +
+    //     "password: " +
+    //     reqPayload.password +
+    //     ". " +
+    //     "You can access the Web Application on: 192.168.34.129:3000",
+    // };
+    // emailjs
+    //   .send("gmail", "acc_create", templateParams, "lfuN55z3EW1BC5gy0")
+    //   .then(
+    //     (response) => {
+    //       console.log("SUCCESS!", response.status, response.text);
+    //     },
+    //     (error) => {
+    //       console.log("FAILED...", error);
+    //     }
+    //   );
   }
 
   return (
