@@ -99,6 +99,17 @@ function App() {
     });
   }
 
+  function appFlush() {
+    fetch("http://192.168.34.129:8000/flush-app", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    });
+    logOut();
+  }
+
   //Passed to Home component and Header component to accomodate logout by the user.
   function invertIsLoggedIn() {
     setIsLoggedIn((prev) => {
@@ -160,10 +171,12 @@ function App() {
         setIsProfile={setIsProfile}
         User={User}
         logOut={logOut}
+        appFlush={appFlush}
       />
       {isLoggedIn ? (
         isProfile ? (
           <Profile
+            Admin={User}
             User={User}
             isProfile={isProfile}
             setIsProfile={setIsProfile}

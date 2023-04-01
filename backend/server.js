@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const { MongoClient } = require("mongodb");
 
 const app = express();
 
@@ -855,6 +856,8 @@ app.post("/get-user", (req, res) => {
     }
   );
 });
+
+app.post("/flush-app", (req, res) => {});
 
 app.listen(8000, () => {
   console.log("Server is running on port 8000");

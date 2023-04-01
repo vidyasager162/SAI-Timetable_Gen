@@ -182,6 +182,7 @@ function Main(props) {
   return props.isAdmin ? (
     props.isViewProfile ? (
       <Profile
+        Admin={props.User}
         User={userProfile}
         setIsProfile={props.setIsProfile}
         setViewProfile={props.setViewProfile}

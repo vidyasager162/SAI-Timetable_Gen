@@ -67,7 +67,7 @@ function Profile(props) {
           <div className="row py-1 mybtn text-center profile-button">
             <button className="btn btn-outline-primary">Edit User</button>
           </div>
-          {props.User.usertype === 9 || props.User.usertype === 0 ? (
+          {props.Admin.usertype === 9 || props.Admin.usertype === 0 ? (
             <div className="row pb-1 mybtn text-center profile-button">
               <button
                 className="btn btn-outline-danger"

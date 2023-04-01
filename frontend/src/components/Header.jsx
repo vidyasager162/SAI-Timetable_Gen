@@ -90,6 +90,17 @@ function Header(props) {
                   Logout
                 </button>
               </li>
+              {props.User.usertype === 9 || props.User.usertype === 0 ? (
+                <li>
+                  <button
+                    type="button"
+                    className="dropdown-item"
+                    onClick={props.appFlush}
+                  >
+                    Master Reset
+                  </button>
+                </li>
+              ) : null}
             </ul>
           </div>
         </div>
