@@ -18,9 +18,7 @@ function Profile(props) {
     const payload = new FormData(event.currentTarget);
     const reqPayload = {
       old_username: user_id,
-      new_user_id: payload.get("username"),
       new_password: payload.get("password"),
-      new_email: payload.get("emailid"),
     };
     fetch("http://192.168.34.129:8000/edit-user", {
       method: "POST",
@@ -69,19 +67,23 @@ function Profile(props) {
           <div className="row py-1 mybtn text-center profile-button">
             <button className="btn btn-outline-primary">Edit User</button>
           </div>
-          <div className="row pb-1 mybtn text-center profile-button">
-            <button
-              className="btn btn-outline-danger"
-              name={props.User.username}
-              onClick={(e) => {
-                deleteUser(e.target.name);
-                props.setIsProfile(false);
-                props.setViewProfile(false);
-              }}
-            >
-              Delete User
-            </button>
-          </div>
+          {props.User.usertype === 9 || props.User.usertype === 0 ? (
+            <div className="row pb-1 mybtn text-center profile-button">
+              <button
+                className="btn btn-outline-danger"
+                name={props.User.username}
+                onClick={(e) => {
+                  deleteUser(e.target.name);
+                  props.setIsProfile(false);
+                  props.setViewProfile(false);
+                }}
+              >
+                Delete User
+              </button>
+            </div>
+          ) : (
+            <span></span>
+          )}
           <div className="row pb-1 mybtn text-center profile-button">
             <button
               className="btn btn-outline-secondary"
