@@ -597,70 +597,59 @@ app.post("/request-teacherschedule", (req, res) => {
 });
 
 app.post("/create-schedule", (req, res) => {
-  let schedule;
-  let schedule_id;
   teacherSchedules.findOne(
     { schedule_id: req.body.schedule_id },
     (err, scheduleFound) => {
       if (scheduleFound) {
         console.log("schedule already exists");
       } else {
-        console.log("Reached here");
-        teacherSchedules.create(
-          {
-            schedule_id: req.body.schedule_id,
-            schedule: req.body.schedule,
-          },
-          (err, createdSchedule) => {
-            schedule = createdSchedule.schedule;
-            schedule_id = createdSchedule.schedule_id;
-            Teachers.find({ username: schedule_id }, (err, teacherFound) => {
-              if (teacherFound) {
-                console.log("REACHED HERE");
-                for (let i = 0; i < teacherFound[0].coursesTaught.length; i++) {
-                  let newschedule;
-                  studentSchedules.findOne(
-                    { schedule_id: teacherFound[0].coursesTaught[i] },
-                    (err, scheduleFound) => {
-                      // if (scheduleFound) {
-                      //   for (let j = 0; j < schedule.length; j++) {
-                      //     for (let k = 0; k < schedule.length; k++) {
-                      //       for (
-                      //         let h = 0;
-                      //         h < teacherFound[0].subjectsTaught.length;
-                      //         h++
-                      //       ) {}
-                      //     }
-                      //   }
-                      //}
-                      if (!scheduleFound) {
-                        console.log("Reached here again");
-                        for (let j = 0; j < schedule.length; j++) {
-                          for (let k = 0; k < schedule.length; k++) {
+        teacherSchedules.create({
+          schedule_id: req.body.schedule_id,
+          schedule: req.body.schedule,
+        });
+        Teachers.findOne(
+          { username: req.body.schedule_id },
+          (err, teacherFound) => {
+            if (teacherFound) {
+              for (let i = 0; i < teacherFound.coursesTaught.length; i++) {
+                let newschedule = [];
+                studentSchedules.findOne(
+                  { schedule_id: teacherFound.coursesTaught[i] },
+                  (err, foundSchedule) => {
+                    if (foundSchedule) {
+                      //later
+                    } else if (!foundSchedule) {
+                      for (let j = 0; j < 6; j++) {
+                        newschedule.push([]);
+                        for (let k = 0; k < 6; k++) {
+                          newschedule[j].push("Free");
+                        }
+                      }
+                      for (let j = 0; j < req.body.schedule.length; j++) {
+                        for (let k = 0; k < req.body.schedule.length; k++) {
+                          if (req.body.schedule[j][k] === "Free") {
+                            console.log("Free");
+                          } else {
                             for (
                               let h = 0;
-                              h < teacherFound[0].subjectsTaught.length;
+                              h < teacherFound.subjectsTaught.length;
                               h++
                             ) {
                               if (
-                                schedule[j][k] ===
-                                teacherFound[0].subjectsTaught[h]
+                                req.body.schedule[j][k] ===
+                                teacherFound.subjectsTaught[h]
                               ) {
-                                newschedule = schedule[j][k];
+                                //continue here
                               }
                             }
                           }
                         }
-                        studentSchedules.create({
-                          schedule_id: teacherFound[0].coursesTaught[i],
-                          schedule: schedule,
-                        });
                       }
                     }
-                  );
-                }
+                  }
+                );
               }
-            });
+            }
           }
         );
       }
