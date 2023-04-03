@@ -1,8 +1,8 @@
 const express = require("express");
+const request = require("request");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const { MongoClient } = require("mongodb");
 
 const app = express();
 
@@ -598,6 +598,19 @@ app.post("/request-teacherschedule", (req, res) => {
 });
 
 app.post("/create-schedule", (req, res) => {
+  let schedule = [];
+  let subjectsOfTeacher = [];
+  var data = {
+    schedule: schedule,
+    subjectsOfTeacher: subjectsOfTeacher,
+  };
+  var options = {
+    method: "POST",
+    url: "http://127.0.0.1:5000/create-new-schedule",
+    body: data,
+    json: true,
+  };
+  schedule = req.body.schedule;
   teacherSchedules.findOne(
     { schedule_id: req.body.schedule_id },
     (err, scheduleFound) => {
@@ -613,39 +626,19 @@ app.post("/create-schedule", (req, res) => {
           (err, teacherFound) => {
             if (teacherFound) {
               for (let i = 0; i < teacherFound.coursesTaught.length; i++) {
-                let newschedule = [];
                 studentSchedules.findOne(
                   { schedule_id: teacherFound.coursesTaught[i] },
                   (err, foundSchedule) => {
-                    if (foundSchedule) {
-                      //later
-                    } else if (!foundSchedule) {
-                      for (let j = 0; j < 6; j++) {
-                        newschedule.push([]);
-                        for (let k = 0; k < 6; k++) {
-                          newschedule[j].push("Free");
-                        }
-                      }
-                      for (let j = 0; j < req.body.schedule.length; j++) {
-                        for (let k = 0; k < req.body.schedule.length; k++) {
-                          if (req.body.schedule[j][k] === "Free") {
-                            console.log("Free");
-                          } else {
-                            for (
-                              let h = 0;
-                              h < teacherFound.subjectsTaught.length;
-                              h++
-                            ) {
-                              if (
-                                req.body.schedule[j][k] ===
-                                teacherFound.subjectsTaught[h]
-                              ) {
-                                //continue here
-                              }
-                            }
-                          }
-                        }
-                      }
+                    if (!foundSchedule) {
+                      request(options, (err, response, body) => {
+                        console.log(body);
+                        let schedule = [];
+                        let subjects = [];
+                        schedule = body["schedule"];
+                        subjects = body["subjectsOfTeacher"];
+                        console.log(schedule);
+                        console.log(subjects);
+                      });
                     }
                   }
                 );
@@ -656,6 +649,64 @@ app.post("/create-schedule", (req, res) => {
       }
     }
   );
+  // teacherSchedules.findOne(
+  //   { schedule_id: req.body.schedule_id },
+  //   (err, scheduleFound) => {
+  //     if (scheduleFound) {
+  //       console.log("schedule already exists");
+  //     } else {
+  //       teacherSchedules.create({
+  //         schedule_id: req.body.schedule_id,
+  //         schedule: req.body.schedule,
+  //       });
+  //       Teachers.findOne(
+  //         { username: req.body.schedule_id },
+  //         (err, teacherFound) => {
+  //           if (teacherFound) {
+  //             for (let i = 0; i < teacherFound.coursesTaught.length; i++) {
+  //               let newschedule = [];
+  //               studentSchedules.findOne(
+  //                 { schedule_id: teacherFound.coursesTaught[i] },
+  //                 (err, foundSchedule) => {
+  //                   if (foundSchedule) {
+  //                     //later
+  //                   } else if (!foundSchedule) {
+  //                     for (let j = 0; j < 6; j++) {
+  //                       newschedule.push([]);
+  //                       for (let k = 0; k < 6; k++) {
+  //                         newschedule[j].push("Free");
+  //                       }
+  //                     }
+  //                     for (let j = 0; j < req.body.schedule.length; j++) {
+  //                       for (let k = 0; k < req.body.schedule.length; k++) {
+  //                         if (req.body.schedule[j][k] === "Free") {
+  //                           console.log("Free");
+  //                         } else {
+  //                           for (
+  //                             let h = 0;
+  //                             h < teacherFound.subjectsTaught.length;
+  //                             h++
+  //                           ) {
+  //                             if (
+  //                               req.body.schedule[j][k] ===
+  //                               teacherFound.subjectsTaught[h]
+  //                             ) {
+  //                               //continue here
+  //                             }
+  //                           }
+  //                         }
+  //                       }
+  //                     }
+  //                   }
+  //                 }
+  //               );
+  //             }
+  //           }
+  //         }
+  //       );
+  //     }
+  //   }
+  // );
 });
 
 app.post("/delete-schedule", (req, res) => {
@@ -857,7 +908,9 @@ app.post("/get-user", (req, res) => {
   );
 });
 
-app.post("/flush-app", (req, res) => {});
+app.post("/flush-app", (req, res) => {
+  mongoose.connection.db.dropDatabase();
+});
 
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
