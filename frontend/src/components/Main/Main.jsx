@@ -39,6 +39,7 @@ function Main(props) {
   const [subjects, setSubjects] = useState([]);
   const [courseClicked, setCourseClicked] = useState("");
   const [teacherSchedules, setTeacherSchedules] = useState([]);
+  const [studentSchedules, setStudentSchedules] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [courses, setCourses] = useState([]);
   const [cohortID, setCohortID] = useState("");
@@ -140,6 +141,22 @@ function Main(props) {
         }
       });
   }
+
+  function getStudentSchedules() {
+    fetch("http://192.168.34.129:8000/get-student-schedules", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "902") {
+          setStudentSchedules(data.studentschedules);
+        }
+      });
+  } //do server stuff
 
   function handleViewProfile(event) {
     const name = event.target.value;

@@ -23,11 +23,13 @@ function CreateSchedule(props) {
   //eslint-disable-next-line
   let tname = "";
   let tuname = "";
+  let courses = [];
   //eslint-disable-next-line
   props.teachers.map((teacher) => {
     if (teacher.username === props.teacherClicked) {
       tname = teacher.name;
       tuname = teacher.username;
+      courses = teacher.coursesTaught;
     }
   });
 
@@ -51,6 +53,7 @@ function CreateSchedule(props) {
       schedule_id: tuname,
       schedule: schedule,
     };
+
     fetch("http://192.168.34.129:8000/create-schedule", {
       method: "POST",
       headers: {

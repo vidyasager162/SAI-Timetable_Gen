@@ -620,39 +620,30 @@ app.post("/create-schedule", (req, res) => {
                   let newschedule = [];
                   let subjects = [];
                   let myPromise = new Promise(function (resolve) {
-                    studentSchedules.findOne(
-                      { schedule_id: teacherFound.coursesTaught[i] },
-                      (err, foundSchedule) => {
-                        if (foundSchedule) {
-                          //
-                        } else {
-                          for (let i = 0; i < 6; i++) {
-                            newschedule.push([]);
-                            for (let j = 0; j < 6; j++) {
-                              newschedule[i].push("Free");
-                            }
-                          }
-                          for (
-                            let j = 0;
-                            j < teacherFound.subjectsTaught.length;
-                            j++
-                          ) {
-                            Subjects.findOne(
-                              {
-                                sub_id: teacherFound.subjectsTaught[j],
-                                course_id: teacherFound.coursesTaught[i],
-                              },
-                              (err, subFound) => {
-                                if (subFound !== null) {
-                                  subjects.push(subFound.sub_id);
-                                  resolve(subjects);
-                                }
-                              }
-                            );
+                    for (let i = 0; i < 6; i++) {
+                      newschedule.push([]);
+                      for (let j = 0; j < 6; j++) {
+                        newschedule[i].push("Free");
+                      }
+                    }
+                    for (
+                      let j = 0;
+                      j < teacherFound.subjectsTaught.length;
+                      j++
+                    ) {
+                      Subjects.findOne(
+                        {
+                          sub_id: teacherFound.subjectsTaught[j],
+                          course_id: teacherFound.coursesTaught[i],
+                        },
+                        (err, subFound) => {
+                          if (subFound !== null) {
+                            subjects.push(subFound.sub_id);
+                            resolve(subjects);
                           }
                         }
-                      }
-                    );
+                      );
+                    }
                   });
                   subjectsOfTeacher = await myPromise;
                   let anotherPromise = new Promise((resolve) => {
