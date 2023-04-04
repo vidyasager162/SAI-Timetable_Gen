@@ -1,26 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "../Templates/Button";
 import Card from "../Templates/Card";
 
 function Schedule(props) {
-  const [studentSchedules, setStudentSchedules] = useState([]);
-
-  function getStudentSchedules() {
-    fetch("http://192.168.34.129:8000/get-studentschedules", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "902") {
-          setStudentSchedules(data.studentschedules);
-        }
-      });
-  }
-
   function deleteSchedule(schedule_id) {
     fetch("http://192.168.34.129:8000/delete-schedule", {
       method: "POST",
@@ -43,7 +25,7 @@ function Schedule(props) {
 
   useEffect(() => {
     props.getTeacherSchedules();
-    getStudentSchedules();
+    props.getStudentSchedules();
     // eslint-disable-next-line
   }, []);
 
@@ -62,7 +44,7 @@ function Schedule(props) {
       );
     })
   ) : props.buttonClicked === "sschedules" ? (
-    studentSchedules.map((studentSchedule) => {
+    props.studentSchedules.map((studentSchedule) => {
       return (
         <div className="col">
           <Card

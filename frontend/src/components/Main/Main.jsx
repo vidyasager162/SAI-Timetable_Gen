@@ -143,7 +143,7 @@ function Main(props) {
   }
 
   function getStudentSchedules() {
-    fetch("http://192.168.34.129:8000/get-student-schedules", {
+    fetch("http://192.168.34.129:8000/get-studentschedules", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -156,7 +156,7 @@ function Main(props) {
           setStudentSchedules(data.studentschedules);
         }
       });
-  } //do server stuff
+  }
 
   function handleViewProfile(event) {
     const name = event.target.value;
@@ -327,7 +327,9 @@ function Main(props) {
                   handleButtonClick={handleButtonClick}
                   buttonClicked={buttonClicked}
                   teacherSchedules={teacherSchedules}
+                  studentSchedules={studentSchedules}
                   getTeacherSchedules={getTeacherSchedules}
+                  getStudentSchedules={getStudentSchedules}
                   handleCourseID={handleCourseID}
                   handleTeacherID={handleTeacherID}
                   setViewStudentSchedule={setViewStudentSchedule}

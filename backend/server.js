@@ -283,6 +283,27 @@ app.post("/add-cohort", (req, res) => {
   } else if (query === "Course") {
     Courses.insertMany(req.body.payload, (err) => {
       if (err) throw err;
+      else {
+        async function createEmptySchedules() {
+          let myPromise = new Promise((resolve) => {
+            let newschedule = [];
+            for (let i = 0; i < 6; i++) {
+              newschedule.push([]);
+              for (let j = 0; j < 6; j++) {
+                newschedule[i].push("Free");
+              }
+            }
+            resolve(newschedule);
+          });
+          for (let i = 0; i < req.body.payload.length; i++) {
+            studentSchedules.create({
+              schedule_id: req.body.payload[i].course_id,
+              schedule: await myPromise,
+            });
+          }
+        }
+        createEmptySchedules();
+      }
     });
   } else if (query === "Subject") {
     Subjects.insertMany(req.body.payload, (err) => {
@@ -482,6 +503,34 @@ app.post("/add-course", (req, res) => {
         res.send({
           message: "702",
         });
+        studentSchedules.findOne(
+          {
+            schedule_id: req.body.course_id,
+          },
+          (err, scheduleFound) => {
+            if (scheduleFound) {
+              //don't do anything
+            } else {
+              async function createEmptySchedule() {
+                let newschedule = [];
+                let myPromise = new Promise((resolve) => {
+                  for (let i = 0; i < 6; i++) {
+                    newschedule.push([]);
+                    for (let j = 0; j < 6; j++) {
+                      newschedule[i].push("Free");
+                    }
+                  }
+                  resolve(newschedule);
+                });
+                studentSchedules.create({
+                  schedule_id: req.body.course_id,
+                  schedule: await myPromise,
+                });
+              }
+              createEmptySchedule();
+            }
+          }
+        );
       }
     }
   );
@@ -619,13 +668,26 @@ app.post("/create-schedule", (req, res) => {
                 for (let i = 0; i < teacherFound.coursesTaught.length; i++) {
                   let newschedule = [];
                   let subjects = [];
-                  let myPromise = new Promise(function (resolve) {
+                  let finalschedule = [];
+                  let newPromise = new Promise((resolve) => {
                     for (let i = 0; i < 6; i++) {
                       newschedule.push([]);
                       for (let j = 0; j < 6; j++) {
                         newschedule[i].push("Free");
                       }
                     }
+                    studentSchedules.findOne(
+                      { schedule_id: teacherFound.coursesTaught[i] },
+                      (err, foundSchedule) => {
+                        if (foundSchedule) {
+                          newschedule = foundSchedule.schedule;
+                          resolve(newschedule);
+                        }
+                      }
+                    );
+                  });
+                  finalschedule = await newPromise;
+                  let myPromise = new Promise(function (resolve) {
                     for (
                       let j = 0;
                       j < teacherFound.subjectsTaught.length;
@@ -651,17 +713,21 @@ app.post("/create-schedule", (req, res) => {
                       for (let b = 0; b < schedule.length; b++) {
                         for (let c = 0; c < subjectsOfTeacher.length; c++) {
                           if (schedule[a][b] === subjectsOfTeacher[c]) {
-                            newschedule[a][b] = schedule[a][b];
-                            resolve(newschedule);
+                            finalschedule[a][b] = schedule[a][b];
+                            resolve(finalschedule);
                           }
                         }
                       }
                     }
                   });
-                  studentSchedules.create({
-                    schedule_id: teacherFound.coursesTaught[i],
-                    schedule: await anotherPromise,
-                  });
+                  studentSchedules.findOneAndUpdate(
+                    {
+                      schedule_id: teacherFound.coursesTaught[i],
+                    },
+                    {
+                      schedule: await anotherPromise,
+                    }
+                  );
                 }
               }
               doSomething();

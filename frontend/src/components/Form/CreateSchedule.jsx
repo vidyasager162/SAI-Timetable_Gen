@@ -23,13 +23,12 @@ function CreateSchedule(props) {
   //eslint-disable-next-line
   let tname = "";
   let tuname = "";
-  let courses = [];
+
   //eslint-disable-next-line
   props.teachers.map((teacher) => {
     if (teacher.username === props.teacherClicked) {
       tname = teacher.name;
       tuname = teacher.username;
-      courses = teacher.coursesTaught;
     }
   });
 
