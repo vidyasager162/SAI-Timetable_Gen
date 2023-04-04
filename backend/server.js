@@ -671,6 +671,7 @@ app.post("/create-schedule", (req, res) => {
           let newschedule = [];
           let subjects = [];
           let finalschedule = [];
+          let ultimateschedule = [];
           let newPromise = new Promise((resolve) => {
             for (let i = 0; i < 6; i++) {
               newschedule.push([]);
@@ -700,9 +701,11 @@ app.post("/create-schedule", (req, res) => {
                 },
                 (err, subFound) => {
                   if (subFound) {
+                    console.log("in if");
                     subjects.push(subFound.sub_id);
                     resolve(subjects);
                   } else if (!subFound) {
+                    console.log("in else");
                     subjects.push("");
                     resolve(subjects);
                   }
@@ -716,15 +719,19 @@ app.post("/create-schedule", (req, res) => {
             for (let a = 0; a < schedule.length; a++) {
               for (let b = 0; b < schedule.length; b++) {
                 for (let c = 0; c < subjectsOfTeacher.length; c++) {
+                  console.log(subjectsOfTeacher[c]);
                   if (schedule[a][b] === subjectsOfTeacher[c]) {
+                    console.log("in final if");
                     finalschedule[a][b] = schedule[a][b];
+                    resolve(finalschedule);
+                  } else {
                     resolve(finalschedule);
                   }
                 }
               }
             }
           });
-          let ultimateschedule = [];
+          console.log("reached here");
           ultimateschedule = await anotherPromise;
           console.log(ultimateschedule);
           studentSchedules.updateOne(
