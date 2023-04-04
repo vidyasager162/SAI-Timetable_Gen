@@ -720,12 +720,20 @@ app.post("/create-schedule", (req, res) => {
                       }
                     }
                   });
-                  studentSchedules.findOneAndUpdate(
+                  let ultimateschedule = [];
+                  ultimateschedule = await anotherPromise;
+                  console.log(ultimateschedule);
+                  studentSchedules.updateOne(
                     {
                       schedule_id: teacherFound.coursesTaught[i],
                     },
                     {
-                      schedule: await anotherPromise,
+                      schedule_id: teacherFound.coursesTaught[i],
+                      schedule: ultimateschedule,
+                    },
+                    (err, foundSchedule) => {
+                      console.log("In here");
+                      console.log(foundSchedule);
                     }
                   );
                 }
