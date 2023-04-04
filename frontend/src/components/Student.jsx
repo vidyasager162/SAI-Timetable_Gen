@@ -7,6 +7,7 @@ function Student(props) {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
+    documentTitle: props.User.username,
   });
   //eslint-disable-next-line
   const [studentSchedule, setStudentSchedule] = useState([]);
