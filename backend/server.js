@@ -660,91 +660,84 @@ app.post("/create-schedule", (req, res) => {
           schedule_id: req.body.schedule_id,
           schedule: req.body.schedule,
         });
-        Teachers.findOne(
-          { username: req.body.schedule_id },
-          (err, teacherFound) => {
-            if (teacherFound) {
-              async function doSomething() {
-                for (let i = 0; i < teacherFound.coursesTaught.length; i++) {
-                  let newschedule = [];
-                  let subjects = [];
-                  let finalschedule = [];
-                  let newPromise = new Promise((resolve) => {
-                    for (let i = 0; i < 6; i++) {
-                      newschedule.push([]);
-                      for (let j = 0; j < 6; j++) {
-                        newschedule[i].push("Free");
-                      }
-                    }
-                    studentSchedules.findOne(
-                      { schedule_id: teacherFound.coursesTaught[i] },
-                      (err, foundSchedule) => {
-                        if (foundSchedule) {
-                          newschedule = foundSchedule.schedule;
-                          resolve(newschedule);
-                        }
-                      }
-                    );
-                  });
-                  finalschedule = await newPromise;
-                  let myPromise = new Promise(function (resolve) {
-                    for (
-                      let j = 0;
-                      j < teacherFound.subjectsTaught.length;
-                      j++
-                    ) {
-                      Subjects.findOne(
-                        {
-                          sub_id: teacherFound.subjectsTaught[j],
-                          course_id: teacherFound.coursesTaught[i],
-                        },
-                        (err, subFound) => {
-                          if (subFound !== null) {
-                            subjects.push(subFound.sub_id);
-                            resolve(subjects);
-                          }
-                        }
-                      );
-                    }
-                  });
-                  subjectsOfTeacher = await myPromise;
-                  let anotherPromise = new Promise((resolve) => {
-                    for (let a = 0; a < schedule.length; a++) {
-                      for (let b = 0; b < schedule.length; b++) {
-                        for (let c = 0; c < subjectsOfTeacher.length; c++) {
-                          if (schedule[a][b] === subjectsOfTeacher[c]) {
-                            finalschedule[a][b] = schedule[a][b];
-                            resolve(finalschedule);
-                          }
-                        }
-                      }
-                    }
-                  });
-                  let ultimateschedule = [];
-                  ultimateschedule = await anotherPromise;
-                  console.log(ultimateschedule);
-                  studentSchedules.updateOne(
-                    {
-                      schedule_id: teacherFound.coursesTaught[i],
-                    },
-                    {
-                      schedule_id: teacherFound.coursesTaught[i],
-                      schedule: ultimateschedule,
-                    },
-                    (err, foundSchedule) => {
-                      console.log("In here");
-                      console.log(foundSchedule);
-                    }
-                  );
-                }
-              }
-              doSomething();
-            }
-          }
-        );
       }
     }
   );
+  Teachers.findOne({ username: req.body.schedule_id }, (err, teacherFound) => {
+    if (teacherFound) {
+      async function doSomething() {
+        for (let i = 0; i < teacherFound.coursesTaught.length; i++) {
+          let newschedule = [];
+          let subjects = [];
+          let finalschedule = [];
+          let newPromise = new Promise((resolve) => {
+            for (let i = 0; i < 6; i++) {
+              newschedule.push([]);
+              for (let j = 0; j < 6; j++) {
+                newschedule[i].push("Free");
+              }
+            }
+            studentSchedules.findOne(
+              { schedule_id: teacherFound.coursesTaught[i] },
+              (err, foundSchedule) => {
+                if (foundSchedule) {
+                  newschedule = foundSchedule.schedule;
+                  resolve(newschedule);
+                }
+              }
+            );
+          });
+          finalschedule = await newPromise;
+          let myPromise = new Promise(function (resolve) {
+            for (let j = 0; j < teacherFound.subjectsTaught.length; j++) {
+              Subjects.findOne(
+                {
+                  sub_id: teacherFound.subjectsTaught[j],
+                  course_id: teacherFound.coursesTaught[i],
+                },
+                (err, subFound) => {
+                  if (subFound) {
+                    subjects.push(subFound.sub_id);
+                    resolve(subjects);
+                  }
+                }
+              );
+            }
+          });
+          subjectsOfTeacher = await myPromise;
+          let anotherPromise = new Promise((resolve) => {
+            for (let a = 0; a < schedule.length; a++) {
+              for (let b = 0; b < schedule.length; b++) {
+                for (let c = 0; c < subjectsOfTeacher.length; c++) {
+                  if (schedule[a][b] === subjectsOfTeacher[c]) {
+                    finalschedule[a][b] = schedule[a][b];
+                    resolve(finalschedule);
+                  }
+                }
+              }
+            }
+          });
+          let ultimateschedule = [];
+          ultimateschedule = await anotherPromise;
+          console.log(ultimateschedule);
+          studentSchedules.updateOne(
+            {
+              schedule_id: teacherFound.coursesTaught[i],
+            },
+            {
+              schedule_id: teacherFound.coursesTaught[i],
+              schedule: ultimateschedule,
+            },
+            (err, foundSchedule) => {
+              console.log("In here");
+              console.log(foundSchedule);
+            }
+          );
+        }
+      }
+      doSomething();
+    }
+  });
 });
 
 app.post("/delete-schedule", (req, res) => {
