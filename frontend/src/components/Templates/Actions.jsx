@@ -27,7 +27,14 @@ function Actions(props) {
         Download
       </button>
       {props.flag === "teacherschedule" ? (
-        <button type="button" className="btn btn-outline-secondary mx-2">
+        <button
+          type="button"
+          className="btn btn-outline-secondary mx-2"
+          onClick={() => {
+            props.edit(true);
+            props.view(false);
+          }}
+        >
           Edit Schedule
         </button>
       ) : (

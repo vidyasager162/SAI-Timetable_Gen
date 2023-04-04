@@ -70,6 +70,7 @@ function TeacherSchedule(props) {
         view={props.setViewTeacherSchedule}
         flag="teacherschedule"
         print={handlePrint}
+        edit={props.setIsEditSchedule}
       />
     </div>
   );
