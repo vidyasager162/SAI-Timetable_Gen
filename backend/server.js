@@ -667,6 +667,7 @@ app.post("/create-schedule", (req, res) => {
     if (teacherFound) {
       async function doSomething() {
         for (let i = 0; i < teacherFound.coursesTaught.length; i++) {
+          console.log(teacherFound.coursesTaught[i]);
           let newschedule = [];
           let subjects = [];
           let finalschedule = [];
@@ -688,8 +689,10 @@ app.post("/create-schedule", (req, res) => {
             );
           });
           finalschedule = await newPromise;
-          let myPromise = new Promise(function (resolve) {
-            for (let j = 0; j < teacherFound.subjectsTaught.length; j++) {
+
+          for (let j = 0; j < teacherFound.subjectsTaught.length; j++) {
+            console.log(teacherFound.subjectsTaught[j]);
+            let myPromise = new Promise(function (resolve) {
               Subjects.findOne(
                 {
                   sub_id: teacherFound.subjectsTaught[j],
@@ -699,12 +702,16 @@ app.post("/create-schedule", (req, res) => {
                   if (subFound) {
                     subjects.push(subFound.sub_id);
                     resolve(subjects);
+                  } else if (!subFound) {
+                    subjects.push("");
+                    resolve(subjects);
                   }
                 }
               );
-            }
-          });
-          subjectsOfTeacher = await myPromise;
+            });
+            subjectsOfTeacher = await myPromise;
+            console.log(subjectsOfTeacher);
+          }
           let anotherPromise = new Promise((resolve) => {
             for (let a = 0; a < schedule.length; a++) {
               for (let b = 0; b < schedule.length; b++) {
