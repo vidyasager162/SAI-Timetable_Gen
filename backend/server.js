@@ -110,6 +110,10 @@ const quoteSchema = new mongoose.Schema({
   quote: String,
 });
 
+const logSchema = new mongoose.Schema({
+  log: String,
+});
+
 const Departments = mongoose.model("department", departmentSchema);
 const Courses = mongoose.model("course", courseSchema);
 const Subjects = mongoose.model("subject", subjectSchema);
@@ -118,6 +122,7 @@ const Students = mongoose.model("student", studentSchema);
 const teacherSchedules = mongoose.model("teacherSchedule", scheduleSchema);
 const studentSchedules = mongoose.model("studentSchedule", scheduleSchema);
 const Quotes = mongoose.model("quote", quoteSchema);
+const Logs = mongoose.model("log", logSchema);
 
 Subjects.findOne({ sub_id: "Free" }, (err, subjectFound) => {
   if (!err) {
@@ -391,6 +396,18 @@ app.post("/login", (req, res) => {
             if (req.body.password === studentFound.password) {
               studentFound.cookieID = req.body.cookieID;
               studentFound.save();
+              const date = new Date().toLocaleTimeString();
+              const day = new Date().toDateString();
+              let logString =
+                studentFound.name +
+                " " +
+                "logged in at " +
+                date +
+                " " +
+                "on " +
+                day +
+                ".";
+              Logs.create({ log: logString });
               res.send({
                 message: "success",
                 user: studentFound,
