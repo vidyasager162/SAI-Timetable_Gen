@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "./Modal";
 
 function Card(props) {
+  const [departmentClicked, setDepartmentClicked] = useState();
+  function getter(event) {
+    const buttonClicked = event.target.value;
+    setDepartmentClicked(buttonClicked);
+    console.log(buttonClicked);
+  }
+
   return props.flag === "department" ? (
     <div className="card h-100">
       <div className="card-body">
@@ -22,21 +29,22 @@ function Card(props) {
           data-bs-toggle="modal"
           data-bs-target="#departmentModal"
           value={props.name}
+          onClick={getter}
         >
           Edit
         </button>
         <Modal
           modalID="departmentModal"
-          name={props.name}
+          name={departmentClicked}
           description={props.description}
-          identifier={props.identifier}
+          identifier={departmentClicked}
           action={props.edit}
           title="Department"
           fplaceholder="New Department Name"
           fname="deptname"
           lplaceholder="New Department ID"
           lname="dept_id"
-          id={props.name}
+          id={departmentClicked}
         />
         <button
           className="btn btn-outline-danger my-1"

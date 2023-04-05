@@ -1,7 +1,7 @@
 import React from "react";
 import FormHeader from "./FormHeader";
-
 function Modal(props) {
+  console.log(props.name);
   return (
     <div
       className="modal fade"
@@ -47,7 +47,7 @@ function Modal(props) {
                         id="floatingInput"
                         placeholder={props.mplaceholder}
                         name={props.mname}
-                        defaultValue={props.name}
+                        defaultValue={props.id}
                       />
                       <label htmlFor="floatingInput">
                         {props.mplaceholder}

@@ -103,13 +103,16 @@ function EditSchedule(props) {
             </div>
           </div>
           <div className="text-center">
+            <button className="btn btn-lg btn-primary login-button mb-0">
+              Save
+            </button>
             <button
               className="btn btn-lg btn-primary login-button mb-0"
               onClick={() => {
                 props.setIsEditSchedule(false);
               }}
             >
-              Save
+              Back
             </button>
           </div>
         </div>
