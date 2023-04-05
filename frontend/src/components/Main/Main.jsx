@@ -45,6 +45,7 @@ function Main(props) {
   const [departments, setDepartments] = useState([]);
   const [courses, setCourses] = useState([]);
   const [cohortID, setCohortID] = useState("");
+  const [message, setMessage] = useState();
 
   function getDepartments() {
     fetch("http://192.168.34.129:8000/get-departments", {
@@ -56,7 +57,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
+          setMessage(data.message);
           setDepartments(data.departments);
           console.log(data.departments);
         }
@@ -73,7 +75,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
+          setMessage(data.message);
           setCourses(data.courses);
           console.log(data.courses);
         }
@@ -90,7 +93,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
+          setMessage(data.message);
           setSubjects(data.subjects);
         }
       });
@@ -106,7 +110,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
+          setMessage(data.message);
           setTeachers(data.teachers);
         }
       });
@@ -122,7 +127,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
+          setMessage(data.message);
           setStudents(data.students);
         }
       });
@@ -138,7 +144,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
+          setMessage(data.message);
           setTeacherSchedules(data.teacherschedules);
         }
       });
@@ -154,7 +161,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
+          setMessage(data.message);
           setStudentSchedules(data.studentschedules);
         }
       });
@@ -175,7 +183,8 @@ function Main(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        if (payload.message === "802") {
+        if (payload.message === "success") {
+          setMessage(payload.message);
           setUserProfile(payload.user);
           props.setViewProfile(true);
         }

@@ -177,7 +177,7 @@ app.get("/get-teachers", (req, res) => {
     if (err) throw err;
     else if (teachers) {
       res.send({
-        message: "902",
+        message: "success",
         teachers: teachers,
       });
     }
@@ -189,7 +189,7 @@ app.get("/get-students", (req, res) => {
     if (err) throw err;
     else if (students) {
       res.send({
-        message: "902",
+        message: "success",
         students: students,
       });
     }
@@ -202,7 +202,7 @@ app.get("/gen-quote", (req, res) => {
     if (err) throw err;
     else if (quoteFound) {
       res.send({
-        message: "902",
+        message: "success",
         quote: quoteFound,
       });
     }
@@ -214,7 +214,7 @@ app.get("/get-departments", (req, res) => {
     if (err) throw err;
     else if (departmentsFound) {
       res.send({
-        message: "902",
+        message: "success",
         departments: departmentsFound,
       });
     }
@@ -226,7 +226,7 @@ app.get("/get-courses", (req, res) => {
     if (err) throw err;
     else if (coursesFound) {
       res.send({
-        message: "902",
+        message: "success",
         courses: coursesFound,
       });
     }
@@ -238,7 +238,7 @@ app.get("/get-subjects", (req, res) => {
     if (err) throw err;
     else if (subjectsFound) {
       res.send({
-        message: "902",
+        message: "success",
         subjects: subjectsFound,
       });
     }
@@ -251,7 +251,7 @@ app.get("/get-teacherschedules", (req, res) => {
       if (err) throw err;
       else if (schedulesFound) {
         res.send({
-          message: "902",
+          message: "success",
           teacherschedules: schedulesFound,
         });
       }
@@ -265,7 +265,7 @@ app.get("/get-studentschedules", (req, res) => {
       if (err) throw err;
       else if (schedulesFound) {
         res.send({
-          message: "902",
+          message: "success",
           studentschedules: schedulesFound,
         });
       }
@@ -392,7 +392,7 @@ app.post("/login", (req, res) => {
               studentFound.cookieID = req.body.cookieID;
               studentFound.save();
               res.send({
-                message: "802",
+                message: "success",
                 user: studentFound,
               });
             } else {
@@ -413,7 +413,7 @@ app.post("/login", (req, res) => {
         teacherFound.cookieID = req.body.cookieID;
         teacherFound.save();
         res.send({
-          message: "802",
+          message: "success",
           user: teacherFound,
         });
       } else {
@@ -445,7 +445,7 @@ app.post("/retain-session", (req, res) => {
             else if (studentFound) {
               if (studentFound.cookieID === req.body.cookieID) {
                 res.send({
-                  message: "802",
+                  message: "success",
                   user: studentFound,
                 });
               } else {
@@ -459,7 +459,7 @@ app.post("/retain-session", (req, res) => {
       } else if (teacherFound) {
         if (teacherFound.cookieID === req.body.cookieID) {
           res.send({
-            message: "802",
+            message: "success",
             user: teacherFound,
           });
         }
@@ -482,7 +482,7 @@ app.post("/add-department", (req, res) => {
       if (err) throw err;
       else {
         res.send({
-          message: "702",
+          message: "success",
         });
       }
     }
@@ -500,7 +500,7 @@ app.post("/add-course", (req, res) => {
       if (err) throw err;
       else {
         res.send({
-          message: "702",
+          message: "success",
         });
         studentSchedules.findOne(
           {
@@ -546,7 +546,7 @@ app.post("/add-subject", (req, res) => {
       if (err) throw err;
       else {
         res.send({
-          message: "702",
+          message: "success",
         });
       }
     }
@@ -570,7 +570,7 @@ app.post("/add-teacher", (req, res) => {
       else {
         console.log(req.body);
         res.send({
-          message: "702",
+          message: "success",
         });
       }
     }
@@ -606,7 +606,7 @@ app.post("/add-student", (req, res) => {
           if (err) throw err;
           else {
             res.send({
-              message: "702",
+              message: "success",
             });
           }
         }
@@ -622,7 +622,7 @@ app.post("/request-studentschedule", (req, res) => {
       if (err) throw err;
       else if (scheduleFound) {
         res.send({
-          message: "902",
+          message: "success",
           schedule: scheduleFound,
         });
       }
@@ -637,7 +637,7 @@ app.post("/request-teacherschedule", (req, res) => {
       if (err) throw err;
       else if (scheduleFound) {
         res.send({
-          message: "902",
+          message: "success",
           schedule: scheduleFound,
         });
       }
@@ -1055,7 +1055,7 @@ app.post("/get-user", (req, res) => {
             if (error) throw error;
             else if (studentFound) {
               res.send({
-                message: "802",
+                message: "success",
                 user: studentFound,
               });
             } else {
@@ -1067,7 +1067,7 @@ app.post("/get-user", (req, res) => {
         );
       } else if (teacherFound) {
         res.send({
-          message: "802",
+          message: "success",
           user: teacherFound,
         });
       } else {
