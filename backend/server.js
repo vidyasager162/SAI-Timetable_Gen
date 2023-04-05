@@ -1002,6 +1002,20 @@ app.post("/delete-subject", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "deleted course " +
+          req.body.sub_id +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({ message: "success" });
         console.log("Deleted " + req.body.sub_id + " successfully");
       }
@@ -1017,6 +1031,20 @@ app.post("/delete-course", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "deleted course " +
+          req.body.course_id +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({ message: "success" });
         console.log("Deleted " + req.body.course_id + " successfully");
       }
