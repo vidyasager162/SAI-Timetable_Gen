@@ -17,6 +17,7 @@ import StudentSchedule from "../Schedule/StudentSchedule";
 import TeacherSchedule from "../Schedule/TeacherSchedule";
 import AddCohort from "../Form/AddCohort";
 import EditSchedule from "../Form/EditSchedule";
+import Logs from "../Logs";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
@@ -241,7 +242,10 @@ function Main(props) {
       <div className="container-fluid p-0">
         <div className="row main-container">
           <div className="col my-col">
-            <AddDepartment setIsAddDepartment={setIsAddDepartment} />
+            <AddDepartment
+              setIsAddDepartment={setIsAddDepartment}
+              User={props.User}
+            />
           </div>
         </div>
       </div>
@@ -323,6 +327,14 @@ function Main(props) {
           </div>
         </div>
       </div>
+    ) : props.isLog ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <Logs />
+          </div>
+        </div>
+      </div>
     ) : (
       <div className="container-fluid p-0">
         <div className="row main-container">
@@ -390,6 +402,7 @@ function Main(props) {
                   getDepartments={getDepartments}
                   getCourses={getCourses}
                   message={message}
+                  User={props.User}
                 />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>

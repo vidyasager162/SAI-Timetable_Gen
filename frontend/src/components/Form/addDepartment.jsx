@@ -10,6 +10,7 @@ function AddDepartment(props) {
     const reqPayload = {
       dept_id: payload.get("deptid"),
       dept_name: payload.get("deptname"),
+      username: props.User.name,
     };
     fetch("http://192.168.34.129:8000/add-department", {
       method: "POST",
@@ -21,7 +22,7 @@ function AddDepartment(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        if (payload.message === "702") {
+        if (payload.message === "success") {
           console.log("Department added successfully.");
         } else {
           console.log("There was a problem adding the Department.");

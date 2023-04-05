@@ -19,6 +19,7 @@ function App() {
   const [isStudent, setIsStudent] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
   const [isViewProfile, setViewProfile] = useState(false);
+  const [isLog, setIsLog] = useState(false);
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
@@ -176,6 +177,7 @@ function App() {
         User={User}
         logOut={logOut}
         appFlush={appFlush}
+        setIsLog={setIsLog}
       />
       {isLoggedIn ? (
         isProfile ? (
@@ -195,6 +197,7 @@ function App() {
             setViewProfile={setViewProfile}
             isViewProfile={isViewProfile}
             setIsProfile={setIsProfile}
+            isLog={isLog}
           />
         ) : null
       ) : (

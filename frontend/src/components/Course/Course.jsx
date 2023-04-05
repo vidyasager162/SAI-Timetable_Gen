@@ -96,6 +96,7 @@ function Course(props) {
       mode: "cors",
       body: JSON.stringify({
         dept_id: dept_id,
+        username: props.User.name,
       }),
     })
       .then((res) => res.json())

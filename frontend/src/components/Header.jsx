@@ -65,6 +65,7 @@ function Header(props) {
                   onClick={() => {
                     props.invertIsViewProfile();
                     props.setIsProfile(false);
+                    props.setIsLog(false);
                   }}
                 >
                   Home
@@ -91,15 +92,28 @@ function Header(props) {
                 </button>
               </li>
               {props.User.usertype === 9 || props.User.usertype === 0 ? (
-                <li>
-                  <button
-                    type="button"
-                    className="dropdown-item"
-                    onClick={props.appFlush}
-                  >
-                    Master Reset
-                  </button>
-                </li>
+                <>
+                  <li>
+                    <button
+                      type="button"
+                      className="dropdown-item"
+                      onClick={props.appFlush}
+                    >
+                      Master Reset
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      className="dropdown-item"
+                      onClick={() => {
+                        props.setIsLog(true);
+                      }}
+                    >
+                      Logs
+                    </button>
+                  </li>
+                </>
               ) : null}
             </ul>
           </div>

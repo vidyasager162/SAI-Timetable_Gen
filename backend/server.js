@@ -110,9 +110,12 @@ const quoteSchema = new mongoose.Schema({
   quote: String,
 });
 
-const logSchema = new mongoose.Schema({
-  log: String,
-});
+const logSchema = new mongoose.Schema(
+  {
+    log: String,
+  },
+  { timestamps: true }
+);
 
 const Departments = mongoose.model("department", departmentSchema);
 const Courses = mongoose.model("course", courseSchema);
@@ -278,6 +281,18 @@ app.get("/get-studentschedules", (req, res) => {
     .sort({ schedule_id: 1 });
 });
 
+app.get("/get-logs", (req, res) => {
+  Logs.find((err, logsFound) => {
+    if (err) throw err;
+    else if (logsFound) {
+      res.send({
+        message: "success",
+        logs: logsFound,
+      });
+    }
+  }).sort({ createdAt: 1 });
+});
+
 app.post("/add-cohort", (req, res) => {
   let query = req.body.flag;
   if (query === "Department") {
@@ -429,6 +444,18 @@ app.post("/login", (req, res) => {
       if (req.body.password === teacherFound.password) {
         teacherFound.cookieID = req.body.cookieID;
         teacherFound.save();
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          teacherFound.name +
+          " " +
+          "logged in at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({
           message: "success",
           user: teacherFound,
@@ -498,6 +525,20 @@ app.post("/add-department", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "created department " +
+          req.body.dept_id +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({
           message: "success",
         });
@@ -994,6 +1035,20 @@ app.post("/delete-department", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "deleted department " +
+          req.body.dept_id +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({ message: "success" });
         console.log("Deleted " + req.body.dept_id + " successfully");
       }
