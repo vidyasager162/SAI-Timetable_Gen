@@ -14,7 +14,7 @@ function Home(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "902") {
+        if (data.message === "success") {
           setQuotation(data.quote.quote);
           console.log(data);
         }
@@ -23,7 +23,7 @@ function Home(props) {
 
   useEffect(() => {
     generateQuote();
-  });
+  }, [setQuotation]);
   return (
     <div className="container col-xxl-8 px-4 py-3">
       <div className="row flex-lg-row-reverse align-items-center g-5 py-5 hero-landing">
@@ -38,7 +38,7 @@ function Home(props) {
             <button
               type="button"
               className="btn btn-primary btn-lg px-4 me-md-2 quote-container"
-              onClick={props.generateQuote}
+              onClick={generateQuote}
             >
               <p className="quote">{'"' + quotation + '"'}</p>
             </button>
