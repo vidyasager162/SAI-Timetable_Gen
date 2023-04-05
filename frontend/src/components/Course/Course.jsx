@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../Templates/Card";
 
 function Course(props) {
+  const [message, setMessage] = useState();
   function deleteSubject(sub_id) {
     fetch("http://192.168.34.129:8000/delete-subject", {
       method: "POST",
@@ -15,7 +16,10 @@ function Course(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        console.log(payload);
+        if (payload.message === "success") {
+          setMessage(payload.message);
+          console.log(payload);
+        }
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -55,7 +59,10 @@ function Course(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        console.log(payload);
+        if (payload.message === "success") {
+          setMessage(payload.message);
+          console.log(payload);
+        }
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -93,7 +100,10 @@ function Course(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        console.log(payload);
+        if (payload.message === "success") {
+          setMessage(payload.message);
+          console.log(payload);
+        }
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -122,7 +132,7 @@ function Course(props) {
     props.getCourses();
     props.getSubjects();
     // eslint-disable-next-line
-  }, []);
+  }, [message, props.message]);
 
   return props.departments.map((department) => {
     return props.buttonClicked === department.dept_id ? (

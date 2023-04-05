@@ -659,6 +659,7 @@ app.post("/create-schedule", (req, res) => {
           schedule_id: req.body.schedule_id,
           schedule: req.body.schedule,
         });
+        res.send({ message: "success" });
       }
     }
   );
@@ -769,6 +770,7 @@ app.post("/edit-schedule", (req, res) => {
           (err, foundSchedule) => {
             console.log("In here");
             console.log(foundSchedule);
+            res.send({ message: "success" });
           }
         );
       }
@@ -886,6 +888,7 @@ app.post("/delete-schedule", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        res.send({ message: "success" });
         Teachers.find(
           { username: req.body.schedule_id },
           (err, teacherFound) => {
@@ -940,7 +943,10 @@ app.post("/delete-subject", (req, res) => {
     },
     (err) => {
       if (err) throw err;
-      else console.log("Deleted " + req.body.sub_id + " successfully");
+      else {
+        res.send({ message: "success" });
+        console.log("Deleted " + req.body.sub_id + " successfully");
+      }
     }
   );
 });
@@ -952,7 +958,10 @@ app.post("/delete-course", (req, res) => {
     },
     (err) => {
       if (err) throw err;
-      else console.log("Deleted " + req.body.course_id + " successfully");
+      else {
+        res.send({ message: "success" });
+        console.log("Deleted " + req.body.course_id + " successfully");
+      }
     }
   );
   Subjects.deleteMany({ course_id: req.body.course_id }, (err) => {
@@ -967,7 +976,10 @@ app.post("/delete-department", (req, res) => {
     },
     (err) => {
       if (err) throw err;
-      else console.log("Deleted " + req.body.dept_id + " successfully");
+      else {
+        res.send({ message: "success" });
+        console.log("Deleted " + req.body.dept_id + " successfully");
+      }
     }
   );
   Courses.find(

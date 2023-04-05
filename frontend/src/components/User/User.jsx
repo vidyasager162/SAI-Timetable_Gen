@@ -5,7 +5,7 @@ function User(props) {
   useEffect(() => {
     props.clicked === "Teachers" ? props.getTeachers() : props.getStudents();
     // eslint-disable-next-line
-  }, []);
+  }, [props.message]);
 
   return props.clicked === "Teachers"
     ? props.teachers.map((teacher) => {

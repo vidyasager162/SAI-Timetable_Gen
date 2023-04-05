@@ -39,7 +39,7 @@ function TeacherSchedule(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        if (payload.message === "902") {
+        if (payload.message === "success") {
           setTeacherSchedule(payload.schedule);
           setReady(true);
         } else {

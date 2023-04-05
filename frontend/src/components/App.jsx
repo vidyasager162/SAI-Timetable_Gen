@@ -22,6 +22,8 @@ function App() {
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
+  //eslint-disable-next-line
+  const [message, setMessage] = useState();
 
   if (checkforCookies === true && cookie.userSaved === "true") {
     setCheckForCookies(false);
@@ -39,8 +41,9 @@ function App() {
     })
       .then((res) => res.json())
       .then((payload) => {
-        if (payload.message === "802") {
+        if (payload.message === "success") {
           invertIsLoggedIn();
+          setMessage(payload.message);
           handleUser(payload.user.usertype);
           updateUser(payload.user);
         }
@@ -151,8 +154,9 @@ function App() {
         } else if (payload.message === "801") {
           console.log("Wrong Password");
           console.log(payload.message);
-        } else if (payload.message === "802") {
+        } else if (payload.message === "success") {
           invertIsLoggedIn();
+          setMessage(payload.message);
           handleUser(payload.user.usertype);
           updateUser(payload.user);
         }

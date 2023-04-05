@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Templates/Button";
 import Card from "../Templates/Card";
 
 function Schedule(props) {
+  //eslint-disable-next-line
+  const [message, setMessage] = useState();
   function deleteSchedule(schedule_id) {
     fetch("http://192.168.34.129:8000/delete-schedule", {
       method: "POST",
@@ -16,7 +18,10 @@ function Schedule(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        console.log(payload);
+        if (payload.message === "success") {
+          setMessage(payload.message);
+          console.log(payload);
+        }
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -27,7 +32,7 @@ function Schedule(props) {
     props.getTeacherSchedules();
     props.getStudentSchedules();
     // eslint-disable-next-line
-  }, []);
+  }, [message, props.message]);
 
   return props.buttonClicked === "tschedules" ? (
     props.teacherSchedules.map((teacherSchedule) => {

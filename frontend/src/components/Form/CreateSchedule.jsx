@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FormActions from "../Templates/FormActions";
 import FormHeader from "../Templates/FormHeader";
 
 function CreateSchedule(props) {
+  const [message, setMessage] = useState();
   useEffect(() => {
     props.getSubjects();
     props.getTeachers();
     props.getTeacherSchedules();
     // eslint-disable-next-line
-  }, []);
+  }, [message]);
+  //eslint-disable-next-line
 
   const headings = ["#", "1", "2", "3", "4", "5", "6"];
 
@@ -63,7 +65,8 @@ function CreateSchedule(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        if (payload.message === "702") {
+        if (payload.message === "success") {
+          setMessage(payload.message);
           console.log("Schedule created successfully.");
         } else {
           console.log("There was a problem creating the Schedule.");

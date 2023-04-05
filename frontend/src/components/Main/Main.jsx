@@ -359,6 +359,7 @@ function Main(props) {
                   handleTeacherID={handleTeacherID}
                   setViewStudentSchedule={setViewStudentSchedule}
                   setViewTeacherSchedule={setViewTeacherSchedule}
+                  message={message}
                 />
               ) : clicked === "Teachers" ? (
                 <User
@@ -366,6 +367,7 @@ function Main(props) {
                   getTeachers={getTeachers}
                   teachers={teachers}
                   handleViewProfile={handleViewProfile}
+                  message={message}
                 />
               ) : clicked === "Students" ? (
                 <User
@@ -373,6 +375,7 @@ function Main(props) {
                   getStudents={getStudents}
                   students={students}
                   handleViewProfile={handleViewProfile}
+                  message={message}
                 />
               ) : clicked === "Courses" ? (
                 <Course
@@ -386,6 +389,7 @@ function Main(props) {
                   courses={courses}
                   getDepartments={getDepartments}
                   getCourses={getCourses}
+                  message={message}
                 />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>

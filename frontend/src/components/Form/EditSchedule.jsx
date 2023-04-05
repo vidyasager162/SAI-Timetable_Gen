@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FormHeader from "../Templates/FormHeader";
 
 function EditSchedule(props) {
@@ -6,7 +6,8 @@ function EditSchedule(props) {
     props.getSubjects();
     //eslint-disable-next-line
   }, []);
-
+  //eslint-disable-next-line
+  const [message, setMessage] = useState();
   const headings = ["#", "1", "2", "3", "4", "5", "6"];
 
   const days = [
@@ -44,8 +45,9 @@ function EditSchedule(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        if (payload.message === "702") {
-          console.log("Schedule editing successfully.");
+        if (payload.message === "success") {
+          setMessage(payload.message);
+          console.log("Schedule editing successful.");
         } else {
           console.log("There was a problem editing the Schedule.");
         }
