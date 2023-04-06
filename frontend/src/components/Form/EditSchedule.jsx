@@ -4,6 +4,7 @@ import FormHeader from "../Templates/FormHeader";
 function EditSchedule(props) {
   useEffect(() => {
     props.getSubjects();
+    props.getTeachers();
     //eslint-disable-next-line
   }, []);
   //eslint-disable-next-line
@@ -18,6 +19,15 @@ function EditSchedule(props) {
     "Friday",
     "Saturday",
   ];
+  //eslint-disable-next-line
+  let tname = "";
+
+  //eslint-disable-next-line
+  props.teachers.map((teacher) => {
+    if (teacher.username === props.teacherid) {
+      tname = teacher.name;
+    }
+  });
 
   function handleScheduleSubmit(event) {
     event.preventDefault();
@@ -33,6 +43,8 @@ function EditSchedule(props) {
     const reqPayload = {
       schedule_id: props.teacherid,
       schedule: schedule,
+      username: props.User.name,
+      teachername: tname,
     };
 
     fetch("http://192.168.34.129:8000/edit-schedule", {

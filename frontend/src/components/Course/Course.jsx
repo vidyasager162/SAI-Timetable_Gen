@@ -12,7 +12,7 @@ function Course(props) {
       mode: "cors",
       body: JSON.stringify({
         sub_id: sub_id,
-        username: props.USer.name,
+        username: props.User.name,
       }),
     })
       .then((res) => res.json())

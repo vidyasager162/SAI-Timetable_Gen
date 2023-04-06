@@ -53,6 +53,8 @@ function CreateSchedule(props) {
     const reqPayload = {
       schedule_id: tuname,
       schedule: schedule,
+      username: props.User.name,
+      teachername: tname,
     };
 
     fetch("http://192.168.34.129:8000/create-schedule", {

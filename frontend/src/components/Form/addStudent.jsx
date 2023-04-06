@@ -22,6 +22,7 @@ function AddStudent(props) {
       department: payload.get("deptid"),
       course: payload.get("courseid"),
       usertype: 2,
+      mastername: props.User.name,
     };
     fetch("http://192.168.34.129:8000/add-student", {
       method: "POST",

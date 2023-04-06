@@ -557,6 +557,20 @@ app.post("/add-course", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "created course " +
+          req.body.course_id +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({
           message: "success",
         });
@@ -603,6 +617,20 @@ app.post("/add-subject", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "created subject " +
+          req.body.sub_id +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({
           message: "success",
         });
@@ -627,6 +655,20 @@ app.post("/add-teacher", (req, res) => {
       if (err) throw err;
       else {
         console.log(req.body);
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.mastername +
+          " " +
+          "added teacher " +
+          req.body.name +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({
           message: "success",
         });
@@ -663,6 +705,20 @@ app.post("/add-student", (req, res) => {
         (err) => {
           if (err) throw err;
           else {
+            const date = new Date().toLocaleTimeString();
+            const day = new Date().toDateString();
+            let logString =
+              req.body.mastername +
+              " " +
+              "added student " +
+              req.body.name +
+              " at " +
+              date +
+              " " +
+              "on " +
+              day +
+              ".";
+            Logs.create({ log: logString });
             res.send({
               message: "success",
             });
@@ -717,6 +773,21 @@ app.post("/create-schedule", (req, res) => {
           schedule_id: req.body.schedule_id,
           schedule: req.body.schedule,
         });
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "created " +
+          req.body.teachername +
+          "'s schedule" +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({ message: "success" });
       }
     }
@@ -828,6 +899,21 @@ app.post("/edit-schedule", (req, res) => {
           (err, foundSchedule) => {
             console.log("In here");
             console.log(foundSchedule);
+            const date = new Date().toLocaleTimeString();
+            const day = new Date().toDateString();
+            let logString =
+              req.body.username +
+              " " +
+              "edited " +
+              req.body.teachername +
+              "'s schedule" +
+              " at " +
+              date +
+              " " +
+              "on " +
+              day +
+              ".";
+            Logs.create({ log: logString });
             res.send({ message: "success" });
           }
         );
@@ -946,6 +1032,21 @@ app.post("/delete-schedule", (req, res) => {
     (err) => {
       if (err) throw err;
       else {
+        const date = new Date().toLocaleTimeString();
+        const day = new Date().toDateString();
+        let logString =
+          req.body.username +
+          " " +
+          "deleted " +
+          req.body.teachername +
+          "'s schedule" +
+          " at " +
+          date +
+          " " +
+          "on " +
+          day +
+          ".";
+        Logs.create({ log: logString });
         res.send({ message: "success" });
         Teachers.find(
           { username: req.body.schedule_id },
@@ -1007,7 +1108,7 @@ app.post("/delete-subject", (req, res) => {
         let logString =
           req.body.username +
           " " +
-          "deleted course " +
+          "deleted subject " +
           req.body.sub_id +
           " at " +
           date +

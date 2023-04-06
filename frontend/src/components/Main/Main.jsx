@@ -234,6 +234,7 @@ function Main(props) {
             <AddCourse
               setIsAddCourse={setIsAddCourse}
               buttonClicked={buttonClicked}
+              User={props.User}
             />
           </div>
         </div>
@@ -259,6 +260,7 @@ function Main(props) {
               courses={courses}
               getDepartments={getDepartments}
               getCourses={getCourses}
+              User={props.User}
             />
           </div>
         </div>
@@ -273,6 +275,7 @@ function Main(props) {
               courses={courses}
               getDepartments={getDepartments}
               getCourses={getCourses}
+              User={props.User}
             />
           </div>
         </div>
@@ -284,6 +287,7 @@ function Main(props) {
             <AddSubject
               setIsAddSubject={setIsAddSubject}
               courseClicked={courseClicked}
+              User={props.User}
             />
           </div>
         </div>
@@ -302,6 +306,7 @@ function Main(props) {
               teacherSchedules={teacherSchedules}
               getTeacherSchedules={getTeacherSchedules}
               setIsCreateSchedule={setIsCreateSchedule}
+              User={props.User}
             />
           </div>
         </div>
@@ -312,9 +317,12 @@ function Main(props) {
           <div className="col my-col">
             <EditSchedule
               teacherid={teacherid}
+              teachers={teachers}
+              getTeachers={getTeachers}
               subjects={subjects}
               getSubjects={getSubjects}
               setIsEditSchedule={setIsEditSchedule}
+              User={props.User}
             />
           </div>
         </div>
@@ -367,11 +375,14 @@ function Main(props) {
                   studentSchedules={studentSchedules}
                   getTeacherSchedules={getTeacherSchedules}
                   getStudentSchedules={getStudentSchedules}
+                  teachers={teachers}
+                  getTeachers={getTeachers}
                   handleCourseID={handleCourseID}
                   handleTeacherID={handleTeacherID}
                   setViewStudentSchedule={setViewStudentSchedule}
                   setViewTeacherSchedule={setViewTeacherSchedule}
                   message={message}
+                  User={props.User}
                 />
               ) : clicked === "Teachers" ? (
                 <User

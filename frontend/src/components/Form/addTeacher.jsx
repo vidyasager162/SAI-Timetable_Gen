@@ -22,6 +22,7 @@ function AddTeacher(props) {
       coursesTaught: payload.get("coursestaught").split(","),
       subjectsTaught: payload.get("subjectstaught").split(","),
       usertype: 1,
+      mastername: props.User.name,
     };
     fetch("http://192.168.34.129:8000/add-teacher", {
       method: "POST",

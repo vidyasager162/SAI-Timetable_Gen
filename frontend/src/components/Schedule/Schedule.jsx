@@ -5,6 +5,7 @@ import Card from "../Templates/Card";
 function Schedule(props) {
   //eslint-disable-next-line
   const [message, setMessage] = useState();
+
   function deleteSchedule(schedule_id) {
     fetch("http://192.168.34.129:8000/delete-schedule", {
       method: "POST",
@@ -14,6 +15,8 @@ function Schedule(props) {
       mode: "cors",
       body: JSON.stringify({
         schedule_id: schedule_id,
+        teachername: schedule_id,
+        username: props.User.name,
       }),
     })
       .then((res) => res.json())
@@ -31,6 +34,7 @@ function Schedule(props) {
   useEffect(() => {
     props.getTeacherSchedules();
     props.getStudentSchedules();
+    props.getTeachers();
     // eslint-disable-next-line
   }, [message, props.message]);
 

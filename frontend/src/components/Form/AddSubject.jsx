@@ -11,6 +11,7 @@ function AddSubject(props) {
       sub_id: payload.get("subjectid"),
       sub_name: payload.get("subjectname"),
       course_id: props.courseClicked,
+      username: props.User.name,
     };
     fetch("http://192.168.34.129:8000/add-subject", {
       method: "POST",
@@ -22,7 +23,7 @@ function AddSubject(props) {
     })
       .then((res) => res.json())
       .then((payload) => {
-        if (payload.message === "702") {
+        if (payload.message === "success") {
           console.log("Subject added successfully.");
         } else {
           console.log("There was a problem adding the Subject.");
