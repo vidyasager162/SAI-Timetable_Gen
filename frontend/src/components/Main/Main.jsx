@@ -383,6 +383,7 @@ function Main(props) {
                   setViewTeacherSchedule={setViewTeacherSchedule}
                   message={message}
                   User={props.User}
+                  isCreateSchedule={isCreateSchedule}
                 />
               ) : clicked === "Teachers" ? (
                 <User

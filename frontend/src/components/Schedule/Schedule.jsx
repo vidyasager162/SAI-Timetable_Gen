@@ -36,7 +36,7 @@ function Schedule(props) {
     props.getStudentSchedules();
     props.getTeachers();
     // eslint-disable-next-line
-  }, [message, props.message]);
+  }, [message, props.message, props.isCreateSchedule]);
 
   return props.buttonClicked === "tschedules" ? (
     props.teacherSchedules.map((teacherSchedule) => {

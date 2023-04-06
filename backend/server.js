@@ -1154,6 +1154,12 @@ app.post("/delete-course", (req, res) => {
   Subjects.deleteMany({ course_id: req.body.course_id }, (err) => {
     if (err) throw err;
   });
+  studentSchedules.findOneAndDelete(
+    { schedule_id: req.body.course_id },
+    (err) => {
+      if (err) throw err;
+    }
+  );
 });
 
 app.post("/delete-department", (req, res) => {
@@ -1194,6 +1200,12 @@ app.post("/delete-department", (req, res) => {
           Subjects.deleteMany({ course_id: course }, (err) => {
             if (err) throw err;
           });
+          studentSchedules.findOneAndDelete(
+            { schedule_id: course.course_id },
+            (err) => {
+              if (err) throw err;
+            }
+          );
         });
         Courses.deleteMany({ dept_id: req.body.dept_id }, (err) => {
           if (err) throw err;

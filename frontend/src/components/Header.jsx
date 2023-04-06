@@ -82,15 +82,6 @@ function Header(props) {
                   Profile
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  className="dropdown-item"
-                  onClick={props.logOut}
-                >
-                  Logout
-                </button>
-              </li>
               {props.User.usertype === 9 || props.User.usertype === 0 ? (
                 <>
                   <li>
@@ -115,6 +106,15 @@ function Header(props) {
                   </li>
                 </>
               ) : null}
+              <li>
+                <button
+                  type="button"
+                  className="dropdown-item"
+                  onClick={props.logOut}
+                >
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
         </div>
