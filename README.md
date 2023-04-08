@@ -9,7 +9,7 @@ _A MERN Stack Web Application to manage semester information and allocate schedu
 [![MongoDB][MongoDB.com]][Mongo-url] [![Express][Express.js]][Express-url] [![React][React.js]][React-url] [![Node][Node.js]][Node-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 ## Technologies Used
-[![HTML.5][HTML.5]] [![CSS.3][CSS.3]] [![Javascript][Javascript]]
+[![HTML.5]][![CSS.3]][![Javascript]]
 
 ## Tools Used
 [![NPM.com][NPM.com]][NPM-url] [![Nodemon][Nodemon]][Nodemon-url] [![Git][Git]][Git-url] [![GitHub][GitHub]][GitHub-url]
