@@ -1,7 +1,8 @@
 import React from "react";
 import FormHeader from "./FormHeader";
 function Modal(props) {
-  console.log(props.name);
+  console.log(props.id);
+
   return (
     <div
       className="modal fade"

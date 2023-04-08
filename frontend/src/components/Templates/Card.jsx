@@ -8,6 +8,7 @@ function Card(props) {
     setDepartmentClicked(buttonClicked);
     console.log(buttonClicked);
   }
+  console.log(props.dept);
 
   return props.flag === "department" ? (
     <div className="card h-100">
@@ -34,6 +35,7 @@ function Card(props) {
           Edit
         </button>
         <Modal
+          dept={props.dept}
           modalID="departmentModal"
           name={departmentClicked}
           description={props.description}
