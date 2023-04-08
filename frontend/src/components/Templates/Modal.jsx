@@ -5,11 +5,11 @@ function Modal(props) {
 
   return (
     <div
-      className="modal fade"
+      className="modal"
       id={props.modalID}
       tabIndex="-1"
-      aria-labelledby={props.modalID + "label"}
-      aria-hidden="true"
+      // aria-labelledby={props.modalID + "label"}
+      // aria-hidden="true"
     >
       <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div className="modal-content">

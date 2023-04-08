@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 
 function Card(props) {
+  const [showDept, setShowDept] = useState(false);
   const [departmentClicked, setDepartmentClicked] = useState();
   function getter(event) {
     const buttonClicked = event.target.value;
@@ -27,27 +28,34 @@ function Card(props) {
         </button>
         <button
           className="btn btn-outline-secondary mx-1"
-          data-bs-toggle="modal"
-          data-bs-target="#departmentModal"
+          // data-bs-toggle="modal"
+          // data-bs-target="#departmentModal"
           value={props.name}
-          onClick={getter}
+          onClick={() => {
+            setShowDept(true);
+          }}
         >
           Edit
         </button>
-        <Modal
-          dept={props.dept}
-          modalID="departmentModal"
-          name={departmentClicked}
-          description={props.description}
-          identifier={departmentClicked}
-          action={props.edit}
-          title="Department"
-          fplaceholder="New Department Name"
-          fname="deptname"
-          lplaceholder="New Department ID"
-          lname="dept_id"
-          id={departmentClicked}
-        />
+        {showDept ? (
+          <Modal
+            dept={props.dept}
+            modalID="departmentModal"
+            name={departmentClicked}
+            description={props.description}
+            identifier={departmentClicked}
+            action={props.edit}
+            title="Department"
+            fplaceholder="New Department Name"
+            fname="deptname"
+            lplaceholder="New Department ID"
+            lname="dept_id"
+            id={departmentClicked}
+          />
+        ) : (
+          <></>
+        )}
+
         <button
           className="btn btn-outline-danger my-1"
           value={props.name}
