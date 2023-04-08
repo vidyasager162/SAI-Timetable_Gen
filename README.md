@@ -5,14 +5,14 @@
 _B.Sc Final Year Project (Name: SAI Timetable Scheduler a.k.a SSSIHL MDH Web Application)_
 _A MERN Stack Web Application to manage semester information and allocate schedules for classes_
 
-##Built Using
+## Built Using
 [![MongoDB][MongoDB.com]][Mongo-url] [![Express][Express.js]][Express-url] [![React][React.js]][React-url] [![Node][Node.js]][Node-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
-##Technologies Used
-[![HTML][HTML.5]] [![CSS][CSS.3]] [![JS][Javascript]]
+## Technologies Used
+[![HTML.5][HTML.5]] [![CSS.3][CSS.3]] [![Javascript][Javascript]]
 
-##Tools Used
-[![NPM][NPM.com]][NPM-url] [![Nodemon][Nodemon]][Nodemon-url] [![Git][Git]][Git-url] [![GitHub][GitHub]][GitHub-url]
+## Tools Used
+[![NPM.com][NPM.com]][NPM-url] [![Nodemon][Nodemon]][Nodemon-url] [![Git][Git]][Git-url] [![GitHub][GitHub]][GitHub-url]
 
 
 ## Main Features
