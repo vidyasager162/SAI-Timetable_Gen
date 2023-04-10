@@ -27,26 +27,6 @@ function Course(props) {
       });
   }
 
-  function editSubject(sub_id, event) {
-    const payload = new FormData(event.currentTarget);
-    console.log("edit called");
-    console.log(event);
-    const reqPayload = {
-      old_sub_id: sub_id,
-      new_sub_id: payload.get("subid"),
-      new_sub_name: payload.get("subname"),
-      new_course_id: payload.get("course_id"),
-    };
-    fetch("http://192.168.34.129:8000/edit-subject", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(reqPayload),
-    });
-  }
-
   function deleteCourse(course_id) {
     fetch("http://192.168.34.129:8000/delete-course", {
       method: "POST",
@@ -71,24 +51,6 @@ function Course(props) {
       });
   }
 
-  function editCourse(course_id, event) {
-    const payload = new FormData(event.currentTarget);
-    const reqPayload = {
-      old_course_id: course_id,
-      new_course_id: payload.get("courseid"),
-      new_course_name: payload.get("coursename"),
-      new_dept_id: payload.get("dept_id"),
-    };
-    fetch("http://192.168.34.129:8000/edit-course", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(reqPayload),
-    });
-  }
-
   function deleteDepartment(dept_id) {
     fetch("http://192.168.34.129:8000/delete-department", {
       method: "POST",
@@ -111,23 +73,6 @@ function Course(props) {
       .catch((err) => {
         console.log("Error: ", err);
       });
-  }
-
-  function editDepartment(dept_id, event) {
-    const payload = new FormData(event.currentTarget);
-    const reqPayload = {
-      old_dept_id: dept_id,
-      new_dept_id: payload.get("dept_id"),
-      new_dept_name: payload.get("deptname"),
-    };
-    fetch("http://192.168.34.129:8000/edit-department", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(reqPayload),
-    });
   }
 
   useEffect(() => {
@@ -158,7 +103,6 @@ function Course(props) {
                       description={filteredSubject.sub_name}
                       flag="subject"
                       delete={deleteSubject}
-                      edit={editSubject}
                     />
                   </div>
                 );
@@ -174,7 +118,6 @@ function Course(props) {
                 action={props.setCourseClicked}
                 flag="course"
                 delete={deleteCourse}
-                edit={editCourse}
               />
             </div>
           ) : null;
@@ -190,7 +133,6 @@ function Course(props) {
           action={props.handleButtonClick}
           flag="department"
           delete={deleteDepartment}
-          edit={editDepartment}
         />
       </div>
     ) : null;

@@ -1,16 +1,6 @@
-import React, { useState } from "react";
-import Modal from "./Modal";
+import React from "react";
 
 function Card(props) {
-  const [showDept, setShowDept] = useState(false);
-  const [departmentClicked, setDepartmentClicked] = useState();
-  function getter(event) {
-    const buttonClicked = event.target.value;
-    setDepartmentClicked(buttonClicked);
-    console.log(buttonClicked);
-  }
-  console.log(props.dept);
-
   return props.flag === "department" ? (
     <div className="card h-100">
       <div className="card-body">
@@ -28,34 +18,25 @@ function Card(props) {
         </button>
         <button
           className="btn btn-outline-secondary mx-1"
-          // data-bs-toggle="modal"
-          // data-bs-target="#departmentModal"
           value={props.name}
-          onClick={() => {
-            setShowDept(true);
-          }}
+          onClick={() => {}}
         >
           Edit
         </button>
-        {showDept ? (
-          <Modal
-            dept={props.dept}
-            modalID="departmentModal"
-            name={departmentClicked}
-            description={props.description}
-            identifier={departmentClicked}
-            action={props.edit}
-            title="Department"
-            fplaceholder="New Department Name"
-            fname="deptname"
-            lplaceholder="New Department ID"
-            lname="dept_id"
-            id={departmentClicked}
-          />
-        ) : (
-          <></>
-        )}
-
+        {/* <Modal
+          dept={props.dept}
+          modalID="departmentModal"
+          name={departmentClicked}
+          description={props.description}
+          identifier={departmentClicked}
+          action={props.edit}
+          title="Department"
+          fplaceholder="New Department Name"
+          fname="deptname"
+          lplaceholder="New Department ID"
+          lname="dept_id"
+          id={departmentClicked}
+        /> */}
         <button
           className="btn btn-outline-danger my-1"
           value={props.name}
@@ -82,15 +63,10 @@ function Card(props) {
         >
           View
         </button>
-        <button
-          className="btn btn-outline-secondary mx-1"
-          data-bs-toggle="modal"
-          data-bs-target="#courseModal"
-          value={props.name}
-        >
+        <button className="btn btn-outline-secondary mx-1" value={props.name}>
           Edit
         </button>
-        <Modal
+        {/* <Modal
           modalID="courseModal"
           name={props.name}
           description={props.description}
@@ -104,7 +80,7 @@ function Card(props) {
           lplaceholder="New Department ID"
           lname="dept_id"
           id={props.name}
-        />
+        /> */}
         <button
           className="btn btn-outline-danger my-1"
           value={props.name}
@@ -124,8 +100,6 @@ function Card(props) {
         <button
           className="btn btn-outline-secondary"
           value={props.name}
-          data-bs-toggle="modal"
-          data-bs-target="#subjectModal"
           onClick={(e) => {
             props.edit(true);
             props.action(e.target.name);
@@ -133,7 +107,7 @@ function Card(props) {
         >
           Edit
         </button>
-        <Modal
+        {/* <Modal
           modalID="subjectModal"
           name={props.name}
           description={props.description}
@@ -147,7 +121,7 @@ function Card(props) {
           lplaceholder="New Course ID"
           lname="course_id"
           id={props.name}
-        />
+        /> */}
         <button
           className="btn btn-outline-danger mx-1"
           value={props.name}

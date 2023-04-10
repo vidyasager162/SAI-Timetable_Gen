@@ -18,13 +18,17 @@ import TeacherSchedule from "../Schedule/TeacherSchedule";
 import AddCohort from "../Form/AddCohort";
 import EditSchedule from "../Form/EditSchedule";
 import Logs from "../Logs";
+import EditDetails from "../Form/EditDetails";
 
 function Main(props) {
   const [clicked, setClicked] = useState("");
   const [buttonClicked, setButtonClicked] = useState("");
   const [isAddDepartment, setIsAddDepartment] = useState(false);
+  const [isEditDepartment, setIsEditDepartment] = useState(false);
   const [isAddSubject, setIsAddSubject] = useState(false);
+  const [isEditSubject, setIsEditSubject] = useState(false);
   const [isAddCourse, setIsAddCourse] = useState(false);
+  const [isEditCourse, setIsEditCourse] = useState(false);
   const [isAddTeacher, setIsAddTeacher] = useState(false);
   const [isAddStudent, setIsAddStudent] = useState(false);
   const [isAddCohort, setIsAddCohort] = useState(false);
@@ -36,6 +40,7 @@ function Main(props) {
   const [viewTeacherSchedule, setViewTeacherSchedule] = useState(false);
   const [courseid, setCourseID] = useState("");
   const [teacherid, setTeacherID] = useState("");
+  const [detailToEdit, setDetailToEdit] = useState("");
 
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
@@ -239,6 +244,17 @@ function Main(props) {
           </div>
         </div>
       </div>
+    ) : isEditCourse ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <EditDetails
+              detailToEdit={detailToEdit}
+              setIsEditCourse={setIsEditCourse}
+            />
+          </div>
+        </div>
+      </div>
     ) : isAddDepartment ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
@@ -246,6 +262,17 @@ function Main(props) {
             <AddDepartment
               setIsAddDepartment={setIsAddDepartment}
               User={props.User}
+            />
+          </div>
+        </div>
+      </div>
+    ) : isEditDepartment ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <EditDetails
+              detailToEdit={detailToEdit}
+              setIsEditDepartment={setIsEditDepartment}
             />
           </div>
         </div>
@@ -288,6 +315,17 @@ function Main(props) {
               setIsAddSubject={setIsAddSubject}
               courseClicked={courseClicked}
               User={props.User}
+            />
+          </div>
+        </div>
+      </div>
+    ) : isEditSubject ? (
+      <div className="container-fluid p-0">
+        <div className="row main-container">
+          <div className="col my-col">
+            <EditDetails
+              detailToEdit={detailToEdit}
+              setIsEditSubject={setIsEditSubject}
             />
           </div>
         </div>
@@ -415,6 +453,10 @@ function Main(props) {
                   getCourses={getCourses}
                   message={message}
                   User={props.User}
+                  setIsEditCourse={setIsEditCourse}
+                  setIsEditSubject={setIsEditSubject}
+                  setIsEditDepartment={setIsEditDepartment}
+                  setDetailToEdit={setDetailToEdit}
                 />
               ) : (
                 <h3 className="text-muted">SAITimetable_Gen</h3>
