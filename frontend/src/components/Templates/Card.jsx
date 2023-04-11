@@ -26,20 +26,6 @@ function Card(props) {
         >
           Edit
         </button>
-        {/* <Modal
-          dept={props.dept}
-          modalID="departmentModal"
-          name={departmentClicked}
-          description={props.description}
-          identifier={departmentClicked}
-          action={props.edit}
-          title="Department"
-          fplaceholder="New Department Name"
-          fname="deptname"
-          lplaceholder="New Department ID"
-          lname="dept_id"
-          id={departmentClicked}
-        /> */}
         <button
           className="btn btn-outline-danger my-1"
           value={props.name}
@@ -76,21 +62,6 @@ function Card(props) {
         >
           Edit
         </button>
-        {/* <Modal
-          modalID="courseModal"
-          name={props.name}
-          description={props.description}
-          identifier={props.identifier}
-          action={props.edit}
-          title="Course"
-          fplaceholder="New Course Name"
-          fname="coursename"
-          mplaceholder="New Course ID"
-          mname="courseid"
-          lplaceholder="New Department ID"
-          lname="dept_id"
-          id={props.name}
-        /> */}
         <button
           className="btn btn-outline-danger my-1"
           value={props.name}
@@ -117,21 +88,6 @@ function Card(props) {
         >
           Edit
         </button>
-        {/* <Modal
-          modalID="subjectModal"
-          name={props.name}
-          description={props.description}
-          identifier={props.identifier}
-          action={props.edit}
-          title="Subject"
-          fplaceholder="New Subject Name"
-          fname="subname"
-          mplaceholder="New Subject ID"
-          mname="subid"
-          lplaceholder="New Course ID"
-          lname="course_id"
-          id={props.name}
-        /> */}
         <button
           className="btn btn-outline-danger mx-1"
           value={props.name}
