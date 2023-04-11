@@ -99,10 +99,11 @@ function Course(props) {
                       key={filteredSubject.sub_id}
                       sub={filteredSubject}
                       name={filteredSubject.sub_id}
-                      identifier={filteredCourse.course_id}
                       description={filteredSubject.sub_name}
                       flag="subject"
+                      edit={props.setIsEditSubject}
                       delete={deleteSubject}
+                      setDetailToEdit={props.setDetailToEdit}
                     />
                   </div>
                 );
@@ -114,10 +115,11 @@ function Course(props) {
                 course={filteredCourse}
                 name={filteredCourse.course_id}
                 description={filteredCourse.course_name}
-                identifier={department.dept_id}
                 action={props.setCourseClicked}
                 flag="course"
+                edit={props.setIsEditCourse}
                 delete={deleteCourse}
+                setDetailToEdit={props.setDetailToEdit}
               />
             </div>
           ) : null;
@@ -128,11 +130,12 @@ function Course(props) {
           key={department.dept_id}
           dept={department}
           name={department.dept_id}
-          identifier={department.dept_id}
           description={department.dept_name}
           action={props.handleButtonClick}
           flag="department"
+          edit={props.setIsEditDepartment}
           delete={deleteDepartment}
+          setDetailToEdit={props.setDetailToEdit}
         />
       </div>
     ) : null;

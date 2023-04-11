@@ -251,6 +251,13 @@ function Main(props) {
             <EditDetails
               detailToEdit={detailToEdit}
               setIsEditCourse={setIsEditCourse}
+              title="Course"
+              fplaceholder="New Course Name"
+              fname="coursename"
+              mplaceholder="New Course ID"
+              mname="courseid"
+              lplaceholder="New Department ID"
+              lname="dept_id"
             />
           </div>
         </div>
@@ -273,6 +280,11 @@ function Main(props) {
             <EditDetails
               detailToEdit={detailToEdit}
               setIsEditDepartment={setIsEditDepartment}
+              title="Department"
+              fplaceholder="New Department Name"
+              fname="deptname"
+              lplaceholder="New Department ID"
+              lname="dept_id"
             />
           </div>
         </div>
@@ -326,6 +338,13 @@ function Main(props) {
             <EditDetails
               detailToEdit={detailToEdit}
               setIsEditSubject={setIsEditSubject}
+              title="Subject"
+              fplaceholder="New Subject Name"
+              fname="subname"
+              mplaceholder="New Subject ID"
+              mname="subid"
+              lplaceholder="New Course ID"
+              lname="course_id"
             />
           </div>
         </div>

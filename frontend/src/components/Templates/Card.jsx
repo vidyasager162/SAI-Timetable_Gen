@@ -19,7 +19,10 @@ function Card(props) {
         <button
           className="btn btn-outline-secondary mx-1"
           value={props.name}
-          onClick={() => {}}
+          onClick={(e) => {
+            props.setDetailToEdit(e.target.value);
+            props.edit(true);
+          }}
         >
           Edit
         </button>
@@ -63,7 +66,14 @@ function Card(props) {
         >
           View
         </button>
-        <button className="btn btn-outline-secondary mx-1" value={props.name}>
+        <button
+          className="btn btn-outline-secondary mx-1"
+          value={props.name}
+          onClick={(e) => {
+            props.setDetailToEdit(e.target.value);
+            props.edit(true);
+          }}
+        >
           Edit
         </button>
         {/* <Modal
@@ -101,8 +111,8 @@ function Card(props) {
           className="btn btn-outline-secondary"
           value={props.name}
           onClick={(e) => {
+            props.setDetailToEdit(e.target.value);
             props.edit(true);
-            props.action(e.target.name);
           }}
         >
           Edit

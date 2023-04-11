@@ -59,22 +59,18 @@ function EditDetails(props) {
   }
   return (
     <div className="form-signin w-100 m-auto container">
-    {props.title = "Department" ?       <form
+      <form
         onSubmit={(e) => {
-          props.action(props.id, e);
+          if (props.title === "Department") {
+            editDepartment(props.detailToEdit, e);
+          } else if (props.title === "Course") {
+            editCourse(props.detailToEdit, e);
+          } else if (props.title === "Subject") {
+            editSubject(props.detailToEdit, e);
+          }
         }}
         method="POST"
-      > : props.title === "Course" ?       <form
-        onSubmit={(e) => {
-          props.action(props.id, e);
-        }}
-        method="POST"
-      ></form> : props.title === "Subject" ?       <form
-        onSubmit={(e) => {
-          props.action(props.id, e);
-        }}
-        method="POST"
-      ></form> : <></>}
+      >
         <div className="form-container">
           <FormHeader title={"Edit " + props.title} subtitle={props.id} />
           <div className="form-floating w-50 m-auto">
@@ -115,11 +111,11 @@ function EditDetails(props) {
             <label htmlFor="floatingInput">{props.lplaceholder}</label>
           </div>
           {props.title === "Department" ? (
-            <FormActions />
+            <FormActions action={props.setIsEditDepartment} />
           ) : props.title === "Course" ? (
-            <FormActions />
+            <FormActions action={props.setIsEditCourse} />
           ) : props.title === "Subject" ? (
-            <FormActions />
+            <FormActions action={props.setIsEditSubject} />
           ) : null}
         </div>
       </form>
