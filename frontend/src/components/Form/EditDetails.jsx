@@ -72,8 +72,6 @@ function EditDetails(props) {
   function editSubject(sub_id, event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
-    console.log("edit called");
-    console.log(event);
     const reqPayload = {
       old_sub_id: sub_id,
       new_sub_id: payload.get("subid"),
@@ -88,6 +86,7 @@ function EditDetails(props) {
       mode: "cors",
       body: JSON.stringify(reqPayload),
     });
+    props.setIsEditSubject(false);
   }
 
   function editCourse(course_id, event) {
@@ -107,6 +106,7 @@ function EditDetails(props) {
       mode: "cors",
       body: JSON.stringify(reqPayload),
     });
+    props.setIsEditCourse(false);
   }
 
   function editDepartment(dept_id, event) {
@@ -125,6 +125,7 @@ function EditDetails(props) {
       mode: "cors",
       body: JSON.stringify(reqPayload),
     });
+    props.setIsEditDepartment(false);
   }
 
   useEffect(() => {
