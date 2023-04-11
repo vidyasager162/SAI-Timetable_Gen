@@ -125,6 +125,7 @@ function EditSchedule(props) {
                                     <>
                                       <option
                                         value={schedule[outerIndex][innerIndex]}
+                                        selected
                                       >
                                         {schedule[outerIndex][innerIndex]}
                                       </option>
