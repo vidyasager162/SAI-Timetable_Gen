@@ -120,15 +120,15 @@ function EditSchedule(props) {
                                 style={{ width: "auto" }}
                                 name={outerDay}
                               >
+                                <option
+                                  value={schedule[outerIndex][innerIndex]}
+                                  selected
+                                >
+                                  {schedule[outerIndex][innerIndex]}
+                                </option>
                                 {props.subjects.map((subject) => {
                                   return (
                                     <>
-                                      <option
-                                        value={schedule[outerIndex][innerIndex]}
-                                        selected
-                                      >
-                                        {schedule[outerIndex][innerIndex]}
-                                      </option>
                                       <option value={subject.sub_id}>
                                         {subject.sub_id}
                                       </option>
