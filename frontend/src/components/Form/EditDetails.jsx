@@ -1,9 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FormHeader from "../Templates/FormHeader";
 import FormActions from "../Templates/FormActions";
 
 function EditDetails(props) {
+  const [detailName, setDetailName] = useState();
+  const [detailID, setDetailID] = useState();
+  const [detailPID, setDetailPID] = useState();
+
+  function getDepartment() {
+    fetch("http://192.168.34.129:8000/get-department", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        dept_id: props.detailToEdit,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "success") {
+          setDetailName(data.dept.dept_name);
+          setDetailPID(data.dept.dept_id);
+          console.log(data);
+        }
+      });
+  }
+  function getCourse() {
+    fetch("http://192.168.34.129:8000/get-course", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        course_id: props.detailToEdit,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "success") {
+          setDetailName(data.course.course_name);
+          setDetailID(data.course.course_id);
+          setDetailPID(data.course.dept_id);
+          console.log(data);
+        }
+      });
+  }
+  function getSubject() {
+    fetch("http://192.168.34.129:8000/get-subject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        sub_id: props.detailToEdit,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "success") {
+          setDetailName(data.sub.sub_name);
+          setDetailID(data.sub.sub_id);
+          setDetailPID(data.sub.course_id);
+          console.log(data);
+        }
+      });
+  }
   function editSubject(sub_id, event) {
+    event.preventDefault();
     const payload = new FormData(event.currentTarget);
     console.log("edit called");
     console.log(event);
@@ -24,6 +91,7 @@ function EditDetails(props) {
   }
 
   function editCourse(course_id, event) {
+    event.preventDefault();
     const payload = new FormData(event.currentTarget);
     const reqPayload = {
       old_course_id: course_id,
@@ -42,6 +110,7 @@ function EditDetails(props) {
   }
 
   function editDepartment(dept_id, event) {
+    event.preventDefault();
     const payload = new FormData(event.currentTarget);
     const reqPayload = {
       old_dept_id: dept_id,
@@ -57,6 +126,17 @@ function EditDetails(props) {
       body: JSON.stringify(reqPayload),
     });
   }
+
+  useEffect(() => {
+    if (props.title === "Department") {
+      getDepartment();
+    } else if (props.title === "Course") {
+      getCourse();
+    } else {
+      getSubject();
+    }
+  });
+
   return (
     <div className="form-signin w-100 m-auto container">
       <form
@@ -72,7 +152,10 @@ function EditDetails(props) {
         method="POST"
       >
         <div className="form-container">
-          <FormHeader title={"Edit " + props.title} subtitle={props.id} />
+          <FormHeader
+            title={"Edit " + props.title}
+            subtitle={props.detailToEdit}
+          />
           <div className="form-floating w-50 m-auto">
             <input
               type="text"
@@ -80,7 +163,7 @@ function EditDetails(props) {
               id="floatingInput"
               placeholder={props.fplaceholder}
               name={props.fname}
-              defaultValue={props.description}
+              defaultValue={detailName}
             />
             <label htmlFor="floatingInput">{props.fplaceholder}</label>
           </div>
@@ -94,7 +177,7 @@ function EditDetails(props) {
                 id="floatingInput"
                 placeholder={props.mplaceholder}
                 name={props.mname}
-                defaultValue={props.id}
+                defaultValue={detailID}
               />
               <label htmlFor="floatingInput">{props.mplaceholder}</label>
             </div>
@@ -106,7 +189,7 @@ function EditDetails(props) {
               id="floatingInput"
               placeholder={props.lplaceholder}
               name={props.lname}
-              defaultValue={props.identifier}
+              defaultValue={detailPID}
             />
             <label htmlFor="floatingInput">{props.lplaceholder}</label>
           </div>

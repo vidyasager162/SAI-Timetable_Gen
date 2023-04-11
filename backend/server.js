@@ -1304,6 +1304,39 @@ app.post("/get-user", (req, res) => {
   );
 });
 
+app.post("/get-department", (req, res) => {
+  Departments.findOne({ dept_id: req.body.dept_id }, (err, deptFound) => {
+    if (deptFound) {
+      res.send({
+        message: "success",
+        dept: deptFound,
+      });
+    }
+  });
+});
+
+app.post("/get-course", (req, res) => {
+  Courses.findOne({ course_id: req.body.course_id }, (err, courseFound) => {
+    if (courseFound) {
+      res.send({
+        message: "success",
+        course: courseFound,
+      });
+    }
+  });
+});
+
+app.post("/get-subject", (req, res) => {
+  Subjects.findOne({ sub_id: req.body.sub_id }, (err, subFound) => {
+    if (subFound) {
+      res.send({
+        message: "success",
+        sub: subFound,
+      });
+    }
+  });
+});
+
 app.post("/flush-app", (req, res) => {
   mongoose.connection.db.dropDatabase();
 });
