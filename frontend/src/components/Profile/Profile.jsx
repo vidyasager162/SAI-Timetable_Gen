@@ -47,6 +47,12 @@ function Profile(props) {
       .catch((err) => {
         console.log("Error: ", err);
       });
+    if (user_id === props.User.username) {
+      props.logOut();
+    } else {
+      props.setIsProfile(false);
+      props.setViewProfile(false);
+    }
   }
 
   return (
