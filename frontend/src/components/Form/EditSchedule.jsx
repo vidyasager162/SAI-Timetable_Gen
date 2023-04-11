@@ -5,10 +5,12 @@ function EditSchedule(props) {
   useEffect(() => {
     props.getSubjects();
     props.getTeachers();
+    getTeacherSchedule();
     //eslint-disable-next-line
   }, []);
   //eslint-disable-next-line
   const [message, setMessage] = useState();
+  const [schedule, setSchedule] = useState([]);
   const headings = ["#", "1", "2", "3", "4", "5", "6"];
 
   const days = [
@@ -28,6 +30,26 @@ function EditSchedule(props) {
       tname = teacher.name;
     }
   });
+
+  function getTeacherSchedule() {
+    fetch("http://192.168.34.129:8000/request-teacherschedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        schedule_id: props.teacherid,
+      }),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        if (payload.message === "success") {
+          setMessage(payload.message);
+          setSchedule(payload.schedule[0].schedule);
+        }
+      });
+  }
 
   function handleScheduleSubmit(event) {
     event.preventDefault();
@@ -70,7 +92,7 @@ function EditSchedule(props) {
     props.setIsEditSchedule(false);
   }
 
-  return (
+  return message ? (
     <div className="form-signin w-100 m-auto container">
       <form onSubmit={handleScheduleSubmit} method="POST">
         <div className="schedule-form-container">
@@ -86,11 +108,11 @@ function EditSchedule(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {days.map((outerDay) => {
+                  {days.map((outerDay, outerIndex) => {
                     return (
                       <tr>
                         <th scope="row">{outerDay}</th>
-                        {days.map((innerDay) => {
+                        {days.map((innerDay, innerIndex) => {
                           return (
                             <td>
                               <select
@@ -100,9 +122,16 @@ function EditSchedule(props) {
                               >
                                 {props.subjects.map((subject) => {
                                   return (
-                                    <option value={subject.sub_id}>
-                                      {subject.sub_id}
-                                    </option>
+                                    <>
+                                      <option
+                                        value={schedule[outerIndex][innerIndex]}
+                                      >
+                                        {schedule[outerIndex][innerIndex]}
+                                      </option>
+                                      <option value={subject.sub_id}>
+                                        {subject.sub_id}
+                                      </option>
+                                    </>
                                   );
                                 })}
                               </select>
@@ -132,7 +161,7 @@ function EditSchedule(props) {
         </div>
       </form>
     </div>
-  );
+  ) : null;
 }
 
 export default EditSchedule;
