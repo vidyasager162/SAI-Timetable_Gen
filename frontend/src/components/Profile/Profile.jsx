@@ -1,5 +1,6 @@
 import React from "react";
 import UserCard from "../Templates/UserCard";
+import UserModal from "../Templates/UserModal";
 
 function Profile(props) {
   const ColoredLine = ({ color }) => (
@@ -13,7 +14,7 @@ function Profile(props) {
     />
   );
 
-  function editUser(event, user_id) {
+  function editUser(user_id, event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
     const reqPayload = {
@@ -81,13 +82,26 @@ function Profile(props) {
                 Edit User
               </button>
             ) : (
-              <button
-                className="btn btn-outline-primary"
-                name={props.User.username}
-                onClick={(e) => {}}
-              >
-                Edit User
-              </button>
+              <>
+                <button
+                  className="btn btn-outline-primary"
+                  name={props.User.username}
+                >
+                  Edit User
+                </button>
+                <UserModal
+                  modalID="userModal"
+                  name={props.User.username}
+                  description={props.User.password}
+                  action={editUser}
+                  title="User"
+                  fplaceholder="Enter New Password"
+                  fname="new_password"
+                  lplaceholder="Confirm New Password"
+                  lname="re_new_password"
+                  id={props.User.username}
+                />
+              </>
             )}
           </div>
           {props.Admin.usertype === 9 || props.Admin.usertype === 0 ? (
