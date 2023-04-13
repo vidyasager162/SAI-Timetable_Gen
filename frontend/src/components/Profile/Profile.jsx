@@ -86,6 +86,8 @@ function Profile(props) {
                 <button
                   className="btn btn-outline-primary"
                   name={props.User.username}
+                  data-bs-toggle="modal"
+                  data-bs-target="#userModal"
                 >
                   Edit User
                 </button>
