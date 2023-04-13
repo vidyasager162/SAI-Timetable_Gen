@@ -17,7 +17,7 @@ function Profile(props) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
     const reqPayload = {
-      old_username: user_id,
+      username: user_id,
       new_password: payload.get("password"),
     };
     fetch("http://192.168.34.129:8000/edit-user", {
@@ -26,6 +26,7 @@ function Profile(props) {
         "Content-Type": "application/json",
       },
       mode: "cors",
+      body: JSON.stringify(reqPayload),
     });
   }
 
@@ -47,7 +48,7 @@ function Profile(props) {
       .catch((err) => {
         console.log("Error: ", err);
       });
-    if (user_id === props.User.username) {
+    if (user_id === props.Admin.username) {
       props.logOut();
     } else {
       props.setIsProfile(false);
@@ -71,7 +72,23 @@ function Profile(props) {
             />
           </div>
           <div className="row py-1 mybtn text-center profile-button">
-            <button className="btn btn-outline-primary">Edit User</button>
+            {props.Admin.usertype === 9 || props.Admin.usertype === 0 ? (
+              <button
+                className="btn btn-outline-primary"
+                name={props.User.username}
+                onClick={(e) => {}}
+              >
+                Edit User
+              </button>
+            ) : (
+              <button
+                className="btn btn-outline-primary"
+                name={props.User.username}
+                onClick={(e) => {}}
+              >
+                Edit User
+              </button>
+            )}
           </div>
           {props.Admin.usertype === 9 || props.Admin.usertype === 0 ? (
             <div className="row pb-1 mybtn text-center profile-button">
