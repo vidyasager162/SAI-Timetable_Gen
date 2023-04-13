@@ -1337,6 +1337,38 @@ app.post("/get-subject", (req, res) => {
   });
 });
 
+app.post("/edit-user", (req, res) => {
+  console.log("request received");
+  console.log(req.body);
+  Teachers.findOne({ username: req.body.username }, (err, teacherFound) => {
+    if (teacherFound) {
+      console.log(teacherFound);
+      Teachers.updateOne(
+        { username: req.body.username },
+        { password: req.body.new_password },
+        (err, updateDone) => {
+          console.log(updateDone);
+        }
+      );
+      res.send({ message: "success" });
+    } else if (!teacherFound) {
+      Students.findOne({ username: req.body.username }, (err, studentFound) => {
+        if (studentFound) {
+          console.log(studentFound);
+          Students.updateOne(
+            { username: req.body.username },
+            { password: req.body.new_password },
+            (err, updateDone) => {
+              console.log(updateDone);
+            }
+          );
+          res.send({ message: "success" });
+        }
+      });
+    }
+  });
+});
+
 app.post("/flush-app", (req, res) => {
   mongoose.connection.db.dropDatabase();
 });
