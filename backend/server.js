@@ -322,11 +322,13 @@ app.post("/add-cohort", (req, res) => {
           }
         }
         createEmptySchedules();
+        res.send({ message: "success" });
       }
     });
   } else if (query === "Subject") {
     Subjects.insertMany(req.body.payload, (err) => {
       if (err) throw err;
+      res.send({ message: "success" });
     });
   } else if (query === "Teacher") {
     for (let i = 0; i < req.body.payload.length; i++) {
@@ -349,6 +351,7 @@ app.post("/add-cohort", (req, res) => {
               },
               (err) => {
                 if (err) throw err;
+                res.send({ message: "success" });
               }
             );
           }
@@ -389,6 +392,7 @@ app.post("/add-cohort", (req, res) => {
               },
               (err) => {
                 if (err) throw err;
+                res.send({ message: "success" });
               }
             );
           }
