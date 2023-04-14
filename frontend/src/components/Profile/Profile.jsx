@@ -48,14 +48,31 @@ function Profile(props) {
   function editDetails(user_id, event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
-    const reqPayload = {
-      old_username: user_id,
-      new_username: payload.get("username"),
-      new_password: payload.get("password"),
-      new_email: payload.get("emailid"),
-      new_course: payload.get("course"),
-      new_subject: payload.get("subjects"),
-    };
+    let reqPayload;
+    if (
+      props.User.usertype === 1 ||
+      props.User.usertype === 9 ||
+      props.User.usertype === 0
+    ) {
+      reqPayload = {
+        old_username: user_id,
+        new_username: payload.get("username"),
+        new_password: payload.get("password"),
+        new_email: payload.get("emailid"),
+        new_course: payload.get("course").split(","),
+        new_subject: payload.get("subjects").split(","),
+      };
+    } else {
+      reqPayload = {
+        old_username: user_id,
+        new_username: payload.get("username"),
+        new_password: payload.get("password"),
+        new_email: payload.get("emailid"),
+        new_course: payload.get("course"),
+        new_subject: payload.get("subjects").split(","),
+      };
+    }
+
     fetch("http://192.168.34.129:8000/edit-details", {
       method: "POST",
       headers: {

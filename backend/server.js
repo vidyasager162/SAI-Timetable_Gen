@@ -1344,7 +1344,7 @@ app.post("/edit-user", (req, res) => {
     if (teacherFound) {
       console.log(teacherFound);
       Teachers.updateOne(
-        { username: req.body.username },
+        { username: teacherFound.username },
         { password: req.body.new_password },
         (err, updateDone) => {
           console.log(updateDone);
@@ -1365,6 +1365,49 @@ app.post("/edit-user", (req, res) => {
           res.send({ message: "success" });
         }
       });
+    }
+  });
+});
+
+app.post("/edit-details", (req, res) => {
+  Teachers.findOne({ username: req.body.old_username }, (err, teacherFound) => {
+    if (teacherFound) {
+      Teachers.updateOne(
+        { username: teacherFound.username },
+        {
+          username: req.body.new_username,
+          password: req.body.new_password,
+          email: req.body.new_email,
+          coursesTaught: req.body.new_course,
+          subjectsTaught: req.body.new_subject,
+        },
+        (err, updateDone) => {
+          console.log(updateDone);
+        }
+      );
+      res.send({ message: "success" });
+    } else if (!teacherFound) {
+      Students.findOne(
+        { username: req.body.old_username },
+        (err, studentFound) => {
+          if (studentFound) {
+            Students.updateOne(
+              { username: studentFound.username },
+              {
+                username: req.body.new_username,
+                password: req.body.new_password,
+                email: req.body.new_email,
+                course: req.body.new_course,
+                subjects: req.body.new_subject,
+              },
+              (err, updateDone) => {
+                console.log(updateDone);
+              }
+            );
+            res.send({ message: "success" });
+          }
+        }
+      );
     }
   });
 });
