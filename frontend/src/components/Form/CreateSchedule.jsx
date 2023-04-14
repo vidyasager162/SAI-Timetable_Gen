@@ -25,12 +25,21 @@ function CreateSchedule(props) {
   //eslint-disable-next-line
   let tname = "";
   let tuname = "";
-
+  let subjects = [];
+  //eslint-disable-next-line
+  props.subjects.map((subject) => {
+    if (subject.sub_id === "Free") {
+      subjects.push(subject.sub_id);
+    }
+  });
   //eslint-disable-next-line
   props.teachers.map((teacher) => {
     if (teacher.username === props.teacherClicked) {
       tname = teacher.name;
       tuname = teacher.username;
+      for (let i = 0; i < teacher.subjectsTaught.length; i++) {
+        subjects.push(teacher.subjectsTaught[i]);
+      }
     }
   });
 
@@ -109,11 +118,9 @@ function CreateSchedule(props) {
                                 style={{ width: "auto" }}
                                 name={outerDay}
                               >
-                                {props.subjects.map((subject) => {
+                                {subjects.map((subject) => {
                                   return (
-                                    <option value={subject.sub_id}>
-                                      {subject.sub_id}
-                                    </option>
+                                    <option value={subject}>{subject}</option>
                                   );
                                 })}
                               </select>
