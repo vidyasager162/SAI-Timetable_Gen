@@ -23,6 +23,7 @@ function App() {
   const [User, setUser] = useState();
   const [checkforCookies, setCheckForCookies] = useState(true);
   const [cookie, setCookie] = useCookies(["userSaved", "username", "password"]);
+  const [userProfile, setUserProfile] = useState();
   //eslint-disable-next-line
   const [message, setMessage] = useState();
 
@@ -91,6 +92,27 @@ function App() {
     setIsStudent(false);
     setIsTeacher(false);
     setIsProfile(false);
+  }
+
+  function reloadProfile(name) {
+    const reqPayload = {
+      name: name,
+    };
+    fetch("http://192.168.34.129:8000/get-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(reqPayload),
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        if (payload.message === "success") {
+          setMessage(payload.message);
+          setUserProfile(payload.user);
+        }
+      });
   }
 
   function checkMaster() {
@@ -187,6 +209,7 @@ function App() {
             isProfile={isProfile}
             setIsProfile={setIsProfile}
             logOut={logOut}
+            reloadProfile={reloadProfile}
           />
         ) : !isProfile ? (
           <Main
@@ -198,6 +221,9 @@ function App() {
             isViewProfile={isViewProfile}
             setIsProfile={setIsProfile}
             isLog={isLog}
+            reloadProfile={reloadProfile}
+            userProfile={userProfile}
+            setUserProfile={setUserProfile}
           />
         ) : null
       ) : (

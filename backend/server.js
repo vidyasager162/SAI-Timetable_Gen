@@ -1380,6 +1380,8 @@ app.post("/edit-details", (req, res) => {
           email: req.body.new_email,
           coursesTaught: req.body.new_course,
           subjectsTaught: req.body.new_subject,
+          department: req.body.new_department,
+          usertype: req.body.usertype,
         },
         (err, updateDone) => {
           console.log(updateDone);
@@ -1399,6 +1401,7 @@ app.post("/edit-details", (req, res) => {
                 email: req.body.new_email,
                 course: req.body.new_course,
                 subjects: req.body.new_subject,
+                department: req.body.new_department,
               },
               (err, updateDone) => {
                 console.log(updateDone);

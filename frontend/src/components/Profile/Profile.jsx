@@ -19,7 +19,9 @@ function Profile(props) {
     />
   );
 
-  useEffect(() => {}, [message]);
+  useEffect(() => {
+    props.reloadProfile(props.User.name);
+  });
 
   function editUser(user_id, event) {
     event.preventDefault();
@@ -49,6 +51,15 @@ function Profile(props) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
     let reqPayload;
+    let usertypestring = payload.get("usertype");
+    let usertype;
+    if (usertypestring === "Admin") {
+      usertype = 0;
+    } else if (usertypestring === "Teacher") {
+      usertype = 1;
+    } else {
+      usertype = 9;
+    }
     if (
       props.User.usertype === 1 ||
       props.User.usertype === 9 ||
@@ -61,6 +72,8 @@ function Profile(props) {
         new_email: payload.get("emailid"),
         new_course: payload.get("course").split(","),
         new_subject: payload.get("subjects").split(","),
+        new_department: payload.get("department"),
+        usertype: usertype,
       };
     } else {
       reqPayload = {
@@ -70,6 +83,7 @@ function Profile(props) {
         new_email: payload.get("emailid"),
         new_course: payload.get("course"),
         new_subject: payload.get("subjects").split(","),
+        new_department: payload.get("department"),
       };
     }
 
@@ -200,7 +214,7 @@ function Profile(props) {
           {isEdit ? (
             <div
               className="d-flex flex-column flex-shrink-0 p-3 bg-light rounded profile-info-inner"
-              style={{ width: "100%" }}
+              style={{ width: "100%", height: "482px" }}
             >
               <form
                 onSubmit={(e) => {
@@ -211,8 +225,7 @@ function Profile(props) {
                 <div className="text-center mt-3">
                   <h3>Edit Profile</h3>
                 </div>
-                <div className="profile-info-inner m-5">
-                  {" "}
+                <div className="profile-info-inner mx-5 my-3">
                   <DefaultInput
                     type="text"
                     placeholder="Username"
@@ -267,6 +280,40 @@ function Profile(props) {
                         name="subjects"
                         default={props.User.subjectsTaught}
                       />
+                    </>
+                  )}
+                  <DefaultInput
+                    type="text"
+                    placeholder="Department"
+                    name="department"
+                    default={props.User.department}
+                  />
+                  {props.User.usertype === 2 ? (
+                    <span></span>
+                  ) : (
+                    <>
+                      <select
+                        className="form-select login-input"
+                        style={{ width: "100%" }}
+                        name="usertype"
+                      >
+                        {props.User.usertype === 0 ? (
+                          <option value="Admin" selected>
+                            Admin
+                          </option>
+                        ) : props.User.usertype === 1 ? (
+                          <option value="Teacher" selected>
+                            Teacher
+                          </option>
+                        ) : (
+                          <option value="Master" selected>
+                            Master
+                          </option>
+                        )}
+                        <option value="Master">Master</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Teacher">Teacher</option>
+                      </select>
                     </>
                   )}
                   <FormActions action={setIsEdit} />

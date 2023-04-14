@@ -35,7 +35,6 @@ function Main(props) {
   const [isCreateSchedule, setIsCreateSchedule] = useState(false);
   const [isEditSchedule, setIsEditSchedule] = useState(false);
   const [teacherClicked, setTeacherClicked] = useState("");
-  const [userProfile, setUserProfile] = useState();
   const [viewStudentSchedule, setViewStudentSchedule] = useState(false);
   const [viewTeacherSchedule, setViewTeacherSchedule] = useState(false);
   const [courseid, setCourseID] = useState("");
@@ -191,7 +190,7 @@ function Main(props) {
       .then((payload) => {
         if (payload.message === "success") {
           setMessage(payload.message);
-          setUserProfile(payload.user);
+          props.setUserProfile(payload.user);
           props.setViewProfile(true);
         }
       });
@@ -217,9 +216,10 @@ function Main(props) {
     props.isViewProfile ? (
       <Profile
         Admin={props.User}
-        User={userProfile}
+        User={props.userProfile}
         setIsProfile={props.setIsProfile}
         setViewProfile={props.setViewProfile}
+        reloadProfile={props.reloadProfile}
       />
     ) : viewStudentSchedule ? (
       <StudentSchedule
