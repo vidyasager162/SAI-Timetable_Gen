@@ -13,6 +13,13 @@ function AddTeacher(props) {
   function handleTeacherSubmit(event) {
     event.preventDefault();
     const payload = new FormData(event.currentTarget);
+    let usertype = payload.get("usertype");
+    let user;
+    if (usertype === "Admin") {
+      user = 0;
+    } else {
+      user = 1;
+    }
     const reqPayload = {
       name: payload.get("teachername"),
       username: payload.get("teacherid"),
@@ -21,7 +28,7 @@ function AddTeacher(props) {
       department: payload.get("deptid"),
       coursesTaught: payload.get("coursestaught").split(","),
       subjectsTaught: payload.get("subjectstaught").split(","),
-      usertype: 1,
+      usertype: user,
       mastername: props.User.name,
     };
     fetch("http://192.168.34.129:8000/add-teacher", {
@@ -80,6 +87,16 @@ function AddTeacher(props) {
           />
           <FormInput type="text" placeholder="Teacher ID" name="teacherid" />
           <FormInput type="text" placeholder="Email ID" name="emailid" />
+          <select
+            className="form-select login-input"
+            style={{ margin: "auto", width: "50%" }}
+            name="usertype"
+          >
+            <option value="Admin">Admin</option>
+            <option value="Teacher" selected>
+              Teacher
+            </option>
+          </select>
           <div className="form-floating m-auto w-50">
             <select className="form-select bg-light" name="deptid">
               {props.departments.map((department) => {
