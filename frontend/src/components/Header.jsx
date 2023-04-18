@@ -118,11 +118,13 @@ function Header(props) {
               {props.User.usertype === 9 || props.User.usertype === 0 ? (
                 <li>
                   <button type="button" className="dropdown-item">
-                    {" "}
                     <a
                       style={{ textDecoration: "none", color: "black" }}
                       href={require("../../src/Admin_Documentation.pdf")}
-                      download="Admin_Documentation"
+                      rel="noreferrer"
+                      // download="Admin_Documentation"
+                      //eslint-disable-next-line
+                      target="_blank"
                     >
                       Help
                     </a>

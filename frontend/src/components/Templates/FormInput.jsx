@@ -9,6 +9,7 @@ function FormInput(props) {
         id={props.id}
         placeholder={props.placeholder}
         name={props.name}
+        required
       />
       <label htmlFor="floatingInput">{props.placeholder}</label>
     </div>
