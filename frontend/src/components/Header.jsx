@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ConfirmModal from "./Templates/ConfirmModal";
 
 function Header(props) {
   const now = new Date().toLocaleTimeString();
@@ -85,13 +86,22 @@ function Header(props) {
               {props.User.usertype === 9 || props.User.usertype === 0 ? (
                 <>
                   <li>
-                    <button
-                      type="button"
-                      className="dropdown-item"
-                      onClick={props.appFlush}
-                    >
-                      Master Reset
-                    </button>
+                    <>
+                      <button
+                        className="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmModal"
+                      >
+                        Master Reset
+                      </button>
+                      <ConfirmModal
+                        modalID="confirmModal"
+                        placeholder="Enter Password"
+                        title="Please enter your password to continue"
+                        action={props.appFlush}
+                        response={props.response}
+                      />
+                    </>
                   </li>
                   <li>
                     <button

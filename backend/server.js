@@ -1420,7 +1420,34 @@ app.post("/edit-details", (req, res) => {
 });
 
 app.post("/flush-app", (req, res) => {
-  mongoose.connection.db.dropDatabase();
+  //mongoose.connection.db.dropDatabase();
+  Departments.deleteMany({}, (err) => {
+    if (err) throw err;
+    Courses.deleteMany({}, (err) => {
+      if (err) throw err;
+      studentSchedules.deleteMany({});
+    });
+    Subjects.deleteMany({}, (err) => {
+      if (err) throw err;
+      Subjects.create({
+        sub_id: "Free",
+        sub_name: "Free",
+      });
+    });
+  });
+  Teachers.deleteMany({}, (err) => {
+    if (err) throw err;
+    teacherSchedules.deleteMany({});
+    Teachers.create({
+      name: "Master User",
+      username: "master",
+      password: "2732",
+      email: "master@mdh.edu.in",
+      usertype: 9,
+    });
+  });
+  Students.deleteMany({});
+  console.log("Master Reset complete");
 });
 
 app.listen(8000, () => {

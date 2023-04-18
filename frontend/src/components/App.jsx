@@ -26,6 +26,7 @@ function App() {
   const [userProfile, setUserProfile] = useState();
   //eslint-disable-next-line
   const [message, setMessage] = useState();
+  let response = null;
 
   if (checkforCookies === true && cookie.userSaved === "true") {
     setCheckForCookies(false);
@@ -125,15 +126,20 @@ function App() {
     });
   }
 
-  function appFlush() {
-    fetch("http://192.168.34.129:8000/flush-app", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    });
-    logOut();
+  function appFlush(event) {
+    event.preventDefault();
+    if (User.password === event.target.value) {
+      fetch("http://192.168.34.129:8000/flush-app", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+      });
+      logOut();
+    } else {
+      response = "Nope";
+    }
   }
 
   //Passed to Home component and Header component to accomodate logout by the user.
@@ -200,6 +206,7 @@ function App() {
         logOut={logOut}
         appFlush={appFlush}
         setIsLog={setIsLog}
+        response={response}
       />
       {isLoggedIn ? (
         isProfile ? (
