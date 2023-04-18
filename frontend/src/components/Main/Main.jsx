@@ -395,8 +395,11 @@ function Main(props) {
     ) : props.isLog ? (
       <div className="container-fluid p-0">
         <div className="row main-container">
-          <div className="col my-col">
-            <Logs />
+          <div
+            className="col my-col "
+            style={{ height: "420px", overflow: "hidden" }}
+          >
+            <Logs clearLogs={props.clearLogs} />
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function Logs() {
+function Logs(props) {
   const [logs, setLogs] = useState([]);
   //eslint-disable-next-line
   useEffect(() => {
@@ -29,19 +29,29 @@ function Logs() {
       });
   }
   return (
-    <div className="form-signin w-100 m-auto container my-col">
-      <div className="schedule-form-container">
-        <div className="row mb-5">
-          <div className="text-center">
-            <ul>
-              {logs.map((log) => {
-                return <li className="h5 my-4">- {log.log}</li>;
-              })}
-            </ul>
+    <>
+      <div
+        className="form-signin w-1 00 m-auto container my-col"
+        style={{ height: "360px" }}
+      >
+        <div className="schedule-form-container">
+          <div className="row mb-5">
+            <div className="text-center">
+              <ul>
+                {logs.map((log) => {
+                  return <li className="h5 my-4">- {log.log}</li>;
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className="text-center my-2">
+        <button className="btn btn-outline-danger" onClick={props.clearLogs}>
+          Clear
+        </button>
+      </div>
+    </>
   );
 }
 

@@ -94,6 +94,17 @@ function App() {
     setIsProfile(false);
   }
 
+  function clearLogs() {
+    fetch("http://192.168.34.129:8000/clear-logs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    });
+    console.log("Logs cleared");
+  }
+
   function reloadProfile(name) {
     const reqPayload = {
       name: name,
@@ -224,6 +235,7 @@ function App() {
             reloadProfile={reloadProfile}
             userProfile={userProfile}
             setUserProfile={setUserProfile}
+            clearLogs={clearLogs}
           />
         ) : null
       ) : (
