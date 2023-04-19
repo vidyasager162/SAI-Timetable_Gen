@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const app = express();
 
@@ -150,13 +152,14 @@ Quotes.find({}, (err, quotesFound) => {
   }
 });
 
-Teachers.find({}, (err, userFound) => {
+Teachers.find({}, async (err, userFound) => {
+  const hashedPassword = await bcrypt.hash("2732", saltRounds);
   if (!err) {
     if (userFound.length === 0) {
       Teachers.create({
         name: "Master User",
         username: "master",
-        password: "2732",
+        password: hashedPassword,
         email: "master@mdh.edu.in",
         usertype: 9,
       });
@@ -166,13 +169,14 @@ Teachers.find({}, (err, userFound) => {
   }
 });
 
-app.get("/check-master", (req, res) => {
+app.get("/check-master", async (req, res) => {
+  const hashedPassword = await bcrypt.hash("2732", saltRounds);
   Teachers.findOne({ username: "master" }, (err, masterFound) => {
     if (!masterFound) {
       Teachers.create({
         name: "Master User",
         username: "master",
-        password: "2732",
+        password: hashedPassword,
         email: "master@mdh.edu.in",
         usertype: 9,
       });
@@ -407,6 +411,7 @@ app.post("/login", (req, res) => {
   Teachers.findOne({ username: req.body.username }, (err, teacherFound) => {
     if (!teacherFound) {
       Students.findOne(
+        //do bcrypt compare
         { username: req.body.username },
         (error, studentFound) => {
           if (error) throw error;
@@ -643,45 +648,52 @@ app.post("/add-subject", (req, res) => {
   );
 });
 
-app.post("/add-teacher", (req, res) => {
-  Teachers.create(
-    {
-      name: req.body.name,
-      username: req.body.username,
-      password: req.body.password,
-      email: req.body.email,
-      coursesTaught: req.body.coursesTaught,
-      subjectsTaught: req.body.subjectsTaught,
-      department: req.body.department,
-      usertype: req.body.usertype,
-    },
-    (err) => {
-      if (err) throw err;
-      else {
-        console.log(req.body);
-        const date = new Date().toLocaleTimeString();
-        const day = new Date().toDateString();
-        let logString =
-          req.body.mastername +
-          " " +
-          "added teacher " +
-          req.body.name +
-          " at " +
-          date +
-          " " +
-          "on " +
-          day +
-          ".";
-        Logs.create({ log: logString });
-        res.send({
-          message: "success",
-        });
-      }
+app.post("/add-teacher", async (req, res) => {
+  const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+  Teachers.findOne({ username: req.body.username }, (err, teacherFound) => {
+    if (teacherFound) {
+      console.log("teacher already exists");
+    } else {
+      Teachers.create(
+        {
+          name: req.body.name,
+          username: req.body.username,
+          password: hashedPassword,
+          email: req.body.email,
+          coursesTaught: req.body.coursesTaught,
+          subjectsTaught: req.body.subjectsTaught,
+          department: req.body.department,
+          usertype: req.body.usertype,
+        },
+        (err) => {
+          if (err) throw err;
+          else {
+            console.log(req.body);
+            const date = new Date().toLocaleTimeString();
+            const day = new Date().toDateString();
+            let logString =
+              req.body.mastername +
+              " " +
+              "added teacher " +
+              req.body.name +
+              " at " +
+              date +
+              " " +
+              "on " +
+              day +
+              ".";
+            Logs.create({ log: logString });
+            res.send({
+              message: "success",
+            });
+          }
+        }
+      );
     }
-  );
+  });
 });
 
-app.post("/add-student", (req, res) => {
+app.post("/add-student", async (req, res) => {
   let subs = null;
   let sub_ids = [];
   Subjects.find({ course_id: req.body.course }, (err, subsFound) => {
@@ -690,7 +702,7 @@ app.post("/add-student", (req, res) => {
       sub_ids.push(sub.sub_id);
     });
   });
-
+  const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
   Students.findOne({ username: req.body.username }, (err, studentFound) => {
     if (studentFound) {
       console.log("student already exists");
@@ -699,7 +711,7 @@ app.post("/add-student", (req, res) => {
         {
           name: req.body.name,
           username: req.body.username,
-          password: req.body.password,
+          password: hashedPassword,
           email: req.body.email,
           course: req.body.course,
           subjects: sub_ids,
@@ -1435,13 +1447,14 @@ app.post("/flush-app", (req, res) => {
       });
     });
   });
-  Teachers.deleteMany({}, (err) => {
+  Teachers.deleteMany({}, async (err) => {
     if (err) throw err;
     teacherSchedules.deleteMany({});
+    const hashedPassword = await bcrypt.hash("2732", saltRounds);
     Teachers.create({
       name: "Master User",
       username: "master",
-      password: "2732",
+      password: hashedPassword,
       email: "master@mdh.edu.in",
       usertype: 9,
     });
