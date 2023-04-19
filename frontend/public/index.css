@@ -45,11 +45,6 @@ ul {
   border-color: #004a7c;
 }
 
-.card {
-  border: none;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 .datetime td {
   width: 50%;
 }
@@ -119,6 +114,10 @@ ul {
   width: 40%;
 }
 
+.profile-card {
+  border: none;
+}
+
 .profile-info-container {
   padding-right: 6%;
 }
@@ -129,6 +128,7 @@ ul {
 }
 
 .profile-sidebar {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-left: 12%;
 }
 
@@ -177,4 +177,10 @@ ul {
   display: block;
   margin-bottom: 5px;
   width: 100%;
+}
+
+.user-card,
+.custom-card {
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

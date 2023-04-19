@@ -144,8 +144,9 @@ function CreateSchedule(props) {
         <div className="row mb-5">
           {props.teachers.map((teacher) => {
             return (
-              <div className="col mybtn text-center">
+              <div className="col mybtn mb-5">
                 <button
+                  style={{ height: "80px" }}
                   key={teacher.id}
                   id={teacher.id}
                   className="btn btn-primary btn-lg"

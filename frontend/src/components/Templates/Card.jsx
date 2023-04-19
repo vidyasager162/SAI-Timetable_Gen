@@ -2,7 +2,7 @@ import React from "react";
 
 function Card(props) {
   return props.flag === "department" ? (
-    <div className="card h-100">
+    <div className="card custom-card h-100">
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <p className="card-text">{props.description}</p>
@@ -38,7 +38,7 @@ function Card(props) {
       </div>
     </div>
   ) : props.flag === "course" ? (
-    <div className="card h-100">
+    <div className="card custom-card h-100">
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <p className="card-text">{props.description}</p>
@@ -74,7 +74,7 @@ function Card(props) {
       </div>
     </div>
   ) : props.flag === "subject" ? (
-    <div className="card h-100">
+    <div className="card custom-card h-100">
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <p className="card-text">{props.description}</p>
@@ -100,7 +100,7 @@ function Card(props) {
       </div>
     </div>
   ) : props.flag === "tschedules" ? (
-    <div className="card h-100">
+    <div className="card custom-card h-100">
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <button
@@ -126,7 +126,7 @@ function Card(props) {
       </div>
     </div>
   ) : props.flag === "sschedules" ? (
-    <div className="card h-100">
+    <div className="card custom-card h-100">
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <button

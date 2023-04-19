@@ -2,7 +2,7 @@ import React from "react";
 
 function UserCard(props) {
   return props.isProfile ? (
-    <div className="card text-center">
+    <div className="card profile-card text-center">
       <img src={props.src} className="card-img-top" alt={props.name} />
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
@@ -12,7 +12,7 @@ function UserCard(props) {
       </ul>
     </div>
   ) : (
-    <div className="card h-100">
+    <div className="user-card card h-100">
       <img src={props.src} className="card-img-top" alt={props.name} />
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
