@@ -338,15 +338,19 @@ app.post("/add-cohort", (req, res) => {
     for (let i = 0; i < req.body.payload.length; i++) {
       Teachers.findOne(
         { username: req.body.payload[i].username },
-        (err, teacherFound) => {
+        async (err, teacherFound) => {
           if (teacherFound) {
             console.log("teacher already exists");
           } else {
+            const hashedPassword = await bcrypt.hash(
+              req.body.payload[i].password,
+              saltRounds
+            );
             Teachers.create(
               {
                 name: req.body.payload[i].name,
                 username: req.body.payload[i].username,
-                password: req.body.payload[i].password,
+                password: hashedPassword,
                 email: req.body.payload[i].email,
                 coursesTaught: req.body.payload[i].coursesTaught.split(","),
                 subjectsTaught: req.body.payload[i].subjectsTaught.split(","),
@@ -379,15 +383,19 @@ app.post("/add-cohort", (req, res) => {
     for (let i = 0; i < req.body.payload.length; i++) {
       Students.findOne(
         { username: req.body.payload[i].username },
-        (err, studentFound) => {
+        async (err, studentFound) => {
           if (studentFound) {
             console.log("student already exists");
           } else {
+            const hashedPassword = await bcrypt.hash(
+              req.body.payload[i].password,
+              saltRounds
+            );
             Students.create(
               {
                 name: req.body.payload[i].name,
                 username: req.body.payload[i].username,
-                password: req.body.payload[i].password,
+                password: hashedPassword,
                 email: req.body.payload[i].email,
                 course: req.body.payload[i].course,
                 subjects: sub_ids,
@@ -408,22 +416,66 @@ app.post("/add-cohort", (req, res) => {
 
 app.post("/login", (req, res) => {
   console.log(req.body);
-  Teachers.findOne({ username: req.body.username }, (err, teacherFound) => {
-    if (!teacherFound) {
-      Students.findOne(
-        //do bcrypt compare
-        { username: req.body.username },
-        (error, studentFound) => {
-          if (error) throw error;
-          else if (studentFound) {
-            console.log(studentFound);
-            if (req.body.password === studentFound.password) {
-              studentFound.cookieID = req.body.cookieID;
-              studentFound.save();
+  Teachers.findOne(
+    { username: req.body.username },
+    async (err, teacherFound) => {
+      if (!teacherFound) {
+        Students.findOne(
+          { username: req.body.username },
+          async (error, studentFound) => {
+            if (error) throw error;
+            else if (studentFound) {
+              console.log(studentFound);
+              bcrypt.compare(
+                req.body.password,
+                studentFound.password,
+                function (err, result) {
+                  if (result === true) {
+                    studentFound.cookieID = req.body.cookieID;
+                    studentFound.save();
+                    const date = new Date().toLocaleTimeString();
+                    const day = new Date().toDateString();
+                    let logString =
+                      studentFound.name +
+                      " " +
+                      "logged in at " +
+                      date +
+                      " " +
+                      "on " +
+                      day +
+                      ".";
+                    Logs.create({ log: logString });
+                    res.send({
+                      message: "success",
+                      user: studentFound,
+                    });
+                  } else {
+                    res.send({
+                      message: "801",
+                    });
+                  }
+                }
+              );
+            } else if (!studentFound) {
+              res.send({
+                message: "800",
+              });
+            }
+          }
+        );
+      } else if (teacherFound) {
+        console.log(teacherFound);
+        bcrypt.compare(
+          req.body.password,
+          teacherFound.password,
+          function (err, result) {
+            if (result === true) {
+              teacherFound.cookieID = req.body.cookieID;
+              teacherFound.save();
               const date = new Date().toLocaleTimeString();
               const day = new Date().toDateString();
               let logString =
-                studentFound.name +
+                teacherFound.name +
                 " " +
                 "logged in at " +
                 date +
@@ -434,52 +486,22 @@ app.post("/login", (req, res) => {
               Logs.create({ log: logString });
               res.send({
                 message: "success",
-                user: studentFound,
+                user: teacherFound,
               });
             } else {
               res.send({
                 message: "801",
               });
             }
-          } else if (!studentFound) {
-            res.send({
-              message: "800",
-            });
           }
-        }
-      );
-    } else if (teacherFound) {
-      console.log(teacherFound);
-      if (req.body.password === teacherFound.password) {
-        teacherFound.cookieID = req.body.cookieID;
-        teacherFound.save();
-        const date = new Date().toLocaleTimeString();
-        const day = new Date().toDateString();
-        let logString =
-          teacherFound.name +
-          " " +
-          "logged in at " +
-          date +
-          " " +
-          "on " +
-          day +
-          ".";
-        Logs.create({ log: logString });
+        );
+      } else if (!teacherFound) {
         res.send({
-          message: "success",
-          user: teacherFound,
-        });
-      } else {
-        res.send({
-          message: "801",
+          message: "800",
         });
       }
-    } else if (!teacherFound) {
-      res.send({
-        message: "800",
-      });
     }
-  });
+  );
 });
 
 app.post("/retain-session", (req, res) => {
@@ -1356,79 +1378,104 @@ app.post("/get-subject", (req, res) => {
 app.post("/edit-user", (req, res) => {
   console.log("request received");
   console.log(req.body);
-  Teachers.findOne({ username: req.body.username }, (err, teacherFound) => {
-    if (teacherFound) {
-      console.log(teacherFound);
-      Teachers.updateOne(
-        { username: teacherFound.username },
-        { password: req.body.new_password },
-        (err, updateDone) => {
-          console.log(updateDone);
-        }
-      );
-      res.send({ message: "success" });
-    } else if (!teacherFound) {
-      Students.findOne({ username: req.body.username }, (err, studentFound) => {
-        if (studentFound) {
-          console.log(studentFound);
-          Students.updateOne(
-            { username: req.body.username },
-            { password: req.body.new_password },
-            (err, updateDone) => {
-              console.log(updateDone);
+  Teachers.findOne(
+    { username: req.body.username },
+    async (err, teacherFound) => {
+      if (teacherFound) {
+        const hashedPassword = await bcrypt.hash(
+          req.body.new_password,
+          saltRounds
+        );
+        console.log(teacherFound);
+        Teachers.updateOne(
+          { username: teacherFound.username },
+          { password: hashedPassword },
+          (err, updateDone) => {
+            console.log(updateDone);
+          }
+        );
+        res.send({ message: "success" });
+      } else if (!teacherFound) {
+        Students.findOne(
+          { username: req.body.username },
+          async (err, studentFound) => {
+            if (studentFound) {
+              const hashedPassword = await bcrypt.hash(
+                req.body.new_password,
+                saltRounds
+              );
+              console.log(studentFound);
+              Students.updateOne(
+                { username: req.body.username },
+                { password: hashedPassword },
+                (err, updateDone) => {
+                  console.log(updateDone);
+                }
+              );
+              res.send({ message: "success" });
             }
-          );
-          res.send({ message: "success" });
-        }
-      });
+          }
+        );
+      }
     }
-  });
+  );
 });
 
 app.post("/edit-details", (req, res) => {
-  Teachers.findOne({ username: req.body.old_username }, (err, teacherFound) => {
-    if (teacherFound) {
-      Teachers.updateOne(
-        { username: teacherFound.username },
-        {
-          username: req.body.new_username,
-          password: req.body.new_password,
-          email: req.body.new_email,
-          coursesTaught: req.body.new_course,
-          subjectsTaught: req.body.new_subject,
-          department: req.body.new_department,
-          usertype: req.body.usertype,
-        },
-        (err, updateDone) => {
-          console.log(updateDone);
-        }
-      );
-      res.send({ message: "success" });
-    } else if (!teacherFound) {
-      Students.findOne(
-        { username: req.body.old_username },
-        (err, studentFound) => {
-          if (studentFound) {
-            Students.updateOne(
-              { username: studentFound.username },
-              {
-                username: req.body.new_username,
-                password: req.body.new_password,
-                email: req.body.new_email,
-                course: req.body.new_course,
-                subjects: req.body.new_subject,
-                department: req.body.new_department,
-              },
-              (err, updateDone) => {
-                console.log(updateDone);
-              }
-            );
-            res.send({ message: "success" });
+  Teachers.findOne(
+    { username: req.body.old_username },
+    async (err, teacherFound) => {
+      if (teacherFound) {
+        const hashedPassword = await bcrypt.hash(
+          req.body.new_password,
+          saltRounds
+        );
+        Teachers.updateOne(
+          { username: teacherFound.username },
+          {
+            username: req.body.new_username,
+            password: hashedPassword,
+            email: req.body.new_email,
+            coursesTaught: req.body.new_course,
+            subjectsTaught: req.body.new_subject,
+            department: req.body.new_department,
+            usertype: req.body.usertype,
+          },
+          (err, updateDone) => {
+            console.log(updateDone);
           }
-        }
-      );
+        );
+        res.send({ message: "success" });
+      } else if (!teacherFound) {
+        Students.findOne(
+          { username: req.body.old_username },
+          async (err, studentFound) => {
+            if (studentFound) {
+              const hashedPassword = await bcrypt.hash(
+                req.body.new_password,
+                saltRounds
+              );
+              Students.updateOne(
+                { username: studentFound.username },
+                {
+                  username: req.body.new_username,
+                  password: hashedPassword,
+                  email: req.body.new_email,
+                  course: req.body.new_course,
+                  subjects: req.body.new_subject,
+                  department: req.body.new_department,
+                },
+                (err, updateDone) => {
+                  console.log(updateDone);
+                }
+              );
+              res.send({ message: "success" });
+            }
+          }
+        );
+      }
     }
-  });
+  );
 });
 
 app.post("/flush-app", (req, res) => {
@@ -1437,7 +1484,9 @@ app.post("/flush-app", (req, res) => {
     if (err) throw err;
     Courses.deleteMany({}, (err) => {
       if (err) throw err;
-      studentSchedules.deleteMany({});
+      studentSchedules.deleteMany({}, (err) => {
+        if (err) throw err;
+      });
     });
     Subjects.deleteMany({}, (err) => {
       if (err) throw err;
@@ -1459,7 +1508,9 @@ app.post("/flush-app", (req, res) => {
       usertype: 9,
     });
   });
-  Students.deleteMany({});
+  Students.deleteMany({}, (err) => {
+    if (err) throw err;
+  });
   console.log("Master Reset complete");
 });
 
