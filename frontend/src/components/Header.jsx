@@ -104,23 +104,43 @@ function Header(props) {
                       Logs
                     </button>
                   </li>
+                  <li>
+                    <button type="button" className="dropdown-item">
+                      <a
+                        style={{ textDecoration: "none", color: "black" }}
+                        href={require("../../src/Admin_Documentation.pdf")}
+                        rel="noreferrer"
+                        // download="Admin_Documentation"
+                        //eslint-disable-next-line
+                        target="_blank"
+                      >
+                        Help
+                      </a>
+                    </button>
+                  </li>
                 </>
               ) : null}
-              <li>
-                <button
-                  type="button"
-                  className="dropdown-item"
-                  onClick={props.logOut}
-                >
-                  Logout
-                </button>
-              </li>
-              {props.User.usertype === 9 || props.User.usertype === 0 ? (
+              {props.User.usertype === 1 ? (
                 <li>
                   <button type="button" className="dropdown-item">
                     <a
                       style={{ textDecoration: "none", color: "black" }}
-                      href={require("../../src/Admin_Documentation.pdf")}
+                      href={require("../../src/Teacher_Documentation.pdf")}
+                      rel="noreferrer"
+                      // download="Admin_Documentation"
+                      //eslint-disable-next-line
+                      target="_blank"
+                    >
+                      Help
+                    </a>
+                  </button>
+                </li>
+              ) : props.User.usertype === 2 ? (
+                <li>
+                  <button type="button" className="dropdown-item">
+                    <a
+                      style={{ textDecoration: "none", color: "black" }}
+                      href={require("../../src/Student_Documentation.pdf")}
                       rel="noreferrer"
                       // download="Admin_Documentation"
                       //eslint-disable-next-line
@@ -131,6 +151,15 @@ function Header(props) {
                   </button>
                 </li>
               ) : null}
+              <li>
+                <button
+                  type="button"
+                  className="dropdown-item"
+                  onClick={props.logOut}
+                >
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
         </div>
