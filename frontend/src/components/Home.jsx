@@ -27,7 +27,7 @@ function Home(props) {
   return (
     <div className="container col-xxl-8 px-4 py-3">
       <div className="row flex-lg-row-reverse align-items-center g-5 py-5 hero-landing">
-        <div className="col-10 col-sm-8 col-lg-6 text-center">
+        <div className="col-10 col-sm-8 col-lg-6 text-center login-container">
           <Login handleLogin={props.handleLogin} />
         </div>
         <div className="col-lg-6">

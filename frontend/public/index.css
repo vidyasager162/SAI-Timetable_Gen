@@ -54,6 +54,11 @@ ul {
   width: 50%;
 }
 
+.dropdown-menu {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: none;
+}
+
 .footer-container {
   width: 100%;
   margin-top: 3%;
@@ -67,6 +72,7 @@ ul {
 .form-signin {
   background-color: white !important;
   border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .greeting-part {
@@ -118,6 +124,7 @@ ul {
 }
 
 .profile-info-inner {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   height: 440px;
 }
 

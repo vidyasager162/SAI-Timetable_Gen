@@ -39,32 +39,44 @@ function Schedule(props) {
   }, [message, props.message, props.teacherSchedules]);
 
   return props.buttonClicked === "tschedules" ? (
-    props.teacherSchedules.map((teacherSchedule) => {
-      return (
-        <div className="col">
-          <Card
-            name={teacherSchedule.schedule_id}
-            action={props.handleTeacherID}
-            anotheraction={props.setViewTeacherSchedule}
-            flag="tschedules"
-            delete={deleteSchedule}
-          />
-        </div>
-      );
-    })
+    props.teacherSchedules.length !== 0 ? (
+      props.teacherSchedules.map((teacherSchedule) => {
+        return (
+          <div className="col">
+            <Card
+              name={teacherSchedule.schedule_id}
+              action={props.handleTeacherID}
+              anotheraction={props.setViewTeacherSchedule}
+              flag="tschedules"
+              delete={deleteSchedule}
+            />
+          </div>
+        );
+      })
+    ) : (
+      <div className="text-center">
+        <h5 className="text-muted">No Schedules present at the moment</h5>
+      </div>
+    )
   ) : props.buttonClicked === "sschedules" ? (
-    props.studentSchedules.map((studentSchedule) => {
-      return (
-        <div className="col">
-          <Card
-            name={studentSchedule.schedule_id}
-            action={props.handleCourseID}
-            anotheraction={props.setViewStudentSchedule}
-            flag="sschedules"
-          />
-        </div>
-      );
-    })
+    props.studentSchedules.length !== 0 ? (
+      props.studentSchedules.map((studentSchedule) => {
+        return (
+          <div className="col">
+            <Card
+              name={studentSchedule.schedule_id}
+              action={props.handleCourseID}
+              anotheraction={props.setViewStudentSchedule}
+              flag="sschedules"
+            />
+          </div>
+        );
+      })
+    ) : (
+      <div className="text-center">
+        <h5 className="text-muted">No Schedules present at the moment</h5>
+      </div>
+    )
   ) : props.buttonClicked === "" ? (
     <>
       <div className="col mybtn">

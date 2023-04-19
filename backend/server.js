@@ -359,13 +359,13 @@ app.post("/add-cohort", (req, res) => {
               },
               (err) => {
                 if (err) throw err;
-                res.send({ message: "success" });
               }
             );
           }
         }
       );
     }
+    res.send({ message: "success" });
   } else if (query === "Student") {
     let subs = null;
     let sub_ids = [];
@@ -404,13 +404,13 @@ app.post("/add-cohort", (req, res) => {
               },
               (err) => {
                 if (err) throw err;
-                res.send({ message: "success" });
               }
             );
           }
         }
       );
     }
+    res.send({ message: "success" });
   }
 });
 

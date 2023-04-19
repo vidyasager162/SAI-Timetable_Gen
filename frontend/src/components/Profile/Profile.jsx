@@ -225,7 +225,7 @@ function Profile(props) {
                 <div className="text-center mt-3">
                   <h3>Edit Profile</h3>
                 </div>
-                <div className="profile-info-inner mx-5 my-3">
+                <div className="mx-5 my-3">
                   <DefaultInput
                     type="text"
                     placeholder="Username"
@@ -328,7 +328,7 @@ function Profile(props) {
               <div className="text-center mt-3">
                 <h3>Profile</h3>
               </div>
-              <div className="profile-info-inner m-5">
+              <div className="m-5">
                 {" "}
                 <h5>
                   Username: <span>{props.User.username}</span>
