@@ -38,7 +38,19 @@ $ git clone https://github.com/vidyasager162/MDH.git
 $ cd MDH
 ```
 
-#### `Step 3` - Install dependencies
+#### `Step 3` - Install dependencies on both frontend and backend
+
+```bash
+$ cd backend
+```
+
+```bash
+$ npm install
+```
+
+```bash
+$ cd frontend
+```
 
 ```bash
 $ npm install
