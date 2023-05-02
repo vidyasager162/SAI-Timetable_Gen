@@ -2,7 +2,7 @@
 
 # SAITimetable_Scheduler
 
-_B.Sc Final Year Project (Name: SAI Timetable Scheduler a.k.a SSSIHL MDH Web Application)_
+_B.Sc Final Year Project (Name: SAI Timetable Scheduler)_
 _A MERN Stack Web Application to manage semester information and allocate schedules for classes_
 
 ## Built Using
